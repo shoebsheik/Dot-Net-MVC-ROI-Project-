@@ -1,0 +1,333 @@
+﻿@*@using UniqueTrade_App.CommanFunction;*@
+@model UniqueTrade_App.Models.FundRequest
+@{
+    //UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "fundRequestinBTC";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="">Fund Request</a></li>
+                <li class="breadcrumb-item"><a href="/MemberPanel/index">Home</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-6 mx-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Fund Request</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="basic-form">
+
+                            @if (TempData["fundRequest"] != null)
+                            {
+                                if (TempData["fundRequest"].ToString() != "1")
+                                {
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="alert alert-success alert-dismissible">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                @TempData["fundRequest"]
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="alert alert-success alert-dismissible">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                Your fund request proccesed successfully
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            @using (Html.BeginForm("fundRequest_BTC", "MemberPanel", FormMethod.Post, new { @class = "form-content", enctype = "multipart/form-data" }))
+                            {
+                                @Html.ValidationSummary(true)
+
+
+                                <div class="mb-3">
+                                    <label class="form-label">User Id</label>
+                                    @*<input type="text" class="form-control" placeholder="Enter User Id">*@
+                                    @Html.TextBoxFor(model => model.USERNAME, new
+                                    {
+                                        @placeholder = "ID",
+                                        @class = "form-control input-defaul"@*, @onchange = "getUserName()"*@})
+                                    @Html.ValidationMessageFor(model => model.USERNAME, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="mb-3">
+
+                                    <label class="form-label">Amount</label>
+                                    @*<input type="text" class="form-control" placeholder="Enter Amount">*@
+                                    @Html.TextBoxFor(m => m.amount, "", new { @class = "form-control input-defaul", @placeholder = " Enter Amount " })
+
+                                    @Html.ValidationMessageFor(model => model.USERNAME, "", new { @class = "text-danger" })
+
+                                </div>
+                       
+                                <button type="submit" class="btn btn-primary">Submit</button>
+
+                                @*<div class="mb-3 control-light">
+                                        <label class="form-label">TRXAmount</label>
+                                        @Html.TextBoxFor(m => m.amount, "", new { @class = "form-control", @placeholder = "Amount (TRX)" })
+
+                                        @Html.ValidationMessageFor(model => model.amount)
+                                    </div>
+                                    <div class="mb-3 control-light">
+                                        <label class="form-label">Attachment</label>
+                                        @Html.TextBoxFor(m => m.Attachment, "", new { @class = "form-control", @type = "file", @style = "opacity: 1;", @placeholder = "file" })
+                                        @Html.ValidationMessageFor(m => m.Attachment, "", new { @class = "text-danger" })
+                                    </div>
+
+
+                                    <button type="submit" class="btn btn-light btn-sm">submit</button>*@
+
+                            }
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+
+                </section>
+                <!-- /.content -->
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <!--#INCLUDE FILE = "footer-dash.asp"-->
+
+        <script>
+            function myFunction() {
+                /* Get the text field */
+                var copyText = document.getElementById("myInput");
+
+                /* Select the text field */
+                copyText.select();
+                copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+                /* Copy the text inside the text field */
+                navigator.clipboard.writeText(copyText.value);
+
+                /* Alert the copied text */
+                alert("Copied the text: " + copyText.value);
+            }
+        </script>
+
+
+        <script>
+    $("#UserName").change(function () {
+        var userID = $("#UserName").val();
+        $.get('@Url.Action("getUserDetails", "Dashboard")?email=' + userID + '', function (result) {
+            if (result.Memb_Name == "") {
+                $("#useridname").css("color", "red");
+                $("#useridname").html("User Id is invalid");
+            }
+            else {
+                $("#useridname").css("color", "green");
+                $("#useridname").html(result.Memb_Name);
+            }
+        });
+    });
+        </script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+        @if (TempData["BTCAddress"] != null)
+        {
+            <div id="overlay">
+                <div class="modal" id="myModalBTCAddress" role="dialog" style="display:block;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <center>
+                                    @if (TempData["BTCTYPE"].ToString() == "BTC")
+                                    {
+                                        <p><img src="http://chart.googleapis.com/chart?chs=225x225&chld=L|2&cht=qr&chl=bitcoin:@TempData["BTCAddress"]?amount=@TempData["BTCAmount"]" alt="code"></p>
+
+                                    }
+                                    else
+                                    {
+                                        <p><img src="http://chart.googleapis.com/chart?chs=225x225&chld=L|2&cht=qr&chl=bitcoin:@TempData["BTCAddress"]" /></p>
+                                    }
+                                    <p>
+                                        @TempData["BTCTYPE"] Address :-
+                                        <span style="font-size:15px;color:#124761;">
+                                            @TempData["BTCAddress"]
+                                            <i class="fa fa-copy" title="Copy" id="btnCopy0" style="cursor:pointer;margin-left:10px;" onclick="copyRefFunction('@TempData["BTCAddress"]','btnCopy0')"></i>
+                                        </span>
+                                    <p>@TempData["BTCTYPE"] Amount :- @TempData["BTCAmount"]</p>
+                                    <p>Sent Equal  @TempData["BTCTYPE"] Amount + Transaction Fees Charges By Blockchain<span style="color:red"> </span></p>
+
+                                    </p>
+
+                                </center>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" onclick="closeModal()">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                $(document).ready(function () {
+                    $("#myModalBTCAddress").modal("show");
+                    $("#overlay").css("display", "block");
+                });
+
+                function closeModal() {
+                    $("#overlay").css("display", "none");
+                }
+            </script>
+
+            <script>
+                function copyRefFunction(ele, id) {
+                    var $temp = $("<input>");
+                    $("body").append($temp);
+                    $temp.val(ele).select();
+                    document.execCommand("copy");
+                    $temp.remove();
+                    $("#" + id).attr('title', 'Copied');
+                }
+            </script>
+
+
+            <script>
+                $(document).ready(function () {
+
+                    $("#overlay").css("display", "block");
+                });
+
+                function closeModal() {
+                    $("#overlay").css("display", "none");
+                }
+            </script>
+
+            <script>
+                function copyRefFunction(ele, id) {
+                    var $temp = $("<input>");
+                    $("body").append($temp);
+                    $temp.val(ele).select();
+                    document.execCommand("copy");
+                    $temp.remove();
+                    $("#" + id).attr('title', 'Copied');
+                }
+            </script>
+        }
+        <script>
+
+    $("#USD_Amount").change(function () {
+        var usdamt = $("#USD_Amount").val();
+        var coinAmount = "";
+        var tokenAmount = "";
+        var coinrate = '@Model.btcamount';
+        if (usdamt != "") {
+            var coinType = "BTC";
+
+            $.get('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=' + coinType + '', function (result) {
+               // alert('BTC');
+                if (coinType == "BTC") {
+                    coinAmount = parseFloat(result.BTC) * parseFloat(usdamt);
+                    tokenAmount = parseFloat(usdamt) / parseFloat(coinrate);
+                }
+              //  alert(tokenAmount);
+                $("#coinType").html("" + coinType + " :");
+                $("#Amount").val(tokenAmount);
+                $("#coinAMT").val(coinAmount.toFixed(8));
+            });
+        }
+        else {
+            $("#tokenDiv").css("display", "none");
+            $("#coinDiv").css("display", "none");
+            $("#coinType").val("");
+            $("#coinAMT").val("");
+        }
+    })
+
+        </script>
+        <script>
+            $(document).ready(function () {
+                var btamount = "";
+                $.get('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=BTC', function (result) {
+                    if (coinType == "BTC") {
+                        btamount = parseFloat(result.BTC);
+                        $("#btcrate").html(btamount);
+                    }
+                })
+            });
+        </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

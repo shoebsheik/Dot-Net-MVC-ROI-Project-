@@ -1,0 +1,89 @@
+﻿@model IEnumerable<UniqueTrade_App.Models.WalletModel>
+@{
+    ViewBag.Title = "IncomeLevelRoi";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+@*<h2>IncomeLevelRoi</h2>*@
+
+<div class="content-wrapper">
+    <div class="container-full">
+        <div class="content-header">
+            <div class="d-flex align-items-center">
+                <div class="mr-auto">
+                    <h3 class="page-title">ROI Level Income</h3>
+                    <div class="d-inline-block align-items-center">
+                        <nav>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#"><i class="ti-home"></i></a></li>
+                                <li class="breadcrumb-item" aria-current="page">Earning Report</li>
+                                <li class="breadcrumb-item active" aria-current="page">ROI Level Income</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- end page title -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">ROI Level Income</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.No</th>
+                                            <th>joining Date</th>
+                                            <th>User ID</th>
+                                            <th>Member Name</th>
+                                            @*<th>Email ID</th>
+                                                <th>Mobile Number</th>
+                                                <th>Status</th>*@
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <!--<thead>
+                                    <tr>
+                                        <th>Sr. No.</th>
+                                        <th>Date</th>
+                                        <th>User Id</th>
+                                        <th>User Name</th>-->
+                                    @*<th>Mobile Number</th>*@
+                                    <!--<th> Income</th>
+                                        </tr>
+                                    </thead>-->
+
+
+                                    <tbody>
+                                        @{ int rows = 0;}
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@(rows = rows + 1)</td>
+                                                <td>@item.created_at</td>
+                                                <td>@item.provide_id</td>
+                                                <td>@item.provide_by</td>
+                                                @*<td>@item.mobile_number</td>*@
+                                                <td>$ @item.amount</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+            </div> <!-- end container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+</div>

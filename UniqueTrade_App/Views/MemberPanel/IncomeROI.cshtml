@@ -1,0 +1,64 @@
+﻿@model IEnumerable<UniqueTrade_App.Models.WalletModel>
+@{
+    ViewBag.Title = "IncomeROI";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="">ROI Income</a></li>
+                <li class="breadcrumb-item"><a href="/MemberPanel/index">Home</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">ROI Income</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example" class="display" style="min-width: 845px">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.No</th>
+                                        <th>joining Date</th>
+                                        <th>Username</th>
+                                        @*<th> From User </th>*@
+                                        <th>Amount</th>
+                                        @*<th>From Level</th>*@
+                                        @*<th>package</th>*@
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ int rows = 0;}
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@(rows = rows + 1)</td>
+                                            <td>@item.created_at</td>
+                                            <td>@item.username</td>
+                                          
+
+                                            <td>$ @item.amount</td>
+
+                                            @*<td>@item.level_no</td>*@
+                                            @*<td>@item.Package</td>*@
+
+                                            <td>@item.status</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

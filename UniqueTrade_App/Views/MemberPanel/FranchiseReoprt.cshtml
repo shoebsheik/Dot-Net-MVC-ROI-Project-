@@ -1,0 +1,74 @@
+﻿@model IEnumerable<UniqueTrade_App.Models.FundRequest>
+@using UniqueTrade_App.CommanFunction;
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "FundSendReport";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+<main class="main-content">
+
+    <!-- begin::page-header -->
+    <div class="page-header" data-backround-image="/Content/Dash/assets/media/image/image1.png">
+        <div class="container-fluid d-md-flex justify-content-between">
+            <h4 class="text-white">Franchise Request History</h4>
+        </div>
+    </div>
+    <!-- end::page-header -->
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12 main_form ">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="myTable" class="table-bordered  table-striped">
+                                <thead>
+                                    <tr class="text-black">
+                                        <th>Sr. No.</th>
+                                        <th>Date</th>
+                                        <th> AMOUNT</th>
+                                        <th>Status</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ int rows = 0;}
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@(rows = rows + 1)</td>
+                                            <td>
+                                               @item.ttime
+                                            </td>
+                                            <td>$​ @item.amount</td>
+
+                                            <td>@item.Provide_Status</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,144 @@
+﻿@using UniqueTrade_App.CommanFunction;
+@model UniqueTrade_App.Models.PINDETAILSMODEL
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "Request Pin";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+<section id="main-content" class=" ">
+    <div class="wrapper main-wrapper row">
+
+        <div class="col-xs-12">
+            <div class="page-title">
+
+
+                <div class="hidden-xs">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/MemberPanel/index"><i class="fa fa-home"></i>Home</a>
+                        </li>
+                        <li>
+                            <a href="#">PIN</a>
+                        </li>
+                        <li class="active">
+                            <strong>PIN Request</strong>
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <!-- MAIN CONTENT AREA STARTS -->
+
+        <div class="clearfix"></div>
+        <div class="col-12 col-md-6 col-md-offset-3 mt-25">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">PIN Request</h3>
+                </div>
+                <div class="card-body">
+
+                    @if (TempData["CreatePinAlert"] != null)
+                    {
+                        if (TempData["CreatePinAlert"].ToString() != "1")
+                        {
+                            <div class="widget-list">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="error-box">
+                                            <div class="alert alert-success">@TempData["CreatePinAlert"]</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="widget-list">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="error-box">
+                                            <div class="alert alert-success">Pin Request Added Successfully</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    @using (Html.BeginForm("Pin_request", "MemberPanel", FormMethod.Post, new { @class = "form-content", enctype = "multipart/form-data" }))
+                    {
+                        @Html.ValidationSummary(true)
+
+
+
+                        <div class="form-group">
+                            <label for="re_pwd">Amount </label>
+                            @Html.DropDownListFor(model => model.amount,
+                                         new List<SelectListItem> {
+                                         new SelectListItem {Value="",Text="Select Amount" },
+                                         new SelectListItem {Value="200",Text="₹ 200" },
+                                         new SelectListItem {Value="400",Text="₹ 400" },
+                                         new SelectListItem {Value="800",Text="₹ 800" }
+                                     }, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.amount)
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="re_pwd">Quantity </label>
+                            @Html.TextBoxFor(model => model.Quantiy, new { @class = "form-control", placeholder = "Quantity" })
+                            @Html.ValidationMessageFor(model => model.Quantiy)
+                        </div>
+
+                        <div class="form-group">
+                            <label for="re_pwd">Slip</label>
+                            <input type="file" name="pin_slip" class="form-control" onclick="" id="pin_slip" onchange="return checkformat(this, 'gif|jpg|jpeg|png|pdf', 'Please select valid formet(*.gif, .jpg, .jpeg,pdf, *.png)') ">
+                        </div>
+
+                        <button type="submit" class="btn btn-info">Submit</button>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+        <div class="clearfix"></div>
+        <!-- MAIN CONTENT AREA ENDS -->
+
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<UniqueTrade_App.Models.WalletModel>
+@{
+    ViewBag.Title = "Globalpoolstatus";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<!--#INCLUDE FILE= "header.asp"-->
+<!-- ============================================================== -->
+<!-- Start Page Content here -->
+<!-- ============================================================== -->
+
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Royal Blocks</a></li>
+                                <li class="breadcrumb-item active">Dashboard</li>
+                            </ol>
+                        </div>
+                        <h4 class="page-title">Global Pool Status</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card tilebox-one">
+                        <div class="card-header bg-warning">
+                            <h3 class="card-title font-weight-medium">Global Pool Status</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="datatable" class="table table-bordered" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr. No.</th>
+                                            <th>Level</th>
+                                            <th>status</th>
+                                            <th> Income</th>
+                                            <th>Date</th>
+                                            @*<th> Income</th>
+        <th>Level No</th>*@
+                                        </tr>
+                                    </thead>
+
+
+                                    <tbody>
+                                        @{ int rows = 0;}
+                                        @foreach (var item in Model)
+                                        {
+                                        <tr>
+                                            <td>@(rows = rows + 1)</td>
+                                            <td> @item.level_no</td>
+                                            <td>
+                                                @if (@item.status == "G")
+                                                {
+                                                    <h5>Active</h5>
+                                                }
+                                                else
+                                                {
+                                                    <h5>Inctive</h5>
+                                                }
+                                            </td>
+                                            <td>BUSD @item.amount</td>
+                                            <td>@item.created_at</td>
+                                            @*<td>BUSD @item.amount</td>
+                                            *@
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+        </div> <!-- end container-fluid -->
+
+    </div> <!-- end content -->
+    <!--#INCLUDE FILE= "footer.asp"-->

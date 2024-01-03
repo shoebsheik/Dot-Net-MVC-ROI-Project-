@@ -1,0 +1,115 @@
+﻿@model UniqueTrade_App.Models.FundTransModel
+@using UniqueTrade_App.CommanFunction;
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "WalletSend";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<div class="main-panel">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-custom bg-inverse-primary">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Wallet</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><span>Wallet Transfer</span></li>
+        </ol>
+    </nav>
+    <div class="content-wrapper">
+        <div class="row form_content justify-content-center">
+            <div class="col-md-8 col-md-offset-2 grid-margin stretch-card ">
+                <div class="card animated bounceInUp">
+                    <div class="card-body">
+                        <h4 class="card-title">Wallet Transfer</h4>
+                        @if (TempData["fundTransferAlert"] != null)
+                        {
+                            if (TempData["fundTransferAlert"].ToString() != "1")
+                            {
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="alert alert-success alert-dismissible">
+                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            @TempData["fundTransferAlert"]
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="alert alert-success alert-dismissible">
+                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            Wallet transfer Successfully
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        @using (Html.BeginForm("FundSend", "MemberPanel", FormMethod.Post, new { enctype = "multipart/form-data", @class = "forms-sample" }))
+                        {
+                            @Html.ValidationSummary(true)
+                            @*<form class="forms-sample">*@
+                            <div class="form-group">
+                                <label for="user_id">User Id:</label>
+                                @Html.TextBoxFor(model => model.UserName, new { @placeholder = "User ID", @class = "form-control valid" })
+
+                                @Html.ValidationMessageFor(model => model.UserName)
+                                @*<input type="text" class="form-control" id="user_id" placeholder="User Id">*@
+                            </div>
+                            <div class="form-group" data-select2-id="7">
+                                <label for="purchase_package">Select Wallet By:</label>
+                                @Html.DropDownListFor(m => m.Wallet_Type, new List<SelectListItem>
+                                               {
+                                                  new SelectListItem{Text="Fund WALLET ( (DC) "+Model.Fund_Wallet + " )" , Value="FUND"},
+                                                  //new SelectListItem{Text="Main WALLET ( $ "+Model.Main_Wallet + " )",Value="MAIN"},
+                                               }, "Select Wallet type", new { @class = "form-control valid" })
+                                @Html.ValidationMessageFor(m => m.Wallet_Type, "", new { @class = "text-danger" })
+
+                                @Html.ValidationMessageFor(model => model.Wallet_Type)
+                                @*<select class="form-control">
+                                        <option>Select Wallet By</option>
+                                        <option>Fund Wallet($ 0)</option>
+                                        <option>Main Wallet($ 0)</option>
+                                    </select>*@
+                            </div>
+
+                            <div class="form-group">
+                                <label for="amount">Amount($):</label>
+                                @Html.TextBoxFor(m => m.Amount, "", new { @class = "form-control valid", @placeholder = "Amount ($)" })
+
+                                @Html.ValidationMessageFor(model => model.Amount)
+                                @*<input type="text" class="form-control" id="amount" placeholder="Amount($)">*@
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-success notika-btn-success waves-effect" type="submit">Submit</button>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- content-wrapper ends -->
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script>
+    $("#UserName").change(function () {
+        var userID = $("#UserName").val();
+        $.get('@Url.Action("SponcerDetails", "Home")?email=' + userID + '', function (result) {
+            if (result.Memb_Name == "") {
+                $("#useridname").css("color", "red");
+                $("#useridname").html("User Id is invalid");
+            }
+            else {
+                $("#useridname").css("color", "green");
+                $("#useridname").html(result.Memb_Name);
+            }
+        });
+    });
+</script>

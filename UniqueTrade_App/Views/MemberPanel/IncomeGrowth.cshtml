@@ -1,0 +1,73 @@
+﻿@model IEnumerable<UniqueTrade_App.Models.WalletModel>
+@using UniqueTrade_App.CommanFunction;
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "IncomeGrowth";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="container-full">
+        <div class="content-header">
+            <div class="d-flex align-items-center">
+                <div class="mr-auto">
+                    <h3 class="page-title">Roulette Income</h3>
+                    <div class="d-inline-block align-items-center">
+                        <nav>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#"><i class="ti-home"></i></a></li>
+                                <li class="breadcrumb-item" aria-current="page">Earning Report</li>
+                                <li class="breadcrumb-item active" aria-current="page">Roulette Income</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- end page title -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Roulette Income</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr. No.</th>
+                                            <th>Date</th>
+                                            <th>Purchase Package</th>
+                                            <th>Profit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{ int rows = 0;}
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@(rows = rows + 1)</td>
+                                                <td>@item.created_at</td>
+                                                <td>$ @item.Package</td>
+                                                <td>$ @item.amount</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </section>
+        <!-- /.content -->
+    </div>
+</div>

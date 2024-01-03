@@ -1,0 +1,75 @@
+﻿@using UniqueTrade_App.CommanFunction;
+@{ UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "MyProfile";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<!--#INCLUDE FILE= "header.asp"-->
+<!--**********************************
+    Content body start
+***********************************-->
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="">Profile</a></li>
+                <li class="breadcrumb-item"><a href="/MemberPanel/index">Home</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-6 mx-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Basic Information</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Sponsor Id</label>
+                                    <input type="text" class="form-control input-defaul" placeholder="Sponsor Id" value="@userInfo.sp_user">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Sponsor Name</label>
+                                    <input type="text" class="form-control input-defaul" placeholder="Sponsor Name" value="@userInfo.sp_name">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">User Name</label>
+                                    <input type="text" class="form-control input-defaul " placeholder="User Name" value="@userInfo.memb_name">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">User Id</label>
+                                    <input type="text" class="form-control input-defaul " placeholder="User Id" value="@userInfo.username">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email Id</label>
+                                    <input type="text" class="form-control input-defaul " placeholder="Email Id" value="@userInfo.EmailID">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Mobile No</label>
+                                    <input type="text" class="form-control input-defaul " placeholder="Mobile No" value="@userInfo.Mobile_No">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">USDT Address</label>
+                                    <input type="text" class="form-control input-defaul " placeholder="Mobile No" value="@userInfo.Address1">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">BUSD Address</label>
+                                    <input type="text" class="form-control input-defaul " placeholder="Mobile No" value="@userInfo.Address2">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--#INCLUDE FILE= "footer.asp"-->
+
+
+
+

@@ -1,0 +1,136 @@
+﻿@model UniqueTrade_App.Models.EditProfileModel
+@using UniqueTrade_App.CommanFunction;
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "UpdateProfile";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+
+<!--#INCLUDE FILE= "header.asp"-->
+<!--**********************************
+    Content body start
+***********************************-->
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="">Edit Profile</a></li>
+                <li class="breadcrumb-item"><a href="/MemberPanel/index">Home</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-6 mx-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Update Basic Information</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="basic-form">
+                            @if (TempData["EditProfileAlert"] != null)
+                            {
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="alert alert-success alert-dismissible text-center text-white">
+                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            @TempData["EditProfileAlert"]
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            @using (Html.BeginForm("UpdateProfile", "MemberPanel", FormMethod.Post, new { @class = "forms-sample pt-2", enctype = "multipart/form-data" }))
+                            {
+                                @Html.ValidationSummary(true)
+                                <div class="mb-3">
+                                    <label class="form-label">User Name</label>
+
+                                    @Html.TextBoxFor(model => model.Memb_Name, new { @class = "form-control input-defaul", @placeholder = "Name", @maxlength = "150", @readonly = true })
+                                    @Html.ValidationMessageFor(model => model.Memb_Name, "", new { @style = "color:red;" })
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">User Id</label>
+                                    <input type="text" class="form-control input-defaul" placeholder="User Id" readonly value="@userInfo.username">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    @Html.TextBoxFor(model => model.EMail, new { @class = "form-control input-defaul", @placeholder = "Your Email", @maxlength = "150" })
+                                    @Html.ValidationMessageFor(model => model.EMail, "", new { @style = "color:red;" })
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Mobile Number</label>
+                                    @Html.TextBoxFor(model => model.Mobile_No, new { @class = "form-control input-defaul", @placeholder = "Mobile No", @maxlength = "10" })
+                                    @Html.ValidationMessageFor(model => model.Mobile_No, "", new { @style = "color:red;" })
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Sponsor Name</label>
+                                    <input type="text" class="form-control input-defaul" placeholder="Sponsor Name" value="@userInfo.sp_name">
+
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Sponsor ID</label>
+                                    <input type="text" class="form-control input-defaul" placeholder="Sponsor Name" value="@userInfo.sp_user">
+
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">USDT Address</label>
+                                    @if (string.IsNullOrEmpty(Model.Address1))
+                                    {
+                                        @Html.TextBoxFor(model => model.Address1, new { @class = "form-control input-defaul", @placeholder = "USDT Address" })
+                                        @Html.ValidationMessageFor(model => model.Address1)
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => model.Address1, new
+                                        {
+                                            @class = "form-control input-defaul",
+                                            @placeholder = "USDT Address"@*,@readonly = true*@})
+                                    }
+                                    @Html.ValidationMessageFor(model => model.Address1)
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">BUSD Address</label>
+                                    @if (string.IsNullOrEmpty(Model.Address2))
+                                    {
+                                        @Html.TextBoxFor(model => model.Address2, new { @class = "form-control", @placeholder = "BUSD Address" })
+                                        @Html.ValidationMessageFor(model => model.Address1)
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => model.Address2, new { @class = "form-control", @placeholder = "BUSD Address"@*, @readonly = true*@ })
+                                    }
+                                    @Html.ValidationMessageFor(model => model.Address2)
+                                </div>
+                                @*<div>
+                @if (string.IsNullOrEmpty(Model.Address1) || (string.IsNullOrEmpty(Model.Address2)))
+                {
+                    <button type="submit" id="submit" name="submit" class="btn btn-primary">Submit</button>
+                }
+            </div>*@
+
+
+                                @*<input type="hidden" value="profile" name="inpType" id="inpType" />*@
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="text-right">
+                                        <button type="submit" class="btn btn-primary">
+                                            Submit
+                                        </button>
+
+
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--#INCLUDE FILE= "footer.asp"-->
+
+
+

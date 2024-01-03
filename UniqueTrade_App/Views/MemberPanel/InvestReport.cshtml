@@ -1,0 +1,67 @@
+﻿@using UniqueTrade_App.CommanFunction;
+@model IEnumerable<UniqueTrade_App.Models.DepositeModel>
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "InvestReport";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+
+
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-custom">
+                        <li class="breadcrumb-item"><a href="#">Purchase Package</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><span>Purchase Package History</span></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row mt-2 flex-grow">
+
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Purchase Package History</h4>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table id="order-listing" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Sr. No.</th>
+                                                <th>Date</th>
+                                                <th>Purchase Package</th>
+                                                <th>Purchase By</th>
+                                                <th>Attachment</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{ int rows = 0;}
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>@(rows = rows + 1)</td>
+                                                    <td>@item.ttime</td>
+                                                    <td>Rs​ @item.amount</td>
+                                                    <td>@item.BTC_Type</td>
+                                                    <td>  <img src="http://mv.mvsolutions.co.in/Content/invetsmentAttch/@item.address" style="width:150px;height:150px;"></td>
+                                                    <td>@item.Provide_Status</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>

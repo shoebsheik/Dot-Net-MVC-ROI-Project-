@@ -1,0 +1,2046 @@
+﻿@model UniqueTrade_App.Models.BinaryModel
+@{
+    Layout = null;
+}
+
+
+<table width="843" height="445" cellspacing="0" cellpadding="0" border="0">
+    <tbody>
+        <tr>
+            <td colspan="2" width="843" valign="top" height="15" align="center"></td>
+        </tr>
+        <tr>
+            <td rowspan="2" bordercolor="#66AFE9" width="365" valign="top" height="64" align="center">
+                <table style="border-collapse: collapse" width="361" height="61" cellpadding="0" bordercolor="#8AC2F8" border="1">
+                    <tbody>
+                        <tr>
+                            <td bordercolor="#F0F0F0" width="114" height="25" align="right"></td>
+                            <td bordercolor="#0000" width="135" height="25" align="center">
+                                <font size="2" face="Verdana" color="#000000">Left </font>
+                            </td>
+                            <td bordercolor="#0000" width="107" height="25" align="center">
+                                <font size="2" face="Verdana" color="#000000">Right </font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td bordercolor="#0000" style="padding-right: 4px" width="110" height="24" align="right">
+                                <font size="2" face="Verdana" color="#000000">
+                                    Total Team
+                                </font><font size="2" face="Verdana" color="#0000"> </font>
+                            </td>
+                            <td bordercolor="#000" width="135" height="24" align="center">
+                                <font size="2" face="Verdana" color="#000000">
+                                    @Model.Left_Team
+                                </font>
+                            </td>
+                            <td bordercolor="#0000" width="107" height="24" align="center">
+                                <font size="2" face="Verdana" color="#000000">
+                                    @Model.Right_Team
+                                </font><font color="#000"> </font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td bordercolor="#0000" style="padding-right: 4px" width="110" height="24" align="right">
+                                <font size="2" face="Verdana" color="#000000">
+                                    Total Business
+                                </font>
+                            </td>
+                            <td bordercolor="#000" width="135" height="24" align="center">
+                                <font size="2" face="Verdana" color="#000000">
+                                     @Model.Left_Team_Business PV
+                                </font>
+                            </td>
+                            <td bordercolor="#000" width="107" height="24" align="center">
+                                <font size="2" face="Verdana" color="#000000">
+                                     @Model.Right_Team_Business PV
+                                </font>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td style="padding-bottom: 15px" width="492" valign="top" height="32" align="center">
+                <table width="214">
+                    <tbody>
+                        <tr>
+                            <td align="center">
+                                <b>
+                                    <font face="Calibri" color="#000000">
+                                        Paid ID
+                                    </font>
+                                </b>
+                            </td>
+                            <td align="center">
+                                <b>
+                                    <font face="Calibri" color="#000000">
+                                        Unpaid ID
+                                    </font>
+                                </b>
+                            </td>
+                            <td align="center">
+                                <b>
+                                    <font face="Calibri" color="#000000">
+                                        Vacant
+                                    </font>
+                                </b>
+                            </td>
+                            <!-- <td align="center">
+                             Topup 3700/-
+                             </td>-->
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                <img src="~/Content/userDashboard/img/demo/2.png" style="height:35px;">
+                            </td>
+                            <td align="center">
+                                <img src="~/Content/userDashboard/img/demo/1.png" style="height:35px;">
+                            </td>
+                            <td align="center">
+                                &nbsp;<img src="~/Content/userDashboard/img/demo/3.png" style="height:35px;">
+                            </td>
+                            <!-- <td align="center">
+                              <img src="top.gif" />
+                             </td>-->
+                        </tr>
+
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td width="492" valign="top" height="32" align="center">
+                <form>
+                    <table width="468" height="40" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr>
+                                <td width="244" height="22" align="right">
+                                    <p align="right">
+                                        <font style="font-size: 9pt;" face="Verdana" color="#000000">
+                                            Find Down Line ID&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </font>
+                                    </p>
+                                </td>
+                                <td width="139" height="22" align="left">
+                                    <font face="Verdana" color="#000000">
+                                        <input name="txtSearchUser" id="txtSearchUser" size="14" style="float: left;color:#000">
+                                        <span class="errorUser" style="color:red;"></span>
+                                    </font>
+                                </td>
+                                <td width="48" height="22">
+                                    <font color="#000">
+                                        <input value="Find" name="B1" onclick="searchBYID()" style="font-family: Verdana; font-size: 9pt;font-weight: 700; width: 50px; height: 25px;" type="button">
+                                    </font>
+                                </td>
+                                <td width="37" height="22">
+                                    <p align="center">
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" width="468" align="center">
+                                    <b>
+                                        <font style="font-size: 9pt" face="Verdana" color="#0066FF">
+                                        </font>
+                                    </b>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" valign="top" height="472" align="center">
+                <table width="100%" height="549" border="0">
+                    <tbody>
+                        <tr>
+                            <td width="866" align="center">
+                                <table width="855" height="520" cellspacing="0" cellpadding="0" border="0">
+                                    <tbody>
+                                        <tr>
+                                            <td width="851" valign="top" height="45">
+                                                <table width="844" cellspacing="0" cellpadding="0" border="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="415" height="45">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                            <td width="64" height="45">
+                                                                <table width="60" height="60" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            @if (Model.M1 == "10")
+                                                                            {
+                                                                                string[] user = Model.U1.Split('_');
+                                                                                <td width="64" height="60" background="~/Content/userDashboard/img/demo/demo_B.png">
+                                                                                    <a href="">
+                                                                                        <font color="#0033CC">
+                                                                                            &nbsp;
+                                                                                        </font>
+                                                                                    </a>
+                                                                                </td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                string[] user = Model.U1.Split('_');
+                                                                                <td width="64" height="60" onclick="getTree(@Model.M1)" background="~/Content/userDashboard/img/demo/demo_@(user[1] + ".png")">
+                                                                                    <font color="#0033CC">
+                                                                                        &nbsp;
+                                                                                    </font>
+                                                                                </td>
+                                                                            }
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="301" height="45">
+                                                                <table width="283" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="283" height="45">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="62" height="45">
+                                                                <table width="47" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="47" height="45">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="851" valign="top" height="25">
+                                                <table width="680" cellspacing="0" cellpadding="0" border="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="253" height="30">
+                                                                <table width="263" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="263" height="30">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="175" height="30">
+                                                                <table width="357" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="353" height="30" align="center">
+                                                                                @if (Model.M1 == "10")
+                                                                                {
+                                                                                    string[] user = Model.U1.Split('_');
+                                                                                    <a href="javascript:void(0)" style="text-decoration: none">
+                                                                                        <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                            <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                @user[0]
+                                                                                            </span>
+                                                                                        </font>
+                                                                                    </a>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    string[] user = Model.U1.Split('_');
+                                                                                    <a href="javascript:void(0)" onmouseover="getDetails(@Model.M1)" onmouseout="closeDetails(@Model.M1)" onclick="getTree(@Model.M1)" style="text-decoration: none">
+                                                                                        <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                            <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                @user[0]
+                                                                                            </span>
+                                                                                        </font>
+                                                                                        <div class="slender" id="slender_@Model.M1">
+
+                                                                                        </div>
+                                                                                    </a>
+
+                                                                                }
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="169" height="30">
+                                                                <table width="155" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="155" height="30">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="83" height="30">
+                                                                <table width="44" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="40" height="30">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="851" valign="top" height="16">
+                                                <table width="851" height="25" cellspacing="0" cellpadding="0" border="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="201" height="23">
+                                                                <table width="148" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="148" height="16">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="37" height="23">
+                                                                <table width="28" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="28" height="16">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="383" height="23" background="" style="border: 3px solid #000000;border-bottom: none;">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                            <td width="230" height="23">
+                                                                <table width="182" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="178" height="16">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="851" valign="top" height="45">
+                                                <table width="837" cellspacing="0" cellpadding="0" border="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="229" height="45">
+                                                                <table width="229" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="229" height="45">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="66" height="45">
+                                                                <table width="60" height="60" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            @if (Model.M2 == "10")
+                                                                            {
+                                                                                string[] user = Model.U2.Split('_');
+                                                                                <td width="64" onclick="getRefer('@Model.M1@user[1]')" height="60" background="~/Content/userDashboard/img/demo/demo_B.png">
+                                                                                    <a href="">
+                                                                                        <font color="#0033CC">
+                                                                                            &nbsp;
+                                                                                        </font>
+                                                                                    </a>
+                                                                                </td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                string[] user = Model.U2.Split('_');
+                                                                                <td width="64" height="60" onclick="getTree(@Model.M2)" background="~/Content/userDashboard/img/demo/demo_@(user[1] + ".png")">
+                                                                                    <font color="#0033CC">
+                                                                                        &nbsp;
+                                                                                    </font>
+                                                                                </td>
+                                                                            }
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="279" height="45">
+                                                                <table width="256" height="60" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="256" height="58">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="65" height="45">
+                                                                <table width="60" height="60" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            @if (Model.M3 == "10")
+                                                                            {
+                                                                                string[] user = Model.U3.Split('_');
+                                                                                <td width="65" onclick="getRefer('@Model.M1@user[1]','R')" height="60" background="~/Content/userDashboard/img/demo/demo_B.png">
+                                                                                    <a href="">
+                                                                                        <font color="#0033CC">
+                                                                                            &nbsp;
+                                                                                        </font>
+                                                                                    </a>
+                                                                                </td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                string[] user = Model.U3.Split('_');
+                                                                                <td width="65" height="60" onclick="getTree(@Model.M3)" background="~/Content/userDashboard/img/demo/demo_@(user[1] + ".png")">
+                                                                                    <font color="#0033CC">
+                                                                                        &nbsp;
+                                                                                    </font>
+                                                                                </td>
+                                                                            }
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="198" height="45">
+                                                                <table width="137" height="68" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="137" height="68">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="851" valign="top" height="30">
+                                                <table width="843" height="32" cellspacing="0" cellpadding="0" border="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="175" height="32">
+                                                                <table width="152" height="32" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="152" height="30">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="206" height="32">
+                                                                <table width="179" height="30" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="179" height="30" class="w-179">
+                                                                                <font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                </font><p align="center">
+                                                                                    @if (Model.M2 == "10")
+                                                                                    {
+                                                                                        string[] user = Model.U2.Split('_');
+                                                                                        <a href="javascript:void(0)" onclick="getRefer('@Model.M1@user[1]')" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        string[] user = Model.U2.Split('_');
+                                                                                        <a href="javascript:void(0)" onmouseover="getDetails(@Model.M2)" onmouseout="closeDetails(@Model.M2)" onclick="getTree(@Model.M2)" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                        <div class="slender" id="slender_@Model.M2">
+
+                                                                                        </div>
+                                                                                    }
+                                                                                    @*<font style="font-size: 9pt" face="Arial" color="#0033CC">
+
+                                                                                        </font><font size="2" face="Verdana" color="#000000">
+                                                                                            <a href="javascript:void(0)" style="font-size: 11px; color: #000000; font-family: arial; text-decoration: none">
+                                                                                                <font style="font-size: 9pt" color="#0033CC">
+                                                                                                    @{ string[] useru2 = Model.U2.Split('_');}
+                                                                                                    <span onmouseover="ShowText('Message1'); return true;" onmouseout="HideText('Message1'); return true;" href="javascript:ShowText('Message')">
+                                                                                                        @useru2[0]
+                                                                                                    </span>
+                                                                                                </font>
+                                                                                            </a>
+                                                                                        </font><font style="font-size: 9pt" face="Arial" color="#0033CC">
+
+                                                                                        </font><font color="#0033CC"></font>*@
+
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="117" height="32">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                            <td width="260" height="32">
+                                                                <table width="216" height="27" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="216" height="25" class="w-216">
+                                                                                <p align="center">
+                                                                                    @if (Model.M3 == "10")
+                                                                                    {
+                                                                                        string[] user = Model.U3.Split('_');
+                                                                                        <a href="javascript:void(0)" onclick="getRefer('@Model.M1@user[1]','R')" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        string[] user = Model.U3.Split('_');
+                                                                                        <a href="javascript:void(0)" onmouseover="getDetails(@Model.M3)" onmouseout="closeDetails(@Model.M3)" onclick="getTree(@Model.M3)" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                        <div class="slender" id="slender_@Model.M3">
+
+                                                                                        </div>
+                                                                                    }
+                                                                                    @*<font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                            @{ string[] useru3 = Model.U3.Split('_');}
+                                                                                        </font><font size="2" face="Verdana" color="#0033CC">&nbsp;</font><font size="2" face="Verdana" color="#000000">
+                                                                                            <a href="javascript:void(0)" style="font-size: 11px; color: #000000; font-family: arial; text-decoration: none">
+                                                                                                <font style="font-size: 11px; font-weight:600;" color="#000000">
+                                                                                                    <span onmouseover="ShowText('Message2'); return true;" onmouseout="HideText('Message2'); return true;" href="javascript:ShowText('Message2')">
+                                                                                                        @useru3[0]
+                                                                                                    </span>
+                                                                                                </font>
+                                                                                            </a>
+                                                                                        </font><font style="font-size: 9pt" face="Arial" color="#0033CC">
+
+                                                                                            <br>
+                                                                                        </font><font color="#0033CC">
+                                                                                        </font>*@
+
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="85" height="32">
+                                                                <table width="82" height="32" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="78" height="30">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="851" valign="top" height="16">
+                                                <table width="89%" height="34" border="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="146">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                            <td width="210" background="" style="border: 3px solid #000000;border-bottom: none;">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                            <td width="118">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                            <td style="border: 3px solid #000000;border-bottom: none;">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                            <td width="56">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="851" valign="top" height="61">
+                                                <table width="839" height="75" cellspacing="0" cellpadding="0" border="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="138" height="73">
+                                                                <table width="59" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="59" height="45">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="66" height="73">
+                                                                <table width="60" height="60" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            @if (Model.M4 == "10")
+                                                                            {
+                                                                                string[] user = Model.U4.Split('_');
+                                                                                <td width="66" onclick="getRefer('@Model.M1@user[1]')" height="60" background="~/Content/userDashboard/img/demo/demo_B.png">
+                                                                                    <a href="">
+                                                                                        <font color="#0033CC">
+                                                                                            &nbsp;
+                                                                                        </font>
+                                                                                    </a>
+                                                                                </td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                string[] user = Model.U4.Split('_');
+                                                                                <td width="66" height="60" onclick="getTree(@Model.M4)" background="~/Content/userDashboard/img/demo/demo_@(user[1] + ".png")">
+                                                                                    <font color="#0033CC">
+                                                                                        &nbsp;
+                                                                                    </font>
+                                                                                </td>
+                                                                            }
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="107" height="73">
+                                                                <table width="77" height="19" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="73" height="19">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="68" height="73">
+                                                                <table width="60" height="60" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            @if (Model.M5 == "10")
+                                                                            {
+                                                                                string[] user = Model.U5.Split('_');
+                                                                                <td width="68" onclick="getRefer('@Model.M1@user[1]')" height="60" background="~/Content/userDashboard/img/demo/demo_B.png">
+                                                                                    <a href="">
+                                                                                        <font color="#0033CC">
+                                                                                            &nbsp;
+                                                                                        </font>
+                                                                                    </a>
+                                                                                </td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                string[] user = Model.U5.Split('_');
+                                                                                <td width="68" height="60" onclick="getTree(@Model.M5)" background="~/Content/userDashboard/img/demo/demo_@(user[1] + ".png")">
+                                                                                    <font color="#0033CC">
+                                                                                        &nbsp;
+                                                                                    </font>
+                                                                                </td>
+                                                                            }
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="103" height="73">
+                                                                <table width="103" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="99" height="45">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="65" height="73">
+                                                                <table width="60" height="60" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            @if (Model.M6 == "10")
+                                                                            {
+                                                                                string[] user = Model.U6.Split('_');
+                                                                                <td width="64" onclick="getRefer('@Model.M1@user[1]','R')" height="60" background="~/Content/userDashboard/img/demo/demo_B.png">
+                                                                                    <a href="">
+                                                                                        <font color="#0033CC">
+                                                                                            &nbsp;
+                                                                                        </font>
+                                                                                    </a>
+                                                                                </td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                string[] user = Model.U6.Split('_');
+                                                                                <td width="64" height="60" onclick="getTree(@Model.M6)" background="~/Content/userDashboard/img/demo/demo_@(user[1] + ".png")">
+                                                                                    <font color="#0033CC">
+                                                                                        &nbsp;
+                                                                                    </font>
+                                                                                </td>
+                                                                            }
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="105" height="73">
+                                                                <table width="26" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="22" height="45">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="68" height="73">
+                                                                <table width="60" height="60" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            @if (Model.M7 == "10")
+                                                                            {
+                                                                                string[] user = Model.U7.Split('_');
+                                                                                <td width="68" onclick="getRefer('@Model.M1@user[1]','R')" height="60" background="~/Content/userDashboard/img/demo/demo_B.png">
+                                                                                    <a href="">
+                                                                                        <font color="#0033CC">
+                                                                                            &nbsp;
+                                                                                        </font>
+                                                                                    </a>
+                                                                                </td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                string[] user = Model.U7.Split('_');
+                                                                                <td width="68" height="60" onclick="getTree(@Model.M7)" background="~/Content/userDashboard/img/demo/demo_@(user[1] + ".png")">
+                                                                                    <font color="#0033CC">
+                                                                                        &nbsp;
+                                                                                    </font>
+                                                                                </td>
+                                                                            }
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="119" height="73">
+                                                                <table width="41" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="41" height="45">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="851" valign="top" height="38">
+                                                <table width="842" height="38" cellspacing="0" cellpadding="0" border="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="91" height="36">
+                                                                <table width="50" height="32" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="50" height="32">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="172" height="36">
+                                                                <table width="144" height="32" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="144" height="32" class="w-144">
+                                                                                <p align="center">
+                                                                                    @if (Model.M4 == "10")
+                                                                                    {
+                                                                                        string[] user = Model.U4.Split('_');
+                                                                                        <a href="javascript:void(0)" onclick="getRefer('@Model.M1@user[1]')" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        string[] user = Model.U4.Split('_');
+                                                                                        <a href="javascript:void(0)" onmouseover="getDetails(@Model.M4)" onmouseout="closeDetails(@Model.M4)" onclick="getTree(@Model.M4)" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                        <div class="slender" id="slender_@Model.M4">
+
+                                                                                        </div>
+                                                                                    }
+                                                                                    @*<font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                        </font><font size="2" face="Verdana" color="#000000">
+                                                                                            <a href="javascript:void(0)" style="font-size: 11px; color: #000000; font-family: arial; text-decoration: none">
+                                                                                                <font style="font-size: 9pt" color="#0033CC">
+                                                                                                    @{ string[] useru4 = Model.U4.Split('_');}
+                                                                                                    <span onmouseover="ShowText('Message3'); return true;" onmouseout="HideText('Message3'); return true;" href="javascript:ShowText('Message3')">
+                                                                                                        @useru4[0]
+                                                                                                    </span>
+                                                                                                </font>
+                                                                                            </a>
+                                                                                        </font><font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                            <br>
+                                                                                        </font><font color="#0033CC">
+                                                                                        </font>*@
+
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="18" height="36">
+                                                                <table width="18" height="30" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="18" height="30">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="131" height="36">
+                                                                <table width="131" height="29" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="131" height="29" class="w-131">
+                                                                                <p align="center">
+                                                                                    @if (Model.M5 == "10")
+                                                                                    {
+                                                                                        string[] user = Model.U5.Split('_');
+                                                                                        <a href="javascript:void(0)" onmouseover="getDetails(@Model.M5)" onmouseout="closeDetails(@Model.M5)" onclick="getRefer('@Model.M1@user[1]')" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        string[] user = Model.U5.Split('_');
+                                                                                        <a href="javascript:void(0)" onmouseover="getDetails(@Model.M5)" onmouseout="closeDetails(@Model.M5)" onclick="getTree(@Model.M5)" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                        <div class="slender" id="slender_@Model.M5">
+
+                                                                                        </div>
+                                                                                    }
+                                                                                    @*<font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                        </font><font size="2" face="Verdana" color="#000000">
+                                                                                            <a href="javascript:void(0)" style="font-size: 11px; color: #000000; font-family: arial; text-decoration: none">
+                                                                                                <font style="font-size: 11px; font-weight:600;" color="#000000">
+                                                                                                    @{ string[] useru5 = Model.U5.Split('_');}
+                                                                                                    <span onmouseover="ShowText('Message4'); return true;" onmouseout="HideText('Message4'); return true;" href="javascript:ShowText('Message4')">
+                                                                                                        @useru5[0]
+                                                                                                    </span>
+                                                                                                </font>
+                                                                                            </a>
+                                                                                        </font><font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                            <br>
+                                                                                        </font><font color="#0033CC">
+                                                                                        </font>*@
+
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="31" height="36">
+                                                                <table width="21" height="31" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="21" height="31">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="135" height="36">
+                                                                <table width="135" height="31" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="135" height="31" class="width-135">
+                                                                                <p align="center">
+                                                                                    @if (Model.M6 == "10")
+                                                                                    {
+                                                                                        string[] user = Model.U6.Split('_');
+                                                                                        <a href="javascript:void(0)" onclick="getRefer('@Model.M1@user[1]','R')" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        string[] user = Model.U6.Split('_');
+                                                                                        <a href="javascript:void(0)" onmouseover="getDetails(@Model.M6)" onmouseout="closeDetails(@Model.M6)" onclick="getTree(@Model.M6)" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                        <div class="slender" id="slender_@Model.M6">
+
+                                                                                        </div>
+                                                                                    }
+                                                                                    @*<font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                        </font><font size="2" face="Verdana" color="#000000">
+                                                                                            <a href="#?txtspcode=5&amp;optLeft=L" style="font-size: 11px; color: #000000; font-family: arial; text-decoration: none">
+                                                                                                @{ string[] useru6 = Model.U6.Split('_');}
+                                                                                                <font style="font-size: 9pt" color="#0033CC">
+                                                                                                    @useru6[0]
+                                                                                                </font>
+                                                                                            </a>
+                                                                                        </font><font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                            <br>
+                                                                                        </font>*@
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="32" height="36">
+                                                                <table width="17" height="31" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="13" height="31">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="204" height="36">
+                                                                <table width="127" height="28" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="127" height="28" class="w-127">
+                                                                                <p align="center">
+                                                                                    @if (Model.M7 == "10")
+                                                                                    {
+                                                                                        string[] user = Model.U7.Split('_');
+                                                                                        <a href="javascript:void(0)" onclick="getRefer('@Model.M1@user[1]','R')" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        string[] user = Model.U7.Split('_');
+                                                                                        <a href="javascript:void(0)" onmouseover="getDetails(@Model.M7)" onmouseout="closeDetails(@Model.M7)" onclick="getTree(@Model.M7)" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                        <div class="slender" id="slender_@Model.M7">
+
+                                                                                        </div>
+                                                                                    }
+                                                                                    @*<font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                        </font><font size="2" face="Verdana" color="#000000">
+                                                                                            <a href="#?txtspcode=5&amp;optLeft=R" style="font-size: 11px; color: #000000; font-family: arial; text-decoration: none">
+                                                                                                @{ string[] useru7 = Model.U7.Split('_');}
+                                                                                                <font style="font-size: 9pt" color="#0033CC">
+                                                                                                    @useru7[0]
+                                                                                                </font>
+                                                                                            </a>
+                                                                                        </font><font style="font-size: 11px; font-weight:600;" face="Arial" color="#000000">
+                                                                                            <br>
+                                                                                        </font><font color="#0033CC">
+                                                                                        </font>*@
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="27" height="36">
+                                                                <table width="27" height="34" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="27" height="32">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="851" valign="top" height="33">
+                                                <table width="89%" height="33" border="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="91">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                            <td width="120" style="border: 3px solid #000000;border-bottom: none;">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                            <td width="51">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                            <td width="107" style="border: 3px solid #000000;border-bottom: none;">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                            <td width="74">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                            <td width="111" style="border: 3px solid #000000;border-bottom: none;">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                            <td width="65">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                            <td style="border: 3px solid #000000;border-bottom: none;">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                            <td width="5">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="851" valign="top" height="70">
+                                                <table width="842" height="70" cellspacing="0" cellpadding="0" border="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="83" height="70">
+                                                                <table width="4" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="4" height="45">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="66" height="70">
+                                                                <table width="60" height="60" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            @if (Model.M8 == "10")
+                                                                            {
+                                                                                string[] user = Model.U8.Split('_');
+                                                                                <td width="62" onclick="getRefer('@Model.M1@user[1]')" height="60" background="~/Content/userDashboard/img/demo/demo_B.png">
+                                                                                    <a href="">
+                                                                                        <font color="#0033CC">
+                                                                                            &nbsp;
+                                                                                        </font>
+                                                                                    </a>
+                                                                                </td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                string[] user = Model.U8.Split('_');
+                                                                                <td width="62" height="60" onclick="getTree(@Model.M8)" background="~/Content/userDashboard/img/demo/demo_@(user[1] + ".png")">
+                                                                                    <font color="#0033CC">
+                                                                                        &nbsp;
+                                                                                    </font>
+                                                                                </td>
+                                                                            }
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="21" height="70">
+                                                                <table width="11" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="11" height="45">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="70" height="70">
+                                                                <table width="62" height="60" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            @if (Model.M9 == "10")
+                                                                            {
+                                                                                string[] user = Model.U9.Split('_');
+                                                                                <td width="62" onclick="getRefer('@Model.M1@user[1]')" height="60" background="~/Content/userDashboard/img/demo/demo_B.png">
+                                                                                    <a href="">
+                                                                                        <font color="#0033CC">
+                                                                                            &nbsp;
+                                                                                        </font>
+                                                                                    </a>
+                                                                                </td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                string[] user = Model.U9.Split('_');
+                                                                                <td width="62" height="60" onclick="getTree(@Model.M9)" background="~/Content/userDashboard/img/demo/demo_@(user[1] + ".png")">
+                                                                                    <font color="#0033CC">
+                                                                                        &nbsp;
+                                                                                    </font>
+                                                                                </td>
+                                                                            }
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="19" height="70">
+                                                                <table width="18" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="14" height="45">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="66" height="70">
+                                                                <table width="60" height="60" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            @if (Model.M10 == "10")
+                                                                            {
+                                                                                string[] user = Model.U10.Split('_');
+                                                                                <td width="60" onclick="getRefer('@Model.M1@user[1]')" height="60" background="~/Content/userDashboard/img/demo/demo_B.png">
+                                                                                    <a href="">
+                                                                                        <font color="#0033CC">
+                                                                                            &nbsp;
+                                                                                        </font>
+                                                                                    </a>
+                                                                                </td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                string[] user = Model.U10.Split('_');
+                                                                                <td width="60" height="60" onclick="getTree(@Model.M10)" background="~/Content/userDashboard/img/demo/demo_@(user[1] + ".png")">
+                                                                                    <font color="#0033CC">
+                                                                                        &nbsp;
+                                                                                    </font>
+                                                                                </td>
+                                                                            }
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="24" height="70">
+                                                                <table width="14" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="14" height="45">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="59" height="70">
+                                                                <table width="59" height="60" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            @if (Model.M11 == "10")
+                                                                            {
+                                                                                string[] user = Model.U11.Split('_');
+                                                                                <td width="59" onclick="getRefer('@Model.M1@user[1]')" height="60" background="~/Content/userDashboard/img/demo/demo_B.png">
+                                                                                    <a href="">
+                                                                                        <font color="#0033CC">
+                                                                                            &nbsp;
+                                                                                        </font>
+                                                                                    </a>
+                                                                                </td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                string[] user = Model.U11.Split('_');
+                                                                                <td width="59" height="45" onclick="getTree(@Model.M11)" background="~/Content/userDashboard/img/demo/demo_@(user[1] + ".png")">
+                                                                                    <font color="#0033CC">
+                                                                                        &nbsp;
+                                                                                    </font>
+                                                                                </td>
+                                                                            }
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="30" height="70">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                            <td width="64" height="70">
+                                                                <table width="62" height="60" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            @if (Model.M12 == "10")
+                                                                            {
+                                                                                string[] user = Model.U12.Split('_');
+                                                                                <td width="62" onclick="getRefer('@Model.M1@user[1]','R')" height="60" background="~/Content/userDashboard/img/demo/demo_B.png">
+                                                                                    <a href="">
+                                                                                        <font color="#0033CC">
+                                                                                            &nbsp;
+                                                                                        </font>
+                                                                                    </a>
+                                                                                </td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                string[] user = Model.U12.Split('_');
+                                                                                <td width="62" height="60" onclick="getTree(@Model.M12)" background="~/Content/userDashboard/img/demo/demo_@(user[1] + ".png")">
+                                                                                    <font color="#0033CC">
+                                                                                        &nbsp;
+                                                                                    </font>
+                                                                                </td>
+                                                                            }
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="24" height="70">
+                                                                <table width="24" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            @*@if (Model.M12 == "10")
+                                                                                {
+                                                                                    string[] user = Model.U12.Split('_');
+                                                                                    <td width="20" height="45" background="~/Content/userDashboard/img/demo/demo_B.png">
+                                                                                        <a href="/Dashboard/signUp?mb=1&place=@user[1]">
+                                                                                            <font color="#0033CC">
+                                                                                                &nbsp;
+                                                                                            </font>
+                                                                                        </a>
+                                                                                    </td>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    string[] user = Model.U12.Split('_');
+                                                                                    <td width="20" height="45" onclick="getTree(@Model.M12)" background="~/Content/userDashboard/img/demo/demo_@(user[1] + ".png")">
+                                                                                        <font color="#0033CC">
+                                                                                            &nbsp;
+                                                                                        </font>
+                                                                                    </td>
+                                                                                }*@
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="62" height="70">
+                                                                <table width="61" height="60" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            @if (Model.M13 == "10")
+                                                                            {
+                                                                                string[] user = Model.U13.Split('_');
+                                                                                <td width="61" onclick="getRefer('@Model.M1@user[1]','R')" height="60" background="~/Content/userDashboard/img/demo/demo_B.png">
+                                                                                    <a href="">
+                                                                                        <font color="#0033CC">
+                                                                                            &nbsp;
+                                                                                        </font>
+                                                                                    </a>
+                                                                                </td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                string[] user = Model.U13.Split('_');
+                                                                                <td width="61" height="60" onclick="getTree(@Model.M13)" background="~/Content/userDashboard/img/demo/demo_@(user[1] + ".png")">
+                                                                                    <font color="#0033CC">
+                                                                                        &nbsp;
+                                                                                    </font>
+                                                                                </td>
+                                                                            }
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="22" height="70">
+                                                                <table width="19" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="19" height="45">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="59" height="70">
+                                                                <table width="57" height="60" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            @if (Model.M14 == "10")
+                                                                            {
+                                                                                string[] user = Model.U14.Split('_');
+                                                                                <td width="57" onclick="getRefer('@Model.M1@user[1]','R')" height="60" background="~/Content/userDashboard/img/demo/demo_B.png">
+                                                                                    <a href="">
+                                                                                        <font color="#0033CC">
+                                                                                            &nbsp;
+                                                                                        </font>
+                                                                                    </a>
+                                                                                </td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                string[] user = Model.U14.Split('_');
+                                                                                <td width="57" height="60" onclick="getTree(@Model.M14)" background="~/Content/userDashboard/img/demo/demo_@(user[1] + ".png")">
+                                                                                    <font color="#0033CC">
+                                                                                        &nbsp;
+                                                                                    </font>
+                                                                                </td>
+                                                                            }
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="31" height="70">
+                                                                <table width="15" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td style="font-size: 4px" width="11" height="45">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="56" height="70">
+                                                                <table width="56" height="60" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            @if (Model.M15 == "10")
+                                                                            {
+                                                                                string[] user = Model.U15.Split('_');
+                                                                                <td width="56" onclick="getRefer('@Model.M1@user[1]','R')" height="60" background="~/Content/userDashboard/img/demo/demo_B.png">
+                                                                                    <a href="">
+                                                                                        <font color="#0033CC">
+                                                                                            &nbsp;
+                                                                                        </font>
+                                                                                    </a>
+                                                                                </td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                string[] user = Model.U15.Split('_');
+                                                                                <td width="56" height="60" onclick="getTree(@Model.M15)" background="~/Content/userDashboard/img/demo/demo_@(user[1] + ".png")">
+                                                                                    <font color="#0033CC">
+                                                                                        &nbsp;
+                                                                                    </font>
+                                                                                </td>
+                                                                            }
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="86" height="70">
+                                                                <table width="15" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="11" height="45">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="851" valign="top" height="101">
+                                                <table width="100%" height="32" cellspacing="0" cellpadding="0" border="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="68" height="30">
+                                                                <font color="#0033CC">
+                                                                    &nbsp;
+                                                                </font>
+                                                            </td>
+                                                            <td width="86" height="30">
+                                                                <table width="86" height="22" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="86" height="22">
+                                                                                <font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                </font><p align="center">
+                                                                                    @if (Model.M8 == "10")
+                                                                                    {
+                                                                                        string[] user = Model.U8.Split('_');
+                                                                                        <a href="javascript:void(0)" onclick="getRefer('@Model.M1@user[1]')" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        string[] user = Model.U8.Split('_');
+                                                                                        <a href="javascript:void(0)" onmouseover="getDetails(@Model.M8)" onmouseout="closeDetails(@Model.M8)" onclick="getTree(@Model.M8)" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                        <div class="slender" id="slender_@Model.M8">
+
+                                                                                        </div>
+                                                                                    }
+                                                                                    @*<font style="font-size: 9pt" face="Arial" color="#0033CC">
+
+
+                                                                                        </font><font color="#0033CC"></font>   <font size="2" face="Verdana" color="#000000">
+                                                                                            <a href="javascript:void(0)" style="font-size: 11px;
+                                                                                                            color: #000000; font-family: arial; text-decoration: none">
+                                                                                                <font style="font-size: 9pt" color="#0033CC">
+                                                                                                    @{ string[] useru8 = Model.U8.Split('_');}
+                                                                                                    <span onmouseover="ShowText('Message7'); return true;" onmouseout="HideText('Message7'); return true;" href="javascript:ShowText('Message7')">
+                                                                                                        @useru8[0]
+                                                                                                    </span>
+                                                                                                </font>
+                                                                                            </a>
+                                                                                        </font><font style="font-size: 9pt" face="Arial" color="#0033CC">
+
+                                                                                        </font>*@
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="4" height="30">
+                                                                <table width="2" height="28" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="2" height="22">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="79" height="30">
+                                                                <table width="79" height="24" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="79" height="24">
+                                                                                <font style="font-size: 11px; font-weight:600;" face="Arial" color="#000000">
+                                                                                </font><p align="center">
+                                                                                    @if (Model.M9 == "10")
+                                                                                    {
+                                                                                        string[] user = Model.U9.Split('_');
+                                                                                        <a href="javascript:void(0)" onclick="getRefer('@Model.M1@user[1]')" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        string[] user = Model.U9.Split('_');
+                                                                                        <a href="javascript:void(0)" onmouseover="getDetails(@Model.M9)" onmouseout="closeDetails(@Model.M9)" onclick="getTree(@Model.M9)" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                        <div class="slender" id="slender_@Model.M9">
+
+                                                                                        </div>
+                                                                                    }
+                                                                                    @*<font style="font-size: 9pt" face="Arial" color="#0033CC">
+
+
+                                                                                        </font><font color="#0033CC"></font>   <font size="2" face="Verdana" color="#000000">
+                                                                                            <a href="javascript:void(0)" style="font-size: 11px;
+                                                                                                            color: #000000; font-family: arial; text-decoration: none">
+                                                                                                <font style="font-size: 9pt" color="#0033CC">
+                                                                                                    @{ string[] useru9 = Model.U9.Split('_');}
+                                                                                                    <span onmouseover="ShowText('Message8'); return true;" onmouseout="HideText('Message8'); return true;" href="javascript:ShowText('Message8')">
+                                                                                                        @useru9[0]
+                                                                                                    </span>
+                                                                                                </font>
+                                                                                            </a>
+                                                                                        </font><font style="font-size: 9pt" face="Arial" color="#0033CC">
+
+                                                                                        </font>*@
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="4" height="30">
+                                                                <table width="2" height="25" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="2" height="23">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="81" height="30" class="w-81">
+                                                                <table width="81" height="25" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="81" height="25">
+                                                                                <font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                </font><p align="center">
+                                                                                    @if (Model.M10 == "10")
+                                                                                    {
+                                                                                        string[] user = Model.U10.Split('_');
+                                                                                        <a href="javascript:void(0)" onclick="getRefer('@Model.M1@user[1]')" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        string[] user = Model.U10.Split('_');
+                                                                                        <a href="javascript:void(0)" onmouseover="getDetails(@Model.M10)" onmouseout="closeDetails(@Model.M10)" onclick="getTree(@Model.M10)" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                        <div class="slender" id="slender_@Model.M10">
+
+                                                                                        </div>
+                                                                                    }
+                                                                                    @*<font style="font-size: 9pt" face="Arial" color="#0033CC">
+
+                                                                                        </font><font size="2" face="Verdana" color="#0033CC">
+
+                                                                                        </font><font size="2" face="Verdana" color="#000000">
+                                                                                            <a href="#?txtspcode=2570745&amp;optLeft=L" style="font-size: 11px; color: #000000; font-family: arial; text-decoration: none">
+                                                                                                @{ string[] useru10 = Model.U10.Split('_');}
+                                                                                                <font style="font-size: 9pt" color="#0033CC">
+                                                                                                    @useru10[0]
+                                                                                                </font>
+                                                                                            </a>
+                                                                                        </font><font style="font-size: 9pt" face="Arial" color="#0033CC">
+
+                                                                                        </font>*@
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="4" height="30">
+                                                                <table width="2" height="26" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="2" height="24">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="81" height="30">
+                                                                <table width="81" height="24" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="81" height="24" class="w-81">
+                                                                                <font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                </font>
+                                                                                <p align="center">
+                                                                                    <font style="font-size: 11px; font-weight:600;" face="Arial" color="#000000"></font>
+                                                                                    @if (Model.M11 == "10")
+                                                                                    {
+                                                                                        string[] user = Model.U11.Split('_');
+                                                                                        <a href="javascript:void(0)" onclick="getRefer('@Model.M1@user[1]')" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        string[] user = Model.U11.Split('_');
+                                                                                        <a href="javascript:void(0)" onmouseover="getDetails(@Model.M11)" onmouseout="closeDetails(@Model.M11)" onclick="getTree(@Model.M11)" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                        <div class="slender" id="slender_@Model.M11">
+
+                                                                                        </div>
+                                                                                    }
+                                                                                    @*<font color="#0033CC"></font>   <font size="2" face="Verdana" color="#000000">
+                                                                                            <a href="javascript:void(0)" style="font-size: 11px;
+                                                                                                            color: #000000; font-family: arial; text-decoration: none">
+                                                                                                <font style="font-size: 9pt" color="#0033CC">
+                                                                                                    @{ string[] useru11 = Model.U11.Split('_');}
+                                                                                                    <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                        @useru11[0]
+                                                                                                    </span>
+                                                                                                </font>
+                                                                                            </a>
+                                                                                        </font><font style="font-size: 9pt" face="Arial" color="#0033CC">
+
+                                                                                        </font>*@
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="7" height="30">
+                                                                <table width="7" height="25" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="7" height="23">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="77" height="30">
+                                                                <table width="77" height="24" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="77" height="24" class="w-77">
+                                                                                <font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                </font>
+                                                                                <p align="center">
+                                                                                    @if (Model.M12 == "10")
+                                                                                    {
+                                                                                        string[] user = Model.U12.Split('_');
+                                                                                        <a href="javascript:void(0)" onclick="getRefer('@Model.M1@user[1]','R')" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        string[] user = Model.U12.Split('_');
+                                                                                        <a href="javascript:void(0)" onmouseover="getDetails(@Model.M12)" onmouseout="closeDetails(@Model.M12)" onclick="getTree(@Model.M12)" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                        <div class="slender" id="slender_@Model.M12">
+
+                                                                                        </div>
+                                                                                    }
+                                                                                    @*<font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                            @{ string[] useru12 = Model.U12.Split('_');}
+                                                                                        </font><font size="2" face="Verdana" color="#0033CC">
+                                                                                            @useru12[0]
+                                                                                        </font>*@
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="4" height="30">
+                                                                <table width="2" height="27" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="2" height="25">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="78" height="30">
+                                                                <table width="78" height="24" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="78" height="24" class="w-78">
+                                                                                <font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                </font>
+                                                                                <p align="center">
+                                                                                    @if (Model.M13 == "10")
+                                                                                    {
+                                                                                        string[] user = Model.U13.Split('_');
+                                                                                        <a href="javascript:void(0)" onclick="getRefer('@Model.M1@user[1]','R')" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        string[] user = Model.U13.Split('_');
+                                                                                        <a href="javascript:void(0)" onmouseover="getDetails(@Model.M13)" onmouseout="closeDetails(@Model.M13)" onclick="getTree(@Model.M13)" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                        <div class="slender" id="slender_@Model.M13">
+
+                                                                                        </div>
+                                                                                    }
+                                                                                    @*<font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                            @{ string[] useru13 = Model.U13.Split('_');}
+                                                                                        </font><font size="2" face="Verdana" color="#0033CC">
+                                                                                            @useru13[0]
+                                                                                        </font>*@
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="4" height="30">
+                                                                <table width="4" height="28" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="4" height="26">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="75" height="30">
+                                                                <table width="75" height="25" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="75" height="25">
+                                                                                <font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                </font>
+                                                                                <p align="center">
+                                                                                    @if (Model.M14 == "10")
+                                                                                    {
+                                                                                        string[] user = Model.U14.Split('_');
+                                                                                        <a href="javascript:void(0)" onclick="getRefer('@Model.M1@user[1]','R')" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        string[] user = Model.U14.Split('_');
+                                                                                        <a href="javascript:void(0)" onmouseover="getDetails(@Model.M14)" onmouseout="closeDetails(@Model.M14)" onclick="getTree(@Model.M14)" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                        <div class="slender" id="slender_@Model.M14">
+
+                                                                                        </div>
+                                                                                    }
+                                                                                    @*<font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                            @{ string[] useru14 = Model.U14.Split('_');}
+                                                                                        </font><font size="2" face="Verdana" color="#0033CC">
+                                                                                            @useru14[0]
+                                                                                        </font>*@
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="4" height="30">
+                                                                <table width="4" height="28" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="4" height="26">
+                                                                                <font color="#0033CC">
+                                                                                    &nbsp;
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td width="163" class="user15" height="30">
+                                                                <table width="91" height="26" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="87" height="24">
+                                                                                <font style="font-size: 9pt" face="Arial" color="#0033CC"></font>
+                                                                                <p align="center">
+                                                                                    @if (Model.M15 == "10")
+                                                                                    {
+                                                                                        string[] user = Model.U15.Split('_');
+                                                                                        <a href="javascript:void(0)" onclick="getRefer('@Model.M1@user[1]','R')" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        string[] user = Model.U15.Split('_');
+                                                                                        <a href="javascript:void(0)" onmouseover="getDetails(@Model.M15)" onmouseout="closeDetails(@Model.M15)" onclick="getTree(@Model.M15)" style="text-decoration: none">
+                                                                                            <font style="font-size: 11px; font-weight:600;" face="Verdana" color="#000000">
+                                                                                                <span onmouseover="ShowText('Message10'); return true;" onmouseout="HideText('Message10'); return true;" href="javascript:ShowText('Message10')">
+                                                                                                    @user[0]
+                                                                                                </span>
+                                                                                            </font>
+                                                                                        </a>
+                                                                                        <div class="slender" id="slender_@Model.M15">
+
+                                                                                        </div>
+                                                                                    }
+                                                                                    @*<font style="font-size: 9pt" face="Arial" color="#0033CC">
+                                                                                            @{ string[] useru15 = Model.U15.Split('_');}
+                                                                                        </font><font size="2" face="Verdana" color="#0033CC">
+                                                                                            @useru15[0]
+                                                                                        </font>*@
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="851" valign="top" height="32">
+                                                <font color="#0033CC">
+                                                    &nbsp;
+                                                </font>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" valign="top" height="29" align="center"></td>
+        </tr>
+    </tbody>
+</table>
+
+

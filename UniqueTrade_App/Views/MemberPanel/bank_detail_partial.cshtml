@@ -1,0 +1,46 @@
+﻿@model IEnumerable<UniqueTrade_App.Models.BankDetailsModel>
+@using UniqueTrade_App.CommanFunction;
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    Layout = null;
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="table-responsive">
+            <table id="order-listing" class="table">
+                <thead>
+                    <tr class="text-black">
+                        <th>Sr. No.</th>
+                        <th>Account Name</th>
+                        <th>Account No</th>
+                        <th>Bank Name</th>
+                        <th>Branch Name</th>
+                        <th>IFSC Code</th>
+                        <th>Account Type</th>
+                        <th>Mobile No</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int rows = 0;}
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@(rows = rows + 1)</td>
+                            <td>@item.ac_name</td>
+                            <td>@item.ac_no</td>
+                            <td>@item.bk_name</td>
+                            <td>@item.bk_branch</td>
+                            <td>@item.bk_ifsc</td>
+                            <td>@item.ac_type</td>
+                            <td>@item.bank_mobile_no</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+                                
+

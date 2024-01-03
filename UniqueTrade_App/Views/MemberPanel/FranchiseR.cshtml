@@ -1,0 +1,146 @@
+﻿@model UniqueTrade_App.Models.FundRequest
+@using UniqueTrade_App.CommanFunction;
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "Withdraw";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<div class="main-content">
+
+    <!-- begin::page-header -->
+    <div class="page-header" data-backround-image="/Content/Dash/assets/media/image/image1.png">
+        <div class="container-fluid d-md-flex justify-content-between">
+            <h4 class="text-white">Franchise</h4>
+
+        </div>
+    </div>
+    <!-- end::page-header -->
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card main_form">
+                    <div class="card-body">
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="card-title text-white font-weight-bold">Request for Franchise</h6>
+                                <div class="form1">
+                                    @if (TempData["fundRequest"] != null)
+                                    {
+                                        if (TempData["fundRequest"].ToString() != "1")
+                                        {
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="alert alert-success alert-dismissible">
+                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                        @TempData["fundRequest"]
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="alert alert-success alert-dismissible">
+                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                        Your franchise request proccesed successfully
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    @using (Html.BeginForm("FranchiseR", "MemberPanel", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.ValidationSummary(true)
+
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input type="text" class="form-control" name="fname" required />
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Mobile Number</label>
+                                            <input type="text" class="form-control" name="mnumber"  required/>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label>State</label>
+                                            <input type="text" class="form-control" name="state" required />
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label>District</label>
+                                            <input type="text" class="form-control" name="dstrict" required />
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Gpay/Phonepe Number</label>
+                                            <input type="text" class="form-control" name="gpay" id="gpay" maxlength="10"  />
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>BTC Address</label>
+                                            <input type="text" class="form-control" name="btcac"   />
+
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label> Amount</label>
+
+                                            @Html.DropDownListFor(m => m.amount, new List<SelectListItem>
+                                             {
+                                                   new SelectListItem {Value="200",Text="$ 200" },
+                                                   new SelectListItem {Value="500",Text="$ 500" },
+                                                   new SelectListItem {Value="1000",Text="$ 1000" },
+                                             }, "Select Package", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.amount, "", new { @class = "text-danger", @required = true })
+
+                                            @Html.ValidationMessageFor(model => model.amount)
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Attachement</label>
+                                            @Html.TextBoxFor(m => m.Attachment, "", new { @class = "form-control", @type = "file", @style = "opacity: 1;", @placeholder = "file" })
+                                            @Html.ValidationMessageFor(m => m.Attachment, "", new { @class = "text-danger" })
+                                        </div>
+
+
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <img src="/Content/Dash/assets/media/image/qr-code.png" alt="" style="width:100%">
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+

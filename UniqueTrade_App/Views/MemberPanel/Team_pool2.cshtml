@@ -1,0 +1,137 @@
+﻿@model IEnumerable<UniqueTrade_App.Models.UserLevelModel>
+@{
+    ViewBag.Title = "Team_pool2";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="container-full">
+        <div class="content-header">
+            <div class="d-flex align-items-center">
+                <div class="mr-auto">
+                    <h3 class="page-title">Pool 1 Report</h3>
+                    <div class="d-inline-block align-items-center">
+                        <nav>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#"><i class="ti-home"></i></a></li>
+                                <li class="breadcrumb-item" aria-current="page">Pool Team Report</li>
+                                <li class="breadcrumb-item active" aria-current="page">Pool 1 Report</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Main content -->
+        <!-- end page title -->
+
+        <section class="content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Pool 1 Report</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.No</th>
+                                            <th>joining Date</th>
+                                            <th>User ID</th>
+                                            <th>Member Name</th>
+                                            <th>Email ID</th>
+                                            <th>Mobile Number</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <!--<thead>
+                                        <tr>
+                                            <th>Sr.No</th>
+                                            <th>User ID</th>
+                                            <th>Member Name</th>
+                                            <th>Level 1</th>
+                                            <th>Level 2</th>
+                                            <th>Level 3</th>
+                                            <th>Level 4</th>
+                                            <th>Level 5</th>
+                                            <th>Level 6</th>
+                                            <th>Level 7</th>
+                                            <th>Level 8</th>
+                                            <th>Level 9</th>
+                                            <th>Level 10</th>-->
+                                    @*<th>Rebirth Count</th>*@
+                                    @*<th>View</th>*@
+                                    <!--</tr>
+                                    </thead>-->
+                                    <tbody>
+                                        @{ int rows = 0;}
+                                        @foreach (var item in Model)
+                                        {
+                                            if (item.Stage_entry == "Y")
+                                            {
+                                                <tr>
+                                                    <td>@(rows = rows + 1)</td>
+                                                    <td>@item.username</td>
+                                                    <td>@item.memb_name</td>
+                                                    <td>@item.LEVELMATRIX1</td>
+                                                    <td>@item.LEVELMATRIX2</td>
+                                                    <td>@item.LEVELMATRIX3</td>
+                                                    <td>@item.LEVELMATRIX4</td>
+                                                    <td>@item.LEVELMATRIX5</td>
+                                                    <td>@item.LEVELMATRIX6</td>
+                                                    <td>@item.LEVELMATRIX7</td>
+                                                    <td>@item.LEVELMATRIX8</td>
+                                                    <td>@item.LEVELMATRIX9</td>
+                                                    <td>@item.LEVELMATRIX10</td>
+                                                    @*<td>@item.level_no</td>*@
+                                                    @*<td>
+                                                            <span class="btn btn-outline btn-circle red btn-sm blue" style="padding: 2px;line-height: 2;">
+                                                                <a alt="View Details" href="/MemberPanel/Team_pool2_ByStage">
+                                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                </a>
+                                                            </span>
+                                                        </td>*@
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+            <!-- end row -->
+
+
+
+
+
+
+        </section>
+        <!-- /.content -->
+    </div>
+</div>
+

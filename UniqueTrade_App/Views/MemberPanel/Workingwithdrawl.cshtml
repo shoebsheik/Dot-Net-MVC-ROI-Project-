@@ -1,0 +1,253 @@
+﻿@model UniqueTrade_App.Models.WithdrawModel
+@using UniqueTrade_App.CommanFunction;
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "Withdraw";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-custom">
+                        <li class="breadcrumb-item"><a href="#">Withdrawal</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            <span>Withdrawal</span>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!--profile-->
+        <div class="row mt-2 flex-grow">
+
+            <div class="col-lg-8 offset-lg-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Withdrawal</h4>
+                        @if (TempData["WithdrawlAlert"] != null)
+                        {
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    @if (TempData["WithdrawlAlert"].ToString() == "1")
+                                    {
+                                        <div class="alert alert-success" style="color:white;">
+                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            Your request for withdrawal proceed successfully, <br />
+                                            Fund will get credited within 48 to 72 working hours from the time of withdrawal.
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="alert alert-danger alert-dismissible" style="color:white;">
+                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            @TempData["WithdrawlAlert"]
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        @using (Html.BeginForm("Workingwithdrawl", "MemberPanel", FormMethod.Post, new { @class = "forms-sample", enctype = "multipart/form-data" }))
+                        {
+                            @Html.ValidationSummary(true)
+                            <div class="form-group row">
+                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Mobile Number:</label>
+                                <div class="col-sm-9">
+                                    @Html.DropDownListFor(m => m.request_mobile_no, ViewBag.AllMobileNo as List<SelectListItem>, "Select Mobile No", new { @class = "form-control", @onchange = "getBankAccByMobile()" })
+                                    @Html.ValidationMessageFor(model => model.request_mobile_no, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-sm-3 col-form-label">Bank Acoount:</label>
+                                <div class="col-sm-9">
+                                    @Html.DropDownListFor(model => model.bank_id, new List<SelectListItem> {
+                                          new SelectListItem {Value="",Text="Select Bank Account"}
+                                        }, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.bank_id, "", new { @class = "js-example-basic-single" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-sm-3 col-form-label">Withdrawal In</label>
+                                <div class="col-sm-9">
+                                    @Html.DropDownListFor(m => m.Wallet_Type, new List<SelectListItem>
+                                                     {
+                                                        new SelectListItem{Text="Working WALLET( ₹ "+Model.Working_BalanceAmount + " )" , Value="WORKING"},
+                                                        new SelectListItem{Text="Profit WALLET ( ₹ "+Model.ROI_Balance + " )",Value="ROI"},
+                                                        new SelectListItem{Text="Reward WALLET ( ₹ "+Model.reward_BalanceAmount + " )",Value="REWARD"},
+                                                     }, "Select Wallet type", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Wallet_Type, "", new { @class = "js-example-basic-single" })
+
+                                    @Html.ValidationMessageFor(model => model.Wallet_Type)
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Amount </label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.Amount, new { @maxlength = "10", @class = "form-control", @placeholder = "Withdrawal Amount (Rs)", @onkeypress = "return isNumber(event);" })
+                                    @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-dark mr-2">Submit</button>
+                        }
+                        </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+    <script>
+        $("#Withdrawal_In").change(function () {
+            calculationWith();
+        });
+        $("#Amount").change(function () {
+            calculationWith1();
+        });
+
+        function calculationWith1() {
+            var Amount = $("#Amount").val();
+            var chagres = "10";
+            var gstAmount = "0";
+            var paidAmount = "0";
+            paidAmount = (parseFloat(Amount) * 90) / 100
+            $("#PaidAmount").val(paidAmount);
+        }
+        function calculationWith() {
+            var Wallet_Type = $("#Wallet_Type").val();
+            var Withdrawal_In = $("#Withdrawal_In").val();
+            var Amount = $("#Amount").val();
+            var chagres = "0";
+            var gstAmount = "0";
+            var paidAmount = "0";
+            var inrRate = "0";
+            var inrAmount = "0";
+            var finalPaidAmount = "0";
+            var btcAmount = "0";
+
+            if (Withdrawal_In == "" || Amount == "") {
+                $("#divCharges").css("display", "none");
+                $("#divPaidAmountUSD").css("display", "none");
+                $("#divPaidRupees").css("display", "none");
+                $("#divGST").css("display", "none");
+                $("#divFinalPaidRupees").css("display", "none");
+
+                $("#ldlPaid").html("");
+                $("#withCharges").val("");
+                $("#paidAmountUSD").val("");
+                $("#paidAmountINR").val("");
+                $("#paidGSTAmount").val("");
+                $("#paidFinalAmountINR").val("");
+            }
+            else {
+                if (Withdrawal_In == "BTC") {
+                    alert("2");
+                    $.get('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=BTC', function (result) {
+                        btcAmount = result.BTC;
+
+                        //chagres = (parseFloat(Amount) * 10) / 100;
+                        paidAmount = parseFloat(Amount);//- parseFloat(chagres);
+                        btcAmount = parseFloat(paidAmount) * parseFloat(btcAmount);
+                        $("#lblfinalpd").html(Withdrawal_In + " Amount :");
+                        $("#withCharges").val(chagres);
+                        $("#paidAmountUSD").val(paidAmount);
+                        $("#paidFinalAmountINR").val(parseFloat(btcAmount).toFixed(10));
+
+                        $("#divCharges").css("display", "");
+                        $("#divPaidAmountUSD").css("display", "");
+                        $("#divPaidRupees").css("display", "");
+                        $("#divGST").css("display", "none");
+                        $("#divFinalPaidRupees").css("display", "block");
+                    });
+                }
+                else if (Withdrawal_In == "ETH") {
+                    $.get('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=ETH', function (result) {
+                        btcAmount = result.ETH;
+
+                        //chagres = (parseFloat(Amount) * 5) / 100;
+                        paidAmount = parseFloat(Amount);// - parseFloat(chagres);
+                        //gstAmount = ((parseFloat(Amount) * 10) / 100) * parseFloat(btcAmount);
+                        btcAmount = parseFloat(paidAmount) * parseFloat(btcAmount);
+                        //finalPaidAmount = parseFloat(btcAmount) - parseFloat(gstAmount);
+
+                        $("#lblPaidText").html(Withdrawal_In + " Amount :");
+                        $("#withCharges").val(chagres); lbladminch
+                        $("#lbladminch").html("Admin Charges ($) :");
+                        $("#lblfinalpd").html("ETH Amount :");
+                        $("#paidAmountUSD").val(paidAmount);
+                        $("#paidFinalAmountINR").val(parseFloat(btcAmount).toFixed(10));
+                        $("#paidGSTAmount").val(gstAmount);
+                        $("#paidFinalAmountINR").val(finalPaidAmount);
+                        $("#divCharges").css("display", "");
+                        $("#divPaidAmountUSD").css("display", "");
+                        $("#divPaidRupees").css("display", "");
+                        $("#divGST").css("display", "");
+                        $("#divFinalPaidRupees").css("display", "block");
+                    });
+                }
+                else if (Withdrawal_In == "LTC") {
+                    $.get('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=LTC', function (result) {
+                        btcAmount = result.LTC;
+
+                        //chagres = (parseFloat(Amount) * 5) / 100;
+                        paidAmount = parseFloat(Amount);// - parseFloat(chagres);
+                        //gstAmount = ((parseFloat(Amount) * 10) / 100) * parseFloat(btcAmount);
+                        btcAmount = parseFloat(paidAmount);//* parseFloat(btcAmount);
+                        //finalPaidAmount = parseFloat(btcAmount) - parseFloat(gstAmount);
+
+                        $("#lblPaidText").html(Withdrawal_In + " Amount :");
+                        $("#lbladminch").html("Admin Charges ($) :");
+                        $("#lblfinalpd").html("LTC Amount :");
+                        $("#withCharges").val(chagres);
+                        $("#paidAmountUSD").val(paidAmount);
+                        $("#paidFinalAmountINR").val(parseFloat(btcAmount).toFixed(10));
+                        $("#paidGSTAmount").val(gstAmount);
+                        $("#paidFinalAmountINR").val(finalPaidAmount);
+                        $("#divCharges").css("display", "");
+                        $("#divPaidAmountUSD").css("display", "");
+                        $("#divPaidRupees").css("display", "");
+                        $("#divGST").css("display", "");
+                        $("#divFinalPaidRupees").css("display", "block");
+                    });
+                }
+                else {
+                    inrRate = "70";
+                    chagres = (parseFloat(Amount) * 5) / 100;
+                    paidAmount = parseFloat(Amount) - parseFloat(chagres);
+                    inrAmount = parseFloat(paidAmount) * parseFloat(inrRate);
+                    gstAmount = ((parseFloat(Amount) * 10) / 100) * parseFloat(inrRate);
+                    finalPaidAmount = parseFloat(inrAmount) - parseFloat(gstAmount);
+
+                    $("#lblPaidText").html("Paid Amount (₹) :");
+                    $("#withCharges").val(chagres);
+                    $("#paidAmountUSD").val(paidAmount);
+                    $("#paidAmountINR").val(inrAmount);
+                    $("#paidGSTAmount").val(gstAmount);
+                    $("#paidFinalAmountINR").val(finalPaidAmount);
+
+                    $("#divCharges").css("display", "");
+                    $("#divPaidAmountUSD").css("display", "");
+                    $("#divPaidRupees").css("display", "");
+                    $("#divGST").css("display", "");
+                    $("#divFinalPaidRupees").css("display", "");
+                }
+            }
+        }
+    </script>
+    <script>
+        function getBankAccByMobile() {
+            var optionhtml1 = '<option value="">' + "Select Bank Account" + '</option>';
+            $("#bank_id").html(optionhtml1);
+            var mobileNo = $("#request_mobile_no").val();
+            $.get('@Url.Action("getBankAccByMobile", "MemberPanel")?mobile=' + mobileNo + '', function (responce) {
+                $.each(responce, function (i, obj) {
+                    var optionhtml = '<option value="' + obj.srno + '">' + obj.ac_no + '</option>';
+                    $("#bank_id").append(optionhtml);
+                });
+            });
+        }
+    </script>

@@ -1,0 +1,289 @@
+﻿@model UniqueTrade_App.Models.RegistrationModel
+@{
+    ViewBag.Title = "signup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- #INCLUDE FILE = "header.asp" -->
+<!-- main-area -->
+<main>
+
+    <!-- breadcrumb-area -->
+    <section class="breadcrumb-area breadcrumb-bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="breadcrumb-content">
+                        <h2 class="title">Register Here</h2>
+                        <nav aria-label="Breadcrumbs">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/Home/Index"><span>Home</span></a>
+                                </li>
+                                <li class="breadcrumb-item"><span>Register</span></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb-area-end -->
+
+    <section id="contact" class="contact-aera contact-bg">
+        <div class="container custom-container-four">
+            <div class="contact-inner">
+                <div class="row">
+
+                    <div class="col-lg-6 offset-md-3">
+                        <div class="contact-form-wrap-two wow fadeInRight form-border" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInRight;">
+                            <h2 class="title text-center">REGISTER</h2>
+                            @if (TempData["SignUpAlert"] != null)
+                            {
+                                <div class="error-box">
+                                    <div class="alert alert-success">@TempData["SignUpAlert"]</div>
+                                </div>
+                            }
+
+                            @using (Html.BeginForm("signup", "Home", FormMethod.Post, new { @class = "", @id = "log-form" }))
+                            {
+                                <div class="row">
+
+                                    <div class="col-lg-6">
+                                        @*<label>Referral ID</label>*@
+                                        @Html.TextBoxFor(model => model.sp_user, new { @class = "", @placeholder = "Referral ID", @maxlength = "30", @onchange = "getUserName()" })
+                                        @Html.ValidationMessageFor(model => model.sp_user, "", new { @style = "color:red;" })
+                                    </div>
+
+
+                                    <div class="col-lg-6">
+                                        @*<label>Referral Name</label>*@
+                                        <input type="text" placeholder="Sponsor Name*" class="sp_name" id="sponsorName" value="@Model.MembName_L" name="sponsorName" readonly />
+                                    </div>
+                                </div>
+
+                                @*<div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Your Name</label>
+                                        @Html.TextBoxFor(model => model.Memb_Name, new { @class = "form-control", @placeholder = "Your Name", @maxlength = "150" })
+                                        @Html.ValidationMessageFor(model => model.Memb_Name, "", new { @style = "color:red;" })
+                                    </div>*@
+                                <div class="row">
+
+                                    <div class="col-lg-6">
+                                        @*<label>Email</label>*@
+                                        @Html.TextBoxFor(model => model.EMail, new { @class = "", @placeholder = "Your Email", @maxlength = "150", @onkeypress = "return isPassword(event);" })
+                                        @Html.ValidationMessageFor(model => model.EMail, "", new { @style = "color:red;" })
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        @*<label>Mobile No</label>*@
+                                        @Html.TextBoxFor(model => model.Mobile_No, new { @class = "", @placeholder = "Mobile No", @maxlength = "10" })
+                                        @Html.ValidationMessageFor(model => model.Mobile_No, "", new { @style = "color:red;" })
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+
+
+
+                                    <div class="col-lg-6">
+
+                                        @*<label>Name</label>*@
+                                        @Html.TextBoxFor(model => model.Memb_Name, new { @class = "", @placeholder = "Your Name", @maxlength = "150" })
+                                        @Html.ValidationMessageFor(model => model.Memb_Name, "", new { @style = "color:red;" })
+                                    </div>
+
+                                    <div class="col-lg-6">
+
+                                        @*<label>Password</label>*@
+                                        @Html.PasswordFor(model => model.mpwd, new { @class = "", @placeholder = "Password", @maxlength = "30", @onkeypress = "return isPassword(event);" })
+                                        @Html.ValidationMessageFor(model => model.mpwd, "", new { @style = "color:red;" })
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <!--<div class=" col-lg-6">-->
+                                    @*<label>Country </label>*@
+                                    <!--<select class="form-select country" value="@Model.Country" aria-label="Default select example"  id="country">
+                                                <option selected>Select Country</option>
+                                                <option value="Afghanistan">Afghanistan</option>
+                                                <option value="Albania">Albania</option>
+                                                <option value="Algeria">Algeria</option>
+                                                <option value="Andorra">Andorra</option>
+                                                <option value="Angola">Angola</option>
+                                                <option value="Antigua">Antigua</option>
+                                                <option value="Argentina">Argentina</option>
+                                                <option value="Armenia">Armenia</option>
+                                                <option value="Australia">Australia</option>
+                                                <option value="Austria">Austria</option>
+                                                <option value="Azerbaijan">Azerbaijan</option>
+                                                <option value="Bahamas">Bahamas</option>
+                                                <option value="Bahrain">Bahrain</option>
+                                                <option value="Bangladesh">Bangladesh</option>
+                                                <option value="Barbados">Barbados</option>
+                                                <option value="Belarus">Belarus</option>
+                                                <option value="Belgium">Belgium</option>
+                                                <option value="Brazil">Brazil</option>
+                                                <option value="Brunei">Brunei</option>
+                                                <option value="Burundi">Burundi</option>
+                                                <option value="Cambodia">Cambodia</option>
+                                                <option value="Cameroon">Cameroon</option>
+                                                <option value="Canada">Canada</option>
+                                                <option value="Chad">Chad</option>
+                                                <option value="Chile">Chile</option>
+                                                <option value="China">China</option>
+                                                <option value="Colombia">Colombia</option>
+                                                <option value="Cyprus">Cyprus</option>
+                                                <option value="Denmark">Denmark</option>
+                                                <option value="Djibouti">Djibouti</option>
+                                                <option value="Dominica">Dominica</option>
+                                                <option value="Ecuador">Ecuador</option>
+                                                <option value="Egypt">Egypt</option>
+                                                <option value="Eritrea">Eritrea</option>
+                                                <option value="Estonia">Estonia</option>
+                                                <option value="Ethiopia">Ethiopia</option>
+                                                <option value="Fiji">Fiji</option>
+                                                <option value="Finland">Finland</option>
+                                                <option value="France">France</option>
+                                                <option value="Gabon">Gabon</option>
+                                                <option value="Gambia">Gambia</option>
+                                                <option value="Georgia">Georgia</option>
+                                                <option value="Germany">Germany</option>
+                                                <option value="Ghana">Ghana</option>
+                                                <option value="Haiti">Haiti</option>
+                                                <option value="Honduras">Honduras</option>
+                                                <option value="Hungary">Hungary</option>
+                                                <option value="Iceland">Iceland</option>
+                                                <option value="India">India</option>
+                                                <option value="Indonesia">Indonesia</option>
+                                                <option value="Iran">Iran</option>
+                                                <option value="Jamaica">Jamaica</option>
+                                                <option value="Japan">Japan</option>
+                                                <option value="Jordan">Jordan</option>
+                                                <option value="Kazakhstan">Kazakhstan</option>
+                                                <option value="Kenya">Kenya</option>
+                                                <option value="Kiribati">Kiribati</option>
+                                                <option value="Kuwait">Kuwait</option>
+                                                <option value="Laos">Laos</option>
+                                            </select>
+
+                                    </div>-->
+                                    <div class="col-lg-6">
+
+                                        @*<label>Confirm Password</label>*@
+                                        @Html.PasswordFor(model => model.ConfirmPass, new { @class = "", @placeholder = "Confirm Password", @maxlength = "30", @onkeypress = "return isPassword(event);" })
+                                        @Html.ValidationMessageFor(model => model.ConfirmPass, "", new { @style = "color:red;" })
+                                    </div>
+
+
+
+
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-two">Register</button>
+                                    <p class="mt-3">Already Have an Account ? <a href="/Home/signin">Click Here</a></p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+<!-- main-area-end -->
+<!-- #INCLUDE FILE = "footer.asp" -->
+
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+<script>
+                $("#chkSponser").click(function () {
+                    if (this.checked == true) {
+                        $.get('@Url.Action("getFirstUser", "Home")', function (responce) {
+                            $("#sp_user").val(responce.Memb_Name);
+                            $("#sponsorName").val(responce.sp_user);
+                            $("#sp-invalid").css("display", "none");
+                        });
+                    }
+                    else {
+                        $("#sponsorName").val('');
+                        $("#sp_user").val('');
+                    }
+                });
+
+                function getUserName() {
+
+                    var spEmail = $("#sp_user").val();
+
+                    if (spEmail != "") {
+                        $.get('@Url.Action("getFirstUser", "Home")?sp_user=' + spEmail + '', function (responce) {
+                            if (responce.sp_user == "") {
+                                //$("#sp-invalid").css("display", "block");
+                                $("#sponsorName").val("Invalid Sponesr Id");
+                            }
+                            else {
+                                //$("#sp-invalid").css("display", "none");
+                                $("#sp_user").val(responce.Memb_Name);
+                                $("#sponsorName").val(responce.sp_user);
+                            }
+                        });
+                    }
+                    else {
+                        $("#sp-invalid").css("display", "none");
+                        $("#sponsorName").val('');
+                        $("#sp_user").val('');
+                    }
+                }
+</script>
+<script>
+                $("#chkCountry").click(function () {
+                    if (this.checked == true) {
+                        $.get('@Url.Action("GetCountry", "Home")', function (responce) {
+                            $("#Country").val(responce.Phone_No);
+                            $("#CountryName").val(responce.Country);
+                            $("#sp-invalid").css("display", "none");
+                        });
+                    }
+                    else {
+                        $("#CountryName").val('');
+                        $("#Country").val('');
+                    }
+                });
+
+                function getCountry() {
+
+                    var spEmail = $("#Country").val();
+
+                    if (spEmail != "") {
+                        $.get('@Url.Action("getCountryCode", "Home")?CountryName=' + spEmail + '', function (responce) {
+                            if (responce.CountryCode == "") {
+                                $("#CountryCode").val("");
+                                //alert(CountryCode);
+                            }
+                            else {
+                                $("#CountryCode").val(responce.CountryCode);
+                                //$("#Country").val(responce.Country);
+
+                                // alert(spEmail);
+                            }
+                        });
+                    }
+                    else {
+                        $("#sp-invalid").css("display", "none");
+                        $("#CountryName").val('');
+                        $("#Country_Code").val('');
+                    }
+                }
+</script>
+

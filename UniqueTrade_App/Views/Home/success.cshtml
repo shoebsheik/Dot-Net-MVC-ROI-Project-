@@ -1,0 +1,49 @@
+﻿@model UniqueTrade_App.Models.UserModel
+@{
+    ViewBag.Title = "success";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!-- #INCLUDE FILE = "header.asp" -->
+<!-- main-area -->
+<main>
+
+
+
+    <section id="contact" class="contact-aera contact-bg">
+        <div class="container custom-container-four">
+            <div class="contact-inner">
+                <div class="row">
+
+                    <div class="col-lg-6 offset-md-3">
+                        <div class="contact-form-wrap-two wow fadeInRight form-border" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInRight;">
+                            <h2 class="title text-center">Congratulations !!</h2>
+                            @if (TempData["SignUpEmailAlert"] != null)
+                            {
+                                <div class="error-box">
+                                    <div class="alert alert-success">@TempData["SignUpEmailAlert"]</div>
+                                </div>
+                            }
+                            <div class="text-center">
+                                <p>THANK YOU FOR YOUR REGISTRATION IN UNIQUETRADE YOUR CREDENTIAL DETAILS ARE LISTED BELOW</p>
+                                <p class="mb-0">UserID : @Model.username</p>
+                                <p>Password :  @Model.mpwd</p>
+                                <p>Back To Home ? <a href="/Home/Index">Click Here</a></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+<!-- main-area-end -->
+<!-- #INCLUDE FILE = "footer.asp" -->
+
+
+
+

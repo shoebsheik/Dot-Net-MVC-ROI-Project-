@@ -1,0 +1,668 @@
+﻿@*@using UniqueTrade_App.CommanFunction;*@
+@model UniqueTrade_App.Models.FundRequest
+@{
+    //UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "Coinpayment_transaction";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="">Add Fund</a></li>
+                <li class="breadcrumb-item"><a href="/MemberPanel/index">Home</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-6 mx-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Add Fund</h4>
+                    </div>
+                    <div class="card">
+                        <h4 class="card-title" style="padding-left:50px">0xe6d1878e28C8918A2cb35C0863723C526427FD47</h4>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="basic-form">
+                            @if (TempData["fundRequest"] != null)
+                            {
+                                if (TempData["fundRequest"].ToString() != "1")
+                                {
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="alert alert-success alert-dismissible text-white">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                @TempData["fundRequest"]
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="alert alert-success alert-dismissible text-white">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                Your fund request proccesed successfully
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                            @using (Html.BeginForm("Coinpayment_transaction", "MemberPanel", FormMethod.Post, new { @class = "form-content", enctype = "multipart/form-data" }))
+                            {
+
+
+                                @Html.ValidationSummary(true)
+                                <div class="mb-3">
+                                    <label class="form-label">Coin</label>
+                                    @Html.DropDownListFor(m => m.BTC_Type, new List<SelectListItem>
+                                                                    {
+                                                                       new SelectListItem{Text="USDT",Value="USDT.TRC20"},
+                                                                       new SelectListItem{Text="BUSD" , Value="BUSD.BEP20"},
+
+                                                                    }, "Select  Coin type", new { @class = "form-control input-defaul" })
+                                    @Html.ValidationMessageFor(m => m.BTC_Type, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Deposit Amount</label>
+                                    @Html.TextBoxFor(model => model.amount, new { @maxlength = "10", @class = "form-control input-defaul", @placeholder = "Deposite Amount ($)", @onkeypress = "return isNumber(event);" })
+                                    @Html.ValidationMessageFor(model => model.amount, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Amount</label>
+                                    @Html.TextBoxFor(model => model.USD_Amount, new { @class = "form-control input-defaul", @placeholder = "Converted Amount", @onkeypress = "return isNumber(event);", @readonly = true })
+                                    @Html.ValidationMessageFor(model => model.USD_Amount, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Transaction Hash</label>
+                                    @Html.TextBoxFor(model => model.txtHash, new { @class = "form-control input-defaul", @placeholder = "txt Hash" })
+                                    @Html.ValidationMessageFor(model => model.txtHash, "", new { @class = "text-danger" })
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/web3@0.19.0/dist/web3.js"></script>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+ 
+
+<script>
+
+
+    var Staking_wallet_addd = "0x4c44CE1815804B86fEF99D0a00c80F515Bf322ed";   /*"0xDCBa4d80D88B0033D59b9ef58271696ed8059859";*/ /*"0xe5AFd8b92A80692c72333bF80f2581974cBd2edE";*//*"0x3B6E786041c4AA4e6Ea8940359cd4427105e5800";*/
+    var ABI_token = [{ "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "owner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "spender", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" }], "name": "Approval", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }], "name": "OwnershipTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "from", "type": "address" }, { "indexed": true, "internalType": "address", "name": "to", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" }], "name": "Transfer", "type": "event" }, { "constant": true, "inputs": [{ "internalType": "address", "name": "owner", "type": "address" }, { "internalType": "address", "name": "spender", "type": "address" }], "name": "allowance", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "internalType": "address", "name": "spender", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "approve", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "internalType": "address", "name": "account", "type": "address" }], "name": "balanceOf", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "decimals", "outputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "internalType": "address", "name": "spender", "type": "address" }, { "internalType": "uint256", "name": "subtractedValue", "type": "uint256" }], "name": "decreaseAllowance", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "getOwner", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "internalType": "address", "name": "spender", "type": "address" }, { "internalType": "uint256", "name": "addedValue", "type": "uint256" }], "name": "increaseAllowance", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "mint", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "name", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "owner", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "renounceOwnership", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "symbol", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "totalSupply", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "internalType": "address", "name": "recipient", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "transfer", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "internalType": "address", "name": "sender", "type": "address" }, { "internalType": "address", "name": "recipient", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "transferFrom", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }], "name": "transferOwnership", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }];
+    var ADDRESS_token = "0x68276a2e26621c3E4eDB6a13A66fa5dF22e2B35a";
+
+    /* window.addEventListener('load', async () => {*/
+    $(document).ready(async function () {
+
+        if (window.ethereum) {
+            window.web3 = new Web3(ethereum);
+            try {
+
+                await ethereum.enable();
+                if (web3.version.network != 97) {
+                    alert('Connect to mainnet');
+                }
+                else {
+
+                    getCurrentAccount();
+                    balanceftk();
+                }
+                web3.eth.sendTransaction({/* ... */ });
+            } catch (error) {
+
+            }
+        }
+        // Legacy dapp browsers...
+        else if (window.web3) {
+            window.web3 = new Web3(web3.currentProvider);
+            // console.log(web3);
+
+            // Acccounts always exposed
+            web3.eth.sendTransaction({/* ... */ });
+        }
+        // Non-dapp browsers...
+        else {
+            console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+            alert('Requires CKIT purse to interact smart contract You should consider trying MetaMask!');
+            requiredMetamask();
+        }
+
+    });
+
+    function initApp_token() {
+        debugger
+        window.contract = web3.eth.contract(ABI_token);
+        window.EYZcontract = contract.at(ADDRESS_token);
+
+
+        window.EYZcontract.approve(ADDRESS_MAIN_Plan, balance_MAIN, {
+            from: web3.eth.accounts[0]
+            //  value: 20000000000000000
+
+        }, function (error, result) {
+            if (!error) {
+                console.log(result + 'Final result is ');
+                $('.auth-reg').trigger('to.owl.carousel', 1);
+                sliderNav.removeClass('active');
+            }
+            else {
+                console.log(error.code)
+                alert('Reject');
+            }
+        });
+
+    }
+
+    function balanceftk() {
+        debugger
+        // alert('Balance :  ');
+        window.contract = web3.eth.contract(ABI_token);
+        window.DNCTcontract = contract.at(ADDRESS_token);
+
+        const accounts = web3.eth.accounts[0];
+        // alert(accounts);
+        window.DNCTcontract.balanceOf(accounts, {
+            from: web3.eth.accounts[0]
+
+        }, function (error, result) {
+            if (!error) {
+                /*alert('Balance :  '+ result);*/
+                $("#usdbalance").val(result);
+                console.log(result + ' balance CKIT')
+            }
+            else {
+
+                console.log(error.code + ' balance Final error is ')
+                alert('Reject');
+            }
+        });
+    }
+
+    async function connect() {
+
+        if (window.ethereum) {
+            window.web3 = new Web3(ethereum);
+            try {
+                await ethereum.request({
+                    method: 'eth_requestAccounts'
+                });
+                //getAccount();
+            } catch (error) {
+                alert("User Rejected Permission");
+                console.log('user rejected permission');
+            }
+        } else if (window.web3) {
+            window.web3 = new Web3(web3.currentProvider);
+            console.log('all ok');
+        } else {
+            console.log('No web3 provider detected');
+            alert("Metamask / Trust Wallet Not Connected");
+        }
+    }
+
+    async function getCurrentAccount() {
+        debugger
+        // const accounts = await window.web3.eth.getAccounts();
+        const accounts = web3.eth.accounts[0];
+        console.log('all ok1');
+        return accounts[0];
+    }
+
+</script>
+
+
+<script>
+     function requiredMetamask() {
+          
+            $("#metamask1").modal("show");
+        }
+
+        function initApp() {
+             
+            var account_addd = "";
+            var sponcer_no = $("#referralid").val();
+            let trx_amt = $("#amount").val();
+
+            let usdtamount = $("#amount").val();
+            var tokenrate = 1;
+         var rateamount = trx_amt; 
+            var usdamt = usdtamount * 1000000000000000000; 
+            var trxamount = trx_amt * 1000000000000000000;
+            trx_amt = trxamount;
+        console.log(trxamount); 
+         var wallet_addd = Staking_wallet_addd; 
+         const CONTRACT_ADDRESS = ADDRESS_token; 
+        var account = web3.eth.accounts[0];
+            account_addd = account;
+
+        console.log('original add ' + account)
+         var refid = sponcer_no;
+        var json = { "UserId": refid };
+        var spon_Add = account_addd;
+        console.log(' Add1 ' + account_addd)
+
+        var memb_code = 1;
+        var SPON_CODE = sponcer_no;
+        var PLAN_TYPE = 1;
+        var wallets = [wallet_addd];
+
+        var amount = [trx_amt];
+
+        var refaddrs = refid;
+        console.log(refaddrs + 'refid isssssssss')
+
+
+            var owner = web3.eth.accounts[0];
+            var sender = owner;
+
+           var sun = trxamount; 
+             
+          var balance = $("#usdbalance").val();  
+         if (isNaN(balance)) {
+             balance = 0;
+         }
+            if (sun >0 ) {
+
+             window.contract = web3.eth.contract(ABI_token);
+             window.DNCTcontract = contract.at(CONTRACT_ADDRESS); 
+             var fromaddress = wallet_addd;
+                  if (web3.version.network != 97) {
+                 alert("Please connect mainnet!!!")
+             }
+
+             else { 
+
+                             if (web3.version.network = 97) {
+                                 window.DNCTcontract.transfer(fromaddress, usdamt, {
+                                     from: web3.eth.accounts[0]
+
+                                 }, function (error, result) {
+
+                                     if (!error) {
+
+                                         console.log(result);
+
+                                         console.log(result + ' Final result is ');
+
+                                         //var refid = "";
+                                         var fromaddress = web3.eth.accounts[0];
+                                         var txthashtxthash = result;
+
+                                        // var json = { "referrerId": refid, "fromaddress": fromaddress, "txthash": txthashtxthash, "amount": trxamount/1000000000000000000, "membcode": membcode, "USD_Amount": usdtamount };
+                                         var json = { "referrerId": refid, "fromaddress": fromaddress, "txthash": "" };
+                                         $.ajax({
+                                             url: '@Url.Action("Coinpayment_transaction", "MemberPanel")',
+                                             type: 'POST',
+                                             dataType: 'JSON',
+                                             contentType: 'application/json',
+                                             data: JSON.stringify(json),
+                                             success: function (data) {
+
+                                                 alert('TopUp Success');
+                                                 var url = "/MemberPanel/Coinpayment_transaction";
+                                                 window.location.href = url;
+                                             },
+                                             error: function (err) {
+                                                 console.log("error:" + JSON.stringify(err));
+                                             }
+                                         });
+                                     }
+
+                                     else
+                                     {
+                                         debugger
+                                         console.log(error.code)
+                                     }
+
+                                 });
+                             }
+                         }
+                         
+            }
+            //else
+            //{
+            //    alert("Transaction is failed. Your balance is " + (balance / 1000000000000000000) + " only.");
+            //}
+    }
+
+        function register() {
+         debugger
+            var amount = $("#amount").val();
+            var url = "/MemberPanel/Coinpayment_transaction";
+            initApp();
+         //if (amount < 1) {
+         //    //consol.log('your coin amount is not valid.');
+         //    alert('Your coin amount is less than 1!');
+         //    window.location.href = url;
+         //}
+         //else {
+         //    console.log('Your coin amount is valid.');
+         //    initApp(memb_code);
+         //}
+
+     /*    initApp();*/
+        //alert(document.getElementById('referralid').value + ' ref')
+        }
+
+
+        
+
+
+
+
+</script>
+
+
+
+
+
+@*<script>
+        function myFunction() {
+            /* Get the text field */
+            var copyText = document.getElementById("myInput");
+
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+            /* Copy the text inside the text field */
+            navigator.clipboard.writeText(copyText.value);
+
+            /* Alert the copied text */
+            alert("Copied the text: " + copyText.value);
+        }
+    </script>
+
+
+    <script>
+        $("#UserName").change(function () {
+            var userID = $("#UserName").val();
+            $.get('@Url.Action("getUserDetails", "Dashboard")?email=' + userID + '', function (result) {
+                if (result.Memb_Name == "") {
+                    $("#useridname").css("color", "red");
+                    $("#useridname").html("User Id is invalid");
+                }
+                else {
+                    $("#useridname").css("color", "green");
+                    $("#useridname").html(result.Memb_Name);
+                }
+            });
+        });
+    </script>*@
+
+
+@if (TempData["BTCAddress"] != null)
+{
+    @*<div id="overlay">
+            <div class="modal" id="myModalBTCAddress" role="dialog" style="display:block;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <center>
+                                @if (TempData["BTCTYPE"].ToString() == "BTC")
+                                {
+                                    <p><img src="http://chart.googleapis.com/chart?chs=225x225&chld=L|2&cht=qr&chl=@TempData["BTCAddress"]?amount=@TempData["BTCAmount"]" alt="code"></p>
+
+                                }
+                                else
+                                {
+                                    <p><img src="http://chart.googleapis.com/chart?chs=225x225&chld=L|2&cht=qr&chl=@TempData["BTCAddress"]" /></p>
+                                }
+                                <p class="text-center text-dark">
+                                    <span class="text-dark">   @TempData["BTCTYPE"] Address :- </span> <br />
+                                    <span style="font-size:15px;color:black;" span class="text-dark">
+                                        @TempData["BTCAddress"]
+                                        <i class="fa fa-copy text-dark" title="Copy" id="btnCopy0" style="cursor:pointer;margin-left:10px;" onclick="copyRefFunction('@TempData["BTCAddress"]','btnCopy0')">copy</i>
+                                    </span>
+                                <p class="text-dark ">@TempData["BTCTYPE"] Amount :- @TempData["BTCAmount"]</p>
+                                <p class="text-dark font-weight-bold">Sent Amount Equal  @TempData["BTCTYPE"] Amount: @TempData["BTCAmount"] + Transaction Fees Charges By Blockchain  <span style="color:red">Otherwise May Leads to Transaction Failure  !!!!  </span></p>
+
+
+
+
+
+                            </center>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" onclick="closeModal()">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $("#myModalBTCAddress").modal("show");
+                $("#overlay").css("display", "block");
+            });
+
+            function closeModal() {
+                $("#overlay").css("display", "none");
+            }
+        </script>*@
+
+    <script>
+                function copyRefFunction(ele, id) {
+                                var $temp = $("<input>");
+                                $("body").append($temp);
+                                $temp.val(ele).select();
+                                document.execCommand("copy");
+                                $temp.remove();
+                                $("#" + id).attr('title', 'Copied');
+                            }
+    </script>
+
+
+    <script>
+                $(document).ready(function () {
+
+                                $("#overlay").css("display", "block");
+                            });
+
+                        function closeModal() {
+                            $("#overlay").css("display", "none");
+                        }
+    </script>
+
+    <script>
+        function copyRefFunction(ele, id) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val(ele).select();
+            document.execCommand("copy");
+            $temp.remove();
+            $("#" + id).attr('title', 'Copied');
+        }
+    </script>
+}
+@*<script>
+
+        $("#USD_Amount").change(function () {
+            var usdamt = $("#USD_Amount").val();
+            var coinAmount = "";
+            var tokenAmount = "";
+            var coinrate = '@Model.btcamount';
+            if (usdamt != "") {
+                var coinType = "BTC";
+
+                $.get('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=' + coinType + '', function (result) {
+
+                    if (coinType == "BTC") {
+                        coinAmount = parseFloat(result.BTC) * parseFloat(usdamt);
+                        tokenAmount = parseFloat(usdamt) / parseFloat(coinrate);
+                    }
+
+                    $("#coinType").html("" + coinType + " :");
+                    $("#Amount").val(tokenAmount);
+                    $("#coinAMT").val(coinAmount.toFixed(8));
+                });
+            }
+            else {
+                $("#tokenDiv").css("display", "none");
+                $("#coinDiv").css("display", "none");
+                $("#coinType").val("");
+                $("#coinAMT").val("");
+            }
+        })
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            var btamount = "";
+            $.get('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=BTC', function (result) {
+                if (coinType == "BTC") {
+                    btamount = parseFloat(result.BTC);
+                    $("#btcrate").html(btamount);
+                }
+            })
+        });
+    </script>
+
+    <script>
+        $("#Withdrawal_In").change(function () {
+            calculationWith();
+        });
+        $("#BTC_Type").change(function () {
+            calculationWith();
+        });
+        $("#amount").change(function () {
+            calculationWith();
+        });
+
+        function calculationWith1() {
+            var amount = $("#amount").val();
+            var chagres = "10";
+            var gstAmount = "0";
+            var paidAmount = "0";
+            /*paidAmount = (parseFloat(Amount) * 90) / 100*/
+            paidAmount = (parseFloat(amount) * 100) / 100
+            $("#PaidAmount").val(paidAmount);
+        }
+        function calculationWith() {
+            debugger
+            var Wallet_Type = $("#Wallet_Type").val();
+            //var Withdrawal_In = $("#Withdrawal_In").val();
+            var BTC_Type = $("#BTC_Type").val();
+            var amount = $("#amount").val();
+            var chagres = "0";
+            var gstAmount = "0";
+            var paidAmount = "0";
+            var inrRate = "0";
+            var inrAmount = "0";
+            var finalPaidAmount = "0";
+            var btcAmount = "0";
+            //alert("1");
+            //console.log("monika");
+            if (BTC_Type == "" || amount == "") {
+                $("#divCharges").css("display", "none");
+                $("#divPaidAmountUSD").css("display", "none");
+                $("#divPaidRupees").css("display", "none");
+                $("#divGST").css("display", "none");
+                $("#divFinalPaidRupees").css("display", "none");
+
+                $("#ldlPaid").html("");
+                $("#withCharges").val("");
+                $("#paidAmountUSD").val("");
+                $("#paidAmountINR").val("");
+                $("#paidGSTAmount").val("");
+                $("#paidFinalAmountINR").val("");
+            }
+            else {
+
+                if (BTC_Type == "BUSD.BEP20") {
+
+                    debugger
+                    $("#USD_Amount").val(amount);
+                    //  alert("2");$("#USD_Amount").val(amount);
+                    $("#withlabel").text("BUSD.BEP20 Amount");
+
+                }
+                else if (BTC_Type == "USDT.TRC20") {
+                    //btcAmount = paidAmountUSD * btcAmount
+                    $("#USD_Amount").val(amount);
+                    $("#withlabel").text("USDT.TRC20 Amount");
+                    //$.get('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=USDT.TRC20', function (result) {
+                    //    //console.log(result);
+                    //   // console.log(result.USDC.TRC20);
+                    //    btcAmount = result.USDT.TRC20;
+                    //    paidAmount = parseFloat(amount);
+                    //    paidAmountUSD = parseFloat(paidAmount);
+                    //  //  alert(paidAmountUSD);
+                    //    btcAmount = paidAmountUSD * btcAmount
+                    //    $("#USD_Amount").val(btcAmount);
+                    //    $("#withlabel").text("USDT.TRC20 Amount");
+                    //});
+                }
+                else if (BTC_Type == "INR") {
+                    //var amount = $("#Amount").val();
+
+                    $("#USD_Amount").val(amount);
+                    $("#withlabel").text("INR Amount");
+
+                }
+                else {
+                    inrRate = "70";
+                    chagres = (parseFloat(amount) * 5) / 100;
+                    paidAmount = parseFloat(amount) - parseFloat(chagres);
+                    inrAmount = parseFloat(paidAmount) * parseFloat(inrRate);
+                    gstAmount = ((parseFloat(amount) * 10) / 100) * parseFloat(inrRate);
+                    finalPaidAmount = parseFloat(inrAmount) - parseFloat(gstAmount);
+
+                    $("#lblPaidText").html("Paid Amount (₹) :");
+                    $("#withCharges").val(chagres);
+                    $("#paidAmountUSD").val(paidAmount);
+                    $("#paidAmountINR").val(inrAmount);
+                    $("#paidGSTAmount").val(gstAmount);
+                    $("#paidFinalAmountINR").val(finalPaidAmount);
+
+                    $("#divCharges").css("display", "");
+                    $("#divPaidAmountUSD").css("display", "");
+                    $("#divPaidRupees").css("display", "");
+                    $("#divGST").css("display", "");
+                    $("#divFinalPaidRupees").css("display", "");
+                }
+            }
+
+
+            //function Withdraw()
+            //{
+            //    var amount = $("#Amount").val();
+            //    var url =  "/MemberPanel/Withdraw";
+            //    if (amount < 100) {
+            //        alert("Minimum Withdrawl is 100.");
+            //        window.location.href = url;
+            //    }
+
+            //}
+
+        }
+    </script>*@

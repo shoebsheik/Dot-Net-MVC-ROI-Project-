@@ -1,0 +1,98 @@
+﻿@model UniqueTrade_App.Models.TransactionModel
+@using UniqueTrade_App.CommanFunction;
+@{
+    /**/
+
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "purchase_package";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+
+
+<!--#INCLUDE FILE = "header.asp"-->
+<!-- Page Content  -->
+<div id="content-page" class="content-page">
+    <div class="container-fluid">
+
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                    <div class="iq-card-body">
+                        <div class="iq-advance-course d-flex align-items-center justify-content-between">
+                            <div class="left-block">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <h4 class="text-primary pb-2 fw-bold">Purchase Package</h4>
+                                        <ul class="breadcrumbs ">
+                                            <li class="nav-home ">
+                                                <a class="" href="index.asp">
+                                                    <i class="fa fa-home"> Home</i>
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="" href="#">Purchase Package</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="right-block position-relativ">
+                                <a href="purchase_package_history.asp" class="btn btn-primary">Purchase Package History</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="card-title text-white">Purchase Package</h4>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Enter Amount</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Amount">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Purchase Package By:</label>
+                                <select class="form-control" id="exampleFormControlSelect1">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Final Amount</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Final Amount">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+</div>
+      </div>
+<!-- Wrapper END -->
+<!--#INCLUDE FILE = "footer.asp"-->

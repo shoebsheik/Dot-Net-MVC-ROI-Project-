@@ -1,0 +1,238 @@
+﻿@model UniqueTrade_App.Models.WithdrawModel
+@using UniqueTrade_App.CommanFunction;
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "Withdraw";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+
+<!--#INCLUDE FILE= "header.asp"-->
+<!--**********************************
+    Content body start
+***********************************-->
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="">Withdrawal</a></li>
+                <li class="breadcrumb-item"><a href="/MemberPanel/index">Home</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-6 mx-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Withdrawal</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="basic-form">
+                            @if (TempData["WithdrawlAlert"] != null)
+                            {
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        @if (TempData["WithdrawlAlert"].ToString() == "1")
+                                        {
+                                            <div class="alert alert-success" style="color:white;">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                Your request for withdrawal proceed successfully, <br />
+                                                Fund will get credited within 24 hours from the time of withdrawal.
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="alert alert-danger alert-dismissible" style="color:white;">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                @TempData["WithdrawlAlert"]
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                            @using (Html.BeginForm("Withdraw", "MemberPanel", FormMethod.Post, new { @class = "forms-sample", enctype = "multipart/form-data" }))
+                            {
+                                @Html.ValidationSummary(true)
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Withdrawal In</label>
+                                        @Html.DropDownListFor(m => m.Wallet_Type, new List<SelectListItem>
+                                                               {
+                                                                  new SelectListItem{Text="BALANCE( $ "+Model.Working_BalanceAmount + " )" , Value="WORKING"},
+                                                                  //new SelectListItem{Text="Profit WALLET ( ₹ "+Model.ROI_Balance + " )",Value="ROI"},
+                                                                 // new SelectListItem{Text="Reward WALLET ( ₹ "+Model.reward_BalanceAmount + " )",Value="REWARD"},
+                                                               }, "Select Wallet type", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Wallet_Type, "", new { @class = "js-example-basic-single" })
+
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="mb-3">
+                                        <label class="form-label">Withdrawal Amount</label>
+                                        @Html.TextBoxFor(model => model.Amount, new { @maxlength = "10", @class = "form-control input-defaul", @placeholder = "$ Amount ", @onkeypress = "return isNumber(event);" })
+                                        @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                                    </div>
+                                    <button type="submit" id="submit" name="submit" class="btn btn-primary">Submit</button>
+                                    }
+                                </div>
+                            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--#INCLUDE FILE= "footer.asp"-->
+
+
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+
+@*<script>
+        $("#Withdrawal_In").change(function () {
+            calculationWith();
+        });
+        $("#Amount").change(function () {
+            calculationWith1();
+        });
+
+        function calculationWith1() {
+            var Amount = $("#Amount").val();
+            var chagres = "10";
+            var gstAmount = "0";
+            var paidAmount = "0";
+            // paidAmount = (parseFloat(Amount) - 2);
+            //$("#PaidAmount").val(paidAmount);
+            if (Amount) {
+                paidAmount = (parseFloat(Amount) * 90) / 100;
+            }
+            $("#PaidAmount").val(paidAmount);
+        }
+        function calculationWith() {
+            var Wallet_Type = $("#Wallet_Type").val();
+            var Withdrawal_In = $("#Withdrawal_In").val();
+            var Amount = $("#Amount").val();
+            var chagres = "0";
+            var gstAmount = "0";
+            var paidAmount = "0";
+            var inrRate = "0";
+            var inrAmount = "0";
+            var finalPaidAmount = "0";
+            var btcAmount = "0";
+
+            if (Withdrawal_In == "" || Amount == "") {
+                $("#divCharges").css("display", "none");
+                $("#divPaidAmountUSD").css("display", "none");
+                $("#divPaidRupees").css("display", "none");
+                $("#divGST").css("display", "none");
+                $("#divFinalPaidRupees").css("display", "none");
+
+                $("#ldlPaid").html("");
+                $("#withCharges").val("");
+                $("#paidAmountUSD").val("");
+                $("#paidAmountINR").val("");
+                $("#paidGSTAmount").val("");
+                $("#paidFinalAmountINR").val("");
+            }
+            else {
+                if (Withdrawal_In == "BTC") {
+                    alert("2");
+                    $.get('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=BTC', function (result) {
+                        btcAmount = result.BTC;
+
+                        //chagres = (parseFloat(Amount) * 10) / 100;
+                        paidAmount = parseFloat(Amount);//- parseFloat(chagres);
+                        btcAmount = parseFloat(paidAmount) * parseFloat(btcAmount);
+                        $("#lblfinalpd").html(Withdrawal_In + " Amount :");
+                        $("#withCharges").val(chagres);
+                        $("#paidAmountUSD").val(paidAmount);
+                        $("#paidFinalAmountINR").val(parseFloat(btcAmount).toFixed(10));
+
+                        $("#divCharges").css("display", "");
+                        $("#divPaidAmountUSD").css("display", "");
+                        $("#divPaidRupees").css("display", "");
+                        $("#divGST").css("display", "none");
+                        $("#divFinalPaidRupees").css("display", "block");
+                    });
+                }
+                else if (Withdrawal_In == "ETH") {
+                    $.get('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=ETH', function (result) {
+                        btcAmount = result.ETH;
+
+                        //chagres = (parseFloat(Amount) * 5) / 100;
+                        paidAmount = parseFloat(Amount);// - parseFloat(chagres);
+                        //gstAmount = ((parseFloat(Amount) * 10) / 100) * parseFloat(btcAmount);
+                        btcAmount = parseFloat(paidAmount) * parseFloat(btcAmount);
+                        //finalPaidAmount = parseFloat(btcAmount) - parseFloat(gstAmount);
+
+                        $("#lblPaidText").html(Withdrawal_In + " Amount :");
+                        $("#withCharges").val(chagres); lbladminch
+                        $("#lbladminch").html("Admin Charges ($) :");
+                        $("#lblfinalpd").html("ETH Amount :");
+                        $("#paidAmountUSD").val(paidAmount);
+                        $("#paidFinalAmountINR").val(parseFloat(btcAmount).toFixed(10));
+                        $("#paidGSTAmount").val(gstAmount);
+                        $("#paidFinalAmountINR").val(finalPaidAmount);
+                        $("#divCharges").css("display", "");
+                        $("#divPaidAmountUSD").css("display", "");
+                        $("#divPaidRupees").css("display", "");
+                        $("#divGST").css("display", "");
+                        $("#divFinalPaidRupees").css("display", "block");
+                    });
+                }
+                else if (Withdrawal_In == "TRX") {
+                    $.get('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=TRX', function (result) {
+                        btcAmount = result.TRX;
+
+                        //chagres = (parseFloat(Amount) * 5) / 100;
+                        paidAmount = parseFloat(Amount);// - parseFloat(chagres);
+                        //gstAmount = ((parseFloat(Amount) * 10) / 100) * parseFloat(btcAmount);
+                        btcAmount = parseFloat(paidAmount);//* parseFloat(btcAmount);
+                        //finalPaidAmount = parseFloat(btcAmount) - parseFloat(gstAmount);
+
+                        $("#lblPaidText").html(Withdrawal_In + " Amount :");
+                        $("#lbladminch").html("Admin Charges ($) :");
+                        $("#lblfinalpd").html("TRX Amount :");
+                        $("#withCharges").val(chagres);
+                        $("#paidAmountUSD").val(paidAmount);
+                        $("#paidFinalAmountINR").val(parseFloat(btcAmount).toFixed(10));
+                        $("#paidGSTAmount").val(gstAmount);
+                        $("#paidFinalAmountINR").val(finalPaidAmount);
+                        $("#divCharges").css("display", "");
+                        $("#divPaidAmountUSD").css("display", "");
+                        $("#divPaidRupees").css("display", "");
+                        $("#divGST").css("display", "");
+                        $("#divFinalPaidRupees").css("display", "block");
+                    });
+                }
+                else {
+                    inrRate = "70";
+                    chagres = (parseFloat(Amount) * 5) / 100;
+                    paidAmount = parseFloat(Amount) - parseFloat(chagres);
+                    inrAmount = parseFloat(paidAmount) * parseFloat(inrRate);
+                    gstAmount = ((parseFloat(Amount) * 10) / 100) * parseFloat(inrRate);
+                    finalPaidAmount = parseFloat(inrAmount) - parseFloat(gstAmount);
+
+                    $("#lblPaidText").html("Paid Amount (₹) :");
+                    $("#withCharges").val(chagres);
+                    $("#paidAmountUSD").val(paidAmount);
+                    $("#paidAmountINR").val(inrAmount);
+                    $("#paidGSTAmount").val(gstAmount);
+                    $("#paidFinalAmountINR").val(finalPaidAmount);
+
+                    $("#divCharges").css("display", "");
+                    $("#divPaidAmountUSD").css("display", "");
+                    $("#divPaidRupees").css("display", "");
+                    $("#divGST").css("display", "");
+                    $("#divFinalPaidRupees").css("display", "");
+                }
+            }
+        }
+    </script>*@

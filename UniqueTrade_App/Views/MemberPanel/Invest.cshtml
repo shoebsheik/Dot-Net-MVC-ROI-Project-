@@ -1,0 +1,218 @@
+﻿@using UniqueTrade_App.CommanFunction;
+@model UniqueTrade_App.Models.TransactionModel
+
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "Invest";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+
+
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-custom">
+                        <li class="breadcrumb-item"><a href="#">Purchase Package</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            <span>Purchase Package</span>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row mt-2 flex-grow">
+
+            <div class="col-lg-8 offset-lg-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Purchase Package</h4>
+                        @if (TempData["InvestmentAlert"] != null)
+                        {
+                            if (TempData["InvestmentAlert"].ToString() != "1")
+                            {
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="alert alert-danger alert-dismissible">
+                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            @TempData["InvestmentAlert"]
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="alert alert-success alert-dismissible">
+                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            Purchase Package Successfully
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        @using (Html.BeginForm("Invest", "MemberPanel", FormMethod.Post, new { @class = "forms-sample", enctype = "multipart/form-data" }))
+                        {
+                            @Html.ValidationSummary(true)
+                          
+                               
+                                @*<div class="form-group row">
+                                    <label for="exampleInputEmail2" class="col-sm-3 col-form-label">User ID</label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.UserName, new { @placeholder = "User ID", @class = "form-control", @required = true })
+                                        @Html.ValidationMessageFor(model => model.UserName)
+                                    </div>
+                                </div>*@
+
+                               <div class="form-group row">
+                                   <label for="" class="col-sm-3 col-form-label"> Purchase By</label>
+                                   <div class="col-sm-9">
+                                       @Html.DropDownListFor(m => m.BTC_Type, new List<SelectListItem>
+                                                             {
+                                                                new SelectListItem{Text="PHONEPAY" , Value="PHONEPAY"},
+                                                                new SelectListItem{Text="GOOGLEPAY" , Value="GOOGLEPAY"},
+                                                                new SelectListItem{Text="BANK" , Value="BANK"},
+                                                             }, "Select Wallet type", new { @class = "form-control" })
+                                       @Html.ValidationMessageFor(m => m.BTC_Type, "", new { @class = "" })
+                                       @Html.ValidationMessageFor(model => model.BTC_Type)
+                                   </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-3 col-form-label">Select Package </label>
+                                    <div class="col-sm-9">
+
+                                        @Html.DropDownListFor(m => m.USD_Amount, new List<SelectListItem>
+                                            {
+                                                  new SelectListItem {Value="5000",Text="₹ 5000" },
+                                                  new SelectListItem {Value="10000",Text="₹ 10000" },
+                                                  new SelectListItem {Value="15000",Text="₹ 15000" },
+                                                  new SelectListItem {Value="20000",Text="₹ 20000" },
+                                                  new SelectListItem {Value="25000",Text="₹ 25000" },
+                                                  new SelectListItem {Value="50000",Text="₹ 50000" },
+                                                  new SelectListItem {Value="75000",Text="₹ 75000" },
+                                                  new SelectListItem {Value="100000",Text="₹ 100000" },
+                                            }, "Select Package", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.USD_Amount, "", new { @class = "" })
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Attachment</label>
+                                    <div class="col-sm-9">
+                                       @Html.TextBoxFor(model => model.attachment, new { @type = "file", @class = "form-control", @required = true })
+                                    @Html.ValidationMessageFor(model => model.attachment)
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-dark mr-2">Submit</button>
+                            }
+                        </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+    @Scripts.Render("~/bundles/jquery")
+
+
+    @if (TempData["BTCAddress"] != null)
+    {
+        <div id="overlay">
+            <div class="modal" id="myModalBTCAddress" role="dialog" style="display:block;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <center>
+                                <p><img src="https://api.qrserver.com/v1/create-qr-code/?data=@TempData["BTCAddress"]" alt="code"></p>
+                                <p>
+                                    @TempData["BTCTYPE"] Address :-
+                                    <span style="font-size:15px;color:#124761;">
+                                        @TempData["BTCAddress"]
+                                        <i class="fa fa-copy" title="Copy" id="btnCopy0" style="cursor:pointer;margin-left:10px;" onclick="copyRefFunction('@TempData["BTCAddress"]','btnCopy0')"></i>
+                                    </span>
+                                </p>
+
+                            </center>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" onclick="closeModal()">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            $(document).ready(function () {
+
+                $("#overlay").css("display", "block");
+            });
+
+            function closeModal() {
+                $("#overlay").css("display", "none");
+            }
+        </script>
+
+        <script>
+            function copyRefFunction(ele, id) {
+                var $temp = $("<input>");
+                $("body").append($temp);
+                $temp.val(ele).select();
+                document.execCommand("copy");
+                $temp.remove();
+                $("#" + id).attr('title', 'Copied');
+            }
+        </script>
+    }
+    <script>
+
+    $("#USD_Amount").change(function () {
+        var usdamt = $("#USD_Amount").val();
+        var coinAmount = "";
+        var tokenAmount = "";
+        var coinrate = '@Model.BTC_Amount';
+        if (usdamt != "") {
+            var coinType = "BTC";
+
+            $.get('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=' + coinType + '', function (result) {
+               // alert('BTC');
+                if (coinType == "BTC") {
+                    coinAmount = parseFloat(result.BTC) * parseFloat(usdamt);
+                    tokenAmount = parseFloat(usdamt) / parseFloat(coinrate);
+                }
+              //  alert(tokenAmount);
+                $("#coinType").html("" + coinType + " :");
+                $("#Amount").val(tokenAmount);
+                $("#coinAMT").val(coinAmount.toFixed(8));
+            });
+        }
+        else {
+            $("#tokenDiv").css("display", "none");
+            $("#coinDiv").css("display", "none");
+            $("#coinType").val("");
+            $("#coinAMT").val("");
+        }
+    })
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            var btamount = "";
+            $.get('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=BTC', function (result) {
+                if (coinType == "BTC") {
+                    btamount = parseFloat(result.BTC);
+                    $("#btcrate").html(btamount);
+                }
+            })
+        });
+    </script>
+

@@ -1,0 +1,321 @@
+﻿@model IEnumerable<UniqueTrade_App.Models.UserModel>
+@using UniqueTrade_App.CommanFunction
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "sponsor_tree";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+
+
+
+
+<style>
+    .tree li {
+        list-style-type: none;
+        margin: 0;
+        padding: 10px 5px 0 5px;
+        position: relative;
+    }
+
+        .tree li::before,
+        .tree li::after {
+            content: '';
+            left: -20px;
+            position: absolute;
+            right: auto;
+        }
+
+        .tree li::before {
+            border-left: 2px solid #000;
+            bottom: 50px;
+            height: 100%;
+            top: 0;
+            width: 1px;
+        }
+
+        .tree li::after {
+            border-top: 2px solid #000;
+            height: 20px;
+            top: 25px;
+            width: 25px;
+        }
+
+        .tree li span {
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border: 2px solid #000;
+            border-radius: 30px;
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0px 3px 5px 2px #36383ca3;
+        }
+
+    .tree > ul > li::before,
+    .tree > ul > li::after {
+        border: 0;
+    }
+
+    .tree li:last-child::before {
+        height: 27px;
+    }
+
+    .tree li span:hover {
+        background: #dfe6f8;
+        border: 2px solid #94a0b4;
+    }
+
+    [aria-expanded="false"] > .expanded,
+    [aria-expanded="true"] > .collapsed {
+        display: none;
+    }
+</style>
+
+<style>
+    span.stage1 {
+        background: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+        color: #000;
+    }
+
+    span.stage2 {
+        background: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+        color: #000;
+    }
+
+    span.stage3 {
+        background: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 40px;
+        padding-right: 57px;
+    }
+
+    span.stage4 {
+        background: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 35px;
+        padding-right: 27px;
+    }
+
+    span.stage5 {
+        background: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 52px;
+        padding-right: 57px;
+    }
+
+    span.stagea {
+        background: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 52px;
+        padding-right: 57px;
+        color: #000;
+    }
+
+    span.stageb {
+        background: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 52px;
+        padding-right: 57px;
+        color: #000;
+    }
+
+    span.stagec {
+        background: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 52px;
+        padding-right: 57px;
+        color: #000;
+    }
+
+    span.staged {
+        background: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 52px;
+        padding-right: 57px;
+        color: #000;
+    }
+
+    span.stagee {
+        background: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 52px;
+        padding-right: 57px;
+        color: #000;
+    }
+
+    span.stagef {
+        background: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 52px;
+        padding-right: 57px;
+        color: #000;
+    }
+
+    span.stageg {
+        background: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 52px;
+        padding-right: 57px;
+        color: #000;
+    }
+
+    span.stageh {
+        background: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 52px;
+        padding-right: 57px;
+        color: #000;
+    }
+
+    .stage-active {
+        background: #b80002 !important;
+    }
+
+        .stage-active a {
+            color: #fff !important;
+        }
+
+    .stage-inactive {
+        background: #8cc63f !important;
+    }
+
+        .stage-inactive a {
+            color: #000 !important;
+        }
+</style>
+<style>
+    #user_info {
+        border: 2px solid #3867d6;
+        border-radius: 25px;
+        font-size: 15px;
+        font-weight: 400;
+        padding: 20px;
+        width: 320px;
+        background-color: #3d6ad047;
+        /* -webkit-box-shadow: 0 0 60px 10px rgba(0, 0, 0, .1) inset, 0 5px 0 -4px #fff, 0 5px 0 -3px #c2c0b8, 0 11px 0 -8px #fff, 0 11px 0 -7px #c2c0b8, 0 17px 0 -12px #fff, 0 17px 0 -11px #c2c0b8; */
+        -moz-box-shadow: 0 0 60px 10px rgba(0, 0, 0, .1) inset, 0 5px 0 -4px #fff, 0 5px 0 -3px #c2c0b8, 0 11px 0 -8px #fff, 0 11px 0 -7px #c2c0b8, 0 17px 0 -12px #fff, 0 17px 0 -11px #c2c0b8;
+        box-shadow: 0 0 60px 10px rgba(0, 0, 0, .1) inset, 0 5px 0 -4px #fff, 0 5px 0 -3px #c2c0b8, 0 11px 0 -8px #fff, 0 11px 0 -7px #c2c0b8, 0 17px 0 -12px #fff,;
+        color: #000;
+    }
+
+    @@media screen and (max-width: 640px) {
+        #user_info {
+            border: 2px solid #3867d6;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 400;
+            padding: 20px;
+            width: 292px;
+            background-color: #3d6ad047;
+            /* -webkit-box-shadow: 0 0 60px 10px rgba(0, 0, 0, .1) inset, 0 5px 0 -4px #fff, 0 5px 0 -3px #c2c0b8, 0 11px 0 -8px #fff, 0 11px 0 -7px #c2c0b8, 0 17px 0 -12px #fff, 0 17px 0 -11px #c2c0b8; */
+            -moz-box-shadow: 0 0 60px 10px rgba(0, 0, 0, .1) inset, 0 5px 0 -4px #fff, 0 5px 0 -3px #c2c0b8, 0 11px 0 -8px #fff, 0 11px 0 -7px #c2c0b8, 0 17px 0 -12px #fff, 0 17px 0 -11px #c2c0b8;
+            box-shadow: 0 0 60px 10px rgba(0, 0, 0, .1) inset, 0 5px 0 -4px #fff, 0 5px 0 -3px #c2c0b8, 0 11px 0 -8px #fff, 0 11px 0 -7px #c2c0b8, 0 17px 0 -12px #fff,;
+            color: #000;
+        }
+    }
+</style>
+
+
+
+
+<section id="main-content" class=" ">
+    <div class="wrapper main-wrapper row">
+
+        <div class="col-xs-12">
+            <div class="page-title">
+
+
+                <div class="hidden-xs">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/MemberPanel/index"><i class="fa fa-home"></i>Home</a>
+                        </li>
+                        <li>
+                            <a href="#">Genealogy</a>
+                        </li>
+                        <li class="active">
+                            <strong>Genealogy</strong>
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="clearfix"></div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Genealogy</h3>
+                </div>
+                <div class="card-body">
+                    <div class="border-gradient">
+                        <div class="border-gradient_content">
+                           
+                            <div class="tree ">
+                                <ul>
+
+                                    <li>
+                                        @if (userInfo.authrised == "G")
+                                        {
+                                            <span class="stage1 stage-inactive">
+                                                <a style="color:#000; text-decoration:none;" data-toggle="collapse" href="#Web" aria-expanded="true" aria-controls="Web">
+                                                    <i class="collapsed"><i class="fas fa-folder"></i></i>
+                                                    <i class="expanded"><i class="far fa-user"></i></i> <b>@userInfo.memb_name (@userInfo.username)</b> - Team (@ViewBag.total_direct)
+                                                </a>
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="stage1 stage-active">
+                                                <a style="color:#000; text-decoration:none;" data-toggle="collapse" href="#Web" aria-expanded="true" aria-controls="Web">
+                                                    <i class="collapsed"><i class="fas fa-folder"></i></i>
+                                                    <i class="expanded"><i class="far fa-user"></i></i> <b>@userInfo.memb_name (@userInfo.username)</b> - Team (@ViewBag.total_direct)
+                                                </a>
+                                            </span>
+                                        }
+
+
+                                        <div id="Web" class="collapse show">
+                                            @{ Html.RenderAction("sponsor_tree_partial", "MemberPanel", new { memb_code = userInfo.memb_code });}
+
+                                        </div>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                </div>
+</section>
+
+

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<UniqueTrade_App.Models.WithdrawalModel>
+@using UniqueTrade_App.CommanFunction;
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "WithdrawReport";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<!--#INCLUDE FILE= "header.asp"-->
+<!--**********************************
+    Content body start
+***********************************-->
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="">Withdrawal Report</a></li>
+                <li class="breadcrumb-item"><a href="/MemberPanel/index">Home</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Withdrawal Report</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example" class="display" style="min-width: 845px">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.No</th>
+                                        <th>joining Date</th>
+                                        <th>User ID</th>
+                                        <th>Member Name</th>
+                                        <th>Email ID</th>
+                                        <th>Mobile Number</th>
+                                        <th>Total Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ int rows = 0;}
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@(rows = rows + 1)</td>
+                                            <td>@item.tdate</td>
+                                            <td>@userInfo.username</td>
+                                            <td>@userInfo.memb_name</td>
+                                            <td>@userInfo.EmailID</td>
+                                            <td>@userInfo.Mobile_No</td>
+                                            <td>$ @item.amount</td>
+                                            @*<td>BUSD @item.paid_amount</td>*@
+                                            @*<td>BUSD @item.charges</td>*@
+                                            @*<td>BUSD @item.Tds_charges</td>*@
+                                            <td>@item.wstatus</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--#INCLUDE FILE= "footer.asp"-->
+
+
+

@@ -1,0 +1,49 @@
+﻿@model UniqueTrade_App.Models.UserDetailsModel
+<div class="tip">
+
+    <table class="tree-table" style="width:100%;">
+        <tbody>
+            <tr>
+                <td style="border:1px;">Name </td>
+                <td style="border:1px;">: @Model.Memb_Name</td>
+            </tr>
+            <tr>
+                <td style="border:1px;">Sponsor </td>
+                <td style="border:1px;">: @Model.sp_username </td>
+            </tr>
+            <tr>
+                <td style="border:1px;">Total Investment </td>
+                <td style="border:1px;">: $ @Model.Total_Business</td>
+            </tr>
+            <tr>
+                <td style="border:1px;">Pending Investment </td>
+                <td style="border:1px;">: $ @Model.Total_BusinessUSD</td>
+            </tr>
+            <tr>
+                <td style="border:1px;">Joining Date </td>
+                <td style="border:1px;">: @Model.Joinind_Date</td>
+            </tr>
+            @*<tr>
+                    <td style="border:1px;">Activation Date </td>
+                    <td style="border:1px;">: @Model.sp_EMail</td>
+                </tr>*@
+            <tr>
+                <td style="border:1px;">Team Left</td>
+                <td style="border:1px;">: @Model.Left_Team</td>
+            </tr>
+            <tr>
+                <td style="border:1px;">Team Right</td>
+                <td style="border:1px;">: @Model.Right_Team</td>
+            </tr>
+            <tr>
+                <td style="border:1px;">Left Business</td>
+                <td style="border:1px;">:  @Model.Left_Team_Business PV</td>
+            </tr>
+            <tr>
+                <td style="border:1px;">Right Business</td>
+                <td style="border:1px;">:  @Model.Right_Team_Business PV</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

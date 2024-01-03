@@ -1,0 +1,391 @@
+﻿@model UniqueTrade_App.Models.WithdrawModel
+@using UniqueTrade_App.CommanFunction;
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "Withdraw";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<!--#INCLUDE FILE="header.asp"-->
+@*<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">*@
+
+<div class="content-wrapper">
+    <div class="container-full">
+        <div class="content-header">
+            <div class="d-flex align-items-center">
+                <div class="mr-auto">
+                    <h3 class="page-title">Wallet Transfer</h3>
+                    <div class="d-inline-block align-items-center">
+                        <nav>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#"><i class="ti-home"></i></a></li>
+                                <li class="breadcrumb-item" aria-current="page">Wallet</li>
+                                <li class="breadcrumb-item active" aria-current="page">Wallet Transfer</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- end page title -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="box">
+                        <div class="box-header">
+                            <h4 class="box-title">Wallet Transfer</h4>
+                        </div>
+                        <div class="box-body">
+                            @*<h4 class="card-title">Wallet Transfer</h4>*@
+
+                            <div class="row">
+                                <div class="col-12">
+                                    @if (TempData["WithdrawlAlert"] != null)
+                                    {
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                @if (TempData["WithdrawlAlert"].ToString() == "1")
+                                                {
+                                                    <div class="alert alert-success alert-dismissible" style="color:white;">
+                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                        Wallet Transfer successfully, <br />
+
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="alert alert-danger alert-dismissible" style="color:white;">
+                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                        @TempData["WithdrawlAlert"]
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                    @using (Html.BeginForm("WalletTransfer", "MemberPanel", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.ValidationSummary(true)
+
+                                        <div class="row gutters">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>Wallet Balance</label>
+                                                    @Html.DropDownListFor(m => m.Wallet_Type, new List<SelectListItem>
+                                             {
+                                                new SelectListItem{Text="BALANCE( USDT "+Model.Working_BalanceAmount + " )" , Value="WORKING"},
+                                                //new SelectListItem{Text="Profit WALLET ( ₹ "+Model.ROI_Balance + " )",Value="ROI"},
+                                               // new SelectListItem{Text="Reward WALLET ( ₹ "+Model.reward_BalanceAmount + " )",Value="REWARD"},
+                                             }, "Select Wallet type", new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.Wallet_Type, "", new { @class = "js-example-basic-single" })
+
+                                                    @*<select class="form-control">
+                                                            <option>00</option>
+                                                            <option>00</option>
+                                                        </select>*@
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>User ID</label>
+                                                    <input type="text" class="form-control" placeholder="Enter User ID" value="@userInfo.username ">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>Member Name</label>
+                                                    <input type="text" class="form-control" placeholder="Enter Member Name" value="@userInfo.memb_name">
+                                                </div>
+                                            </div>
+
+                                            @*<div class="col-12">
+                                                    <div class="form-group">
+                                                        <label>User Id</label>
+                                                        @Html.TextBoxFor(model => userInfo.username, new { @maxlength = "10", @class = "form-control", @placeholder = "Enter Username", @readonly = true })
+
+                                                        @Html.ValidationMessageFor(model => model.USERNAME, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label>User Name</label>
+                                                        <input type="text" placeholder="User Name*" class="form-control sp_name" id="sponsorName" value="@Model.Memb_Name" name="sponsorName" readonly />
+                                                    </div>
+                                                </div>*@
+
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>Amount</label>
+                                                    @Html.TextBoxFor(model => model.Amount, new
+                                                    {
+                                                        @maxlength = "10",
+                                                        @class = "form-control",
+                                                        @placeholder = " Amount ($)"@*, @onkeypress = "return isNumber(event);"*@})
+
+                                                    @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row gutters">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <div class="text-right">
+
+                                                    <button type="submit" name="submit">
+                                                        Submit
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @*<div class="form-group text-white">
+                                            <label for="exampleInputEmail1">Wallet Balance (BUSD):</label>
+                                            @Html.DropDownListFor(m => m.Wallet_Type, new List<SelectListItem>
+                                              {
+                                                 new SelectListItem{Text="BALANCE( BUSD "+Model.Working_BalanceAmount + " )" , Value="WORKING"},
+                                                 //new SelectListItem{Text="Profit WALLET ( ₹ "+Model.ROI_Balance + " )",Value="ROI"},
+                                                // new SelectListItem{Text="Reward WALLET ( ₹ "+Model.reward_BalanceAmount + " )",Value="REWARD"},
+                                              }, "Select Wallet type", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Wallet_Type, "", new { @class = "js-example-basic-single" })*@
+
+                                        @*@Html.DropDownListFor(m => m.Wallet_Type, new List<SelectListItem>
+                                            {
+                                               new SelectListItem{Text="Working WALLET ( ($ "+Model.Working_BalanceAmount + " )" , Value="WORKING"},
+                                               new SelectListItem{Text="Interest WALLET ( $ "+Model.ROI_Balance + " )",Value="ROI"},
+                                               //new SelectListItem{Text="Principle WALLET ( $ "+Model.Principle_BalanceAmount + " )",Value="PRINCIPLE"},
+                                               //new SelectListItem{Text="Reward WALLET ( $ "+Model.reward_BalanceAmount + " )",Value="REWARD"},
+                                            }, "Select Wallet type", new { @class = "form-control" })
+                                              @Html.ValidationMessageFor(m => m.Wallet_Type, "", new { @class = "text-danger" })
+
+                                              @Html.ValidationMessageFor(model => model.Wallet_Type)*@
+
+                                        @*</div>
+
+                                            <div class="form-group text-white">
+                                                <label for="exampleInputEmail1">User Id:</label>
+                                                @Html.TextBoxFor(model => userInfo.username, new { @maxlength = "10", @class = "form-control", @placeholder = "Enter Username", @readonly = true })
+
+                                                @Html.ValidationMessageFor(model => model.USERNAME, "", new { @class = "text-danger" })
+                                            </div>*@
+
+
+                                        @*<div class="form-group text-white">
+                                                <label for="exampleInputEmail1">User Name</label>
+                                                <input type="text" placeholder="User Name*" class="form-control sp_name" id="sponsorName" value="@Model.Memb_Name" name="sponsorName" readonly />
+                                            </div>*@
+
+                                        @*<div class="form-group text-white">
+                                                <label for="exampleInputEmail1"> Amount :</label>
+                                                @Html.TextBoxFor(model => model.Amount, new { @maxlength = "10", @class = "form-control", @placeholder = " Amount ($)", @onkeypress = "return isNumber(event);" })
+
+                                                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                                            </div>
+
+
+                                            <div class="form-group text-black">
+                                                <button type="submit" class="btn btn-warning text-black text-center">Submit</button>
+                                            </div>*@
+
+                                        @*<div class="col-md-6 offset-md-5">
+                                                <button type="submit" class="btn btn-success">Submit</button>
+                                            </div>*@
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        </section>
+        <!-- /.content -->
+    </div>
+</div>
+<!-- content-wrapper ends -->
+<!--#INCLUDE FILE="footer.asp"-->
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script>
+    $("#Withdrawal_In").change(function () {
+        calculationWith();
+    });
+    $("#Amount").change(function () {
+        calculationWith1();
+    });
+
+    function calculationWith1() {
+        var Amount = $("#Amount").val();
+        var chagres = "10";
+        var gstAmount = "0";
+        var paidAmount = "0";
+        paidAmount = (parseFloat(Amount) * 90) / 100
+        $("#PaidAmount").val(paidAmount);
+    }
+    function calculationWith() {
+        var Wallet_Type = $("#Wallet_Type").val();
+        var Withdrawal_In = $("#Withdrawal_In").val();
+        var Amount = $("#Amount").val();
+        var chagres = "0";
+        var gstAmount = "0";
+        var paidAmount = "0";
+        var inrRate = "0";
+        var inrAmount = "0";
+        var finalPaidAmount = "0";
+        var btcAmount = "0";
+
+        if (Withdrawal_In == "" || Amount == "") {
+            $("#divCharges").css("display", "none");
+            $("#divPaidAmountUSD").css("display", "none");
+            $("#divPaidRupees").css("display", "none");
+            $("#divGST").css("display", "none");
+            $("#divFinalPaidRupees").css("display", "none");
+
+            $("#ldlPaid").html("");
+            $("#withCharges").val("");
+            $("#paidAmountUSD").val("");
+            $("#paidAmountINR").val("");
+            $("#paidGSTAmount").val("");
+            $("#paidFinalAmountINR").val("");
+        }
+        else {
+            if (Withdrawal_In == "BTC") {
+                alert("2");
+                $.get('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=BTC', function (result) {
+                    btcAmount = result.BTC;
+
+                    //chagres = (parseFloat(Amount) * 10) / 100;
+                    paidAmount = parseFloat(Amount);//- parseFloat(chagres);
+                    btcAmount = parseFloat(paidAmount) * parseFloat(btcAmount);
+                    $("#lblfinalpd").html(Withdrawal_In + " Amount :");
+                    $("#withCharges").val(chagres);
+                    $("#paidAmountUSD").val(paidAmount);
+                    $("#paidFinalAmountINR").val(parseFloat(btcAmount).toFixed(10));
+
+                    $("#divCharges").css("display", "");
+                    $("#divPaidAmountUSD").css("display", "");
+                    $("#divPaidRupees").css("display", "");
+                    $("#divGST").css("display", "none");
+                    $("#divFinalPaidRupees").css("display", "block");
+                });
+            }
+            else if (Withdrawal_In == "ETH") {
+                $.get('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=ETH', function (result) {
+                    btcAmount = result.ETH;
+
+                    //chagres = (parseFloat(Amount) * 5) / 100;
+                    paidAmount = parseFloat(Amount);// - parseFloat(chagres);
+                    //gstAmount = ((parseFloat(Amount) * 10) / 100) * parseFloat(btcAmount);
+                    btcAmount = parseFloat(paidAmount) * parseFloat(btcAmount);
+                    //finalPaidAmount = parseFloat(btcAmount) - parseFloat(gstAmount);
+
+                    $("#lblPaidText").html(Withdrawal_In + " Amount :");
+                    $("#withCharges").val(chagres); lbladminch
+                    $("#lbladminch").html("Admin Charges ($) :");
+                    $("#lblfinalpd").html("ETH Amount :");
+                    $("#paidAmountUSD").val(paidAmount);
+                    $("#paidFinalAmountINR").val(parseFloat(btcAmount).toFixed(10));
+                    $("#paidGSTAmount").val(gstAmount);
+                    $("#paidFinalAmountINR").val(finalPaidAmount);
+                    $("#divCharges").css("display", "");
+                    $("#divPaidAmountUSD").css("display", "");
+                    $("#divPaidRupees").css("display", "");
+                    $("#divGST").css("display", "");
+                    $("#divFinalPaidRupees").css("display", "block");
+                });
+            }
+            else if (Withdrawal_In == "LTC") {
+                $.get('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=LTC', function (result) {
+                    btcAmount = result.LTC;
+
+                    //chagres = (parseFloat(Amount) * 5) / 100;
+                    paidAmount = parseFloat(Amount);// - parseFloat(chagres);
+                    //gstAmount = ((parseFloat(Amount) * 10) / 100) * parseFloat(btcAmount);
+                    btcAmount = parseFloat(paidAmount);//* parseFloat(btcAmount);
+                    //finalPaidAmount = parseFloat(btcAmount) - parseFloat(gstAmount);
+
+                    $("#lblPaidText").html(Withdrawal_In + " Amount :");
+                    $("#lbladminch").html("Admin Charges ($) :");
+                    $("#lblfinalpd").html("LTC Amount :");
+                    $("#withCharges").val(chagres);
+                    $("#paidAmountUSD").val(paidAmount);
+                    $("#paidFinalAmountINR").val(parseFloat(btcAmount).toFixed(10));
+                    $("#paidGSTAmount").val(gstAmount);
+                    $("#paidFinalAmountINR").val(finalPaidAmount);
+                    $("#divCharges").css("display", "");
+                    $("#divPaidAmountUSD").css("display", "");
+                    $("#divPaidRupees").css("display", "");
+                    $("#divGST").css("display", "");
+                    $("#divFinalPaidRupees").css("display", "block");
+                });
+            }
+            else {
+                inrRate = "70";
+                chagres = (parseFloat(Amount) * 5) / 100;
+                paidAmount = parseFloat(Amount) - parseFloat(chagres);
+                inrAmount = parseFloat(paidAmount) * parseFloat(inrRate);
+                gstAmount = ((parseFloat(Amount) * 10) / 100) * parseFloat(inrRate);
+                finalPaidAmount = parseFloat(inrAmount) - parseFloat(gstAmount);
+
+                $("#lblPaidText").html("Paid Amount (₹) :");
+                $("#withCharges").val(chagres);
+                $("#paidAmountUSD").val(paidAmount);
+                $("#paidAmountINR").val(inrAmount);
+                $("#paidGSTAmount").val(gstAmount);
+                $("#paidFinalAmountINR").val(finalPaidAmount);
+
+                $("#divCharges").css("display", "");
+                $("#divPaidAmountUSD").css("display", "");
+                $("#divPaidRupees").css("display", "");
+                $("#divGST").css("display", "");
+                $("#divFinalPaidRupees").css("display", "");
+            }
+        }
+    }
+</script>
+<script>
+
+                    function getUserName() {
+                        var spEmail = $("#UserName").val();
+                        if (spEmail != "") {
+                            $.get('@Url.Action("getFirstUser", "MemberPanel")?sp_user=' + spEmail + '', function (responce) {
+                                if (responce.UserName == "") {
+                                    $("#sp-invalid").css("display", "block");
+                                }
+                                else {
+                                    //alert(responce.Memb_Name);
+                                    $("#sponsorName").val(responce.Memb_Name);
+                                }
+                            });
+                        }
+                        else {
+                            $("#sp-invalid").css("display", "none");
+                            $("#Memb_Name").val('Invalid User');
+                            $("#username").val('');
+                        }
+                    }
+</script>
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $("#UserName").change(function () {
+        var userID = $("#UserName").val();
+        $.get('@Url.Action("SponcerDetails", "Home")?email=' + userID + '', function (result) {
+            if (result.Memb_Name == "") {
+                $("#useridname").css("color", "white");
+                $("#useridname").html("User Id is invalid");
+            }
+            else {
+                $("#useridname").css("color", "white");
+                $("#useridname").html(result.Memb_Name);
+            }
+        });
+    });
+</script>

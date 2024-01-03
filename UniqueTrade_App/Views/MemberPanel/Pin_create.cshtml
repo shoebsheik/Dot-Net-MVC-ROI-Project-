@@ -1,0 +1,128 @@
+﻿@using UniqueTrade_App.CommanFunction;
+@model UniqueTrade_App.Models.PINDETAILSMODEL
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "Create Pin";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<section id="main-content" class=" ">
+    <div class="wrapper main-wrapper row">
+
+        <div class="col-xs-12">
+            <div class="page-title">
+
+
+                <div class="hidden-xs">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/MemberPanel/index"><i class="fa fa-home"></i>Home</a>
+                        </li>
+                        <li>
+                            <a href="#">PIN</a>
+                        </li>
+                        <li class="active">
+                            <strong>PIN CREATE</strong>
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <!-- MAIN CONTENT AREA STARTS -->
+
+        <div class="clearfix"></div>
+        <div class="col-12 col-md-6 col-md-offset-3 mt-25">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">PIN CREATE</h3>
+                </div>
+                <div class="card-body">
+
+                    @if (TempData["CreatePinAlert"] != null)
+                    {
+                        if (TempData["CreatePinAlert"].ToString() != "1")
+                        {
+                            <div class="block-title">
+                                <h2><p class="alert alert-success">@TempData["CreatePinAlert"]</p></h2>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="block-title">
+                                <h2><p class="alert alert-success">Pin Request Added Successfully</p></h2>
+                            </div>
+                        }
+
+
+                    }
+                    @using (Html.BeginForm("Pin_create", "MemberPanel", FormMethod.Post, new { @class = "form-content", enctype = "multipart/form-data" }))
+                    {
+                        @Html.ValidationSummary(true)
+                        
+                        <div class="form-group">
+                            <label for="re_pwd">Wallet Balance</label>
+                            <input type="text" class="form-control" value="@Model.Main_Wallet" placeholder="Enter Pin Amount" readonly />
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="re_pwd">Amount </label>
+                            @Html.DropDownListFor(model => model.amount,
+                                         new List<SelectListItem> {
+                                         new SelectListItem {Value="",Text="Select Amount" },
+                                         new SelectListItem {Value="5000",Text="₹ 5000" },
+                                         new SelectListItem {Value="10000",Text="₹ 10000" },
+                                         new SelectListItem {Value="25000",Text="₹ 25000" },
+                                         new SelectListItem {Value="50000",Text="₹ 50000" },
+                                         new SelectListItem {Value="100000",Text="₹ 100000" },
+                                     }, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.amount)
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="re_pwd">Quantity </label>
+                            @Html.TextBoxFor(model => model.Quantiy, new { @class = "form-control", placeholder = "Quantity" })
+                            @Html.ValidationMessageFor(model => model.Quantiy)
+                        </div>
+                        <button type="submit" class="btn btn-info">Submit</button>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+        <div class="clearfix"></div>
+        <!-- MAIN CONTENT AREA ENDS -->
+
+    </div>
+</section>
+
+
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<script>
+    $("#UserName").change(function () {
+        var userID = $("#UserName").val();
+        if (userID == "") {
+            $("#user_name").html("");
+        }
+        else {
+            $.get('@Url.Action("getUserDetails","Dashboard")?email=' + userID + '', function (result) {
+                if (result.Memb_Name == "") {
+                    $("#user_name").css("color", "red");
+                    $("#user_name").html("User ID Invalid");
+                }
+                else {
+                    $("#user_name").css("color", "green");
+                    $("#user_name").html(result.Memb_Name);
+                }
+            });
+        }
+    });
+</script>

@@ -1,0 +1,185 @@
+﻿@model UniqueTrade_App.Models.BankDetailsModel
+@using UniqueTrade_App.CommanFunction
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "addBankDetails";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-custom">
+                        <li class="breadcrumb-item"><a href="#">Account</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            <span>Edit Beneficiary</span>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row mt-2 flex-grow">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Bank Details</h4>
+
+                        @if (TempData["ProfileAlert"] != null)
+                        {
+                            <div class="widget-list">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="error-box">
+                                            <div class="alert alert-success">@TempData["ProfileAlert"]</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        @if (TempData["BankAlert"] != null)
+                        {
+                            <div class="widget-list">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="error-box">
+                                            <div class="alert alert-success">@TempData["BankAlert"]</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        @using (Html.BeginForm("addBankDetails", "MemberPanel", FormMethod.Post, new { enctype = "multipart/form-data", @class = "forms-sample" }))
+                        {
+                            @Html.ValidationSummary(true)
+                            <div class="form-group row">
+                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">
+                                    Bank Name
+                                </label>
+                                <div class="col-sm-9">
+                                    @Html.DropDownListFor(m => m.bk_name, ViewBag.Allbkname as List<SelectListItem>, "Select Bank Name", new { @class = "form-control", @onchange = "getifscbyname()" })
+                                    @Html.ValidationMessageFor(m => m.bk_name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-sm-3 col-form-label">>Bank IFSC</label>
+                                <div class="col-sm-9">
+                                    @Html.DropDownListFor(model => model.bk_ifsc, new List<SelectListItem> {
+                               new SelectListItem {Value="",Text="Select Bank IFSC" }
+                             }, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.bk_ifsc, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-sm-3 col-form-label">Branch Name</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.bk_branch, new { @class = "form-control", placeholder = "Branch Name", @maxlength = 30 })
+                                    @Html.ValidationMessageFor(m => m.bk_branch)
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-sm-3 col-form-label">Account Holder first Name</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.ac_name, new { @class = "form-control", placeholder = "Account First Name", @minlength = 3, @maxlength = 50 })
+                                    @Html.ValidationMessageFor(m => m.ac_name)
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-sm-3 col-form-label">Account Number</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.ac_no, new { @class = "form-control", placeholder = "Account Number", @maxlength = 30 })
+                                    @Html.ValidationMessageFor(m => m.ac_no)
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-sm-3 col-form-label">Account Type</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.ac_type, new { @class = "form-control ", placeholder = "Account Type" })
+                                    @Html.ValidationMessageFor(m => m.ac_type)
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-sm-3 col-form-label">Mobile No Registered with Bank</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.bank_mobile_no, new { @class = "form-control ", placeholder = "Mobile Number", @maxlength = 10 })
+                                    @Html.ValidationMessageFor(m => m.bank_mobile_no)
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-sm-3 col-form-label">Pincode No</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.Pin_Code, new { @class = "form-control ", placeholder = "Pin Code", @maxlength = 20 })
+                                    @Html.ValidationMessageFor(m => m.Pin_Code)
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-dark mr-2">Submit</button>
+                        }
+                        </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+    <div class="col-12 col-md-8 col-md-offset-3">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Bank Details</h3>
+            </div>
+            <div class="card-body">
+                @{ Html.RenderAction("bank_detail_partial", "MemberPanel");}
+            </div>
+        </div>
+    </div>
+
+
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+
+
+    <script>
+    function sendRequestCode() {
+        $("#loading").css("display", "block");
+       // var mobno = $("#Mobile_No").val();
+        $.get('@Url.Action("getRequestCode", "MemberPanel")?codeType=B&mobileno= ', function (result) {
+            if (result != "") {
+                $("#btnReq").html("Submit");
+                $("#btnReq").attr("type", "submit");
+                $("#btnReq").attr("onclick", "");
+                $("#divReqCode").css("display", "");
+
+                setTimeout(function () {
+                    $("#resendOTP").css("display", "block");
+                }, 60000);
+                alert("OTP code sent successfully. Please Check Mobile No.");
+            }
+            else {
+                alert(result);
+            }
+            $("#loading").css("display", "none");
+        });
+
+    }
+
+    </script>
+
+
+    <script>
+    function getifscbyname() {
+            var optionhtml1 = '<option value="">' + "SELECT IFSC CODE" + '</option>';
+            $("#bk_ifsc").html(optionhtml1);
+        var bk_name = $("#bk_name").val();
+            $.get('@Url.Action("GETIFSCBYNAME", "MemberPanel")?bk_name=' + bk_name + '', function (responce) {
+                $.each(responce, function (i, obj) {
+                    var optionhtml = '<option value="' + obj.bk_ifsc + '">' + obj.bk_ifsc + '</option>';
+                  //  alert(optionhtml);
+                    $("#bk_ifsc").append(optionhtml);
+                });
+            });
+        }
+    </script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")

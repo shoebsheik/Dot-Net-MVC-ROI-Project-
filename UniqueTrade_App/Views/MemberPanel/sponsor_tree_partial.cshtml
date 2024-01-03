@@ -1,0 +1,60 @@
+﻿@model IEnumerable<UniqueTrade_App.Models.UserModel>
+@using UniqueTrade_App.CommanFunction
+@{
+    //UserInfo userInfo = Common.CurrentUserInfo;
+    //ViewBag.Title = "sponsor_tree";
+    //Layout = "~/Views/Shared/_User_Layout.cshtml";
+    Layout = null;
+}
+
+<ul>
+    @foreach (var item in Model)
+    {
+
+
+    <li>
+        @if (item.authrised == "G")
+        {
+            <span class="stage2 stage-inactive">
+                <i class="fa fa-users" style="color:#000;">
+                </i>
+                <a href="#" data-toggle="collapse" aria-expanded="true" aria-controls="page_@item.memb_code" onclick="getTree_@(item.memb_code)()" style="color:#000; text-decoration:none;font-size:15px;">
+                    <b>@item.Memb_Name  (@item.username)</b> <br> - Team : (@item.totmeb) <br>  Amount : (@item.confirm_ph)
+                </a>
+            </span>
+        }
+        else
+        {
+            <span class="stage2 stage-active">
+                <i class="fa fa-users" style="color:#000;">
+                </i>
+                <a href="#" data-toggle="collapse" aria-expanded="true" aria-controls="page_@item.memb_code" onclick="getTree_@(item.memb_code)()" style="color:#000; text-decoration:none;font-size:15px;">
+                    <b>@item.Memb_Name  (@item.username)</b> <br> - Team : (@item.totmeb) <br>  Amount : (@item.confirm_ph)
+                </a>
+            </span>
+        }
+
+        <ul>
+            <div id="page_@item.memb_code" class="collapse show">
+            </div>
+        </ul>
+    </li>
+
+        <script>
+            function getTree_@(item.memb_code)(ele) {
+                $.get('@Url.Action("sponsor_tree_partial", "MemberPanel")?memb_code=' + @item.memb_code + '', function (result) {
+
+                    $("#page_@item.memb_code").html(result);
+
+                });
+            };
+
+
+
+        </script>
+    }
+
+
+
+
+</ul>

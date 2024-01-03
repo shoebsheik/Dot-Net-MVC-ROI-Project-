@@ -1,0 +1,305 @@
+﻿@model UniqueTrade_App.Models.DashboardModel
+@using UniqueTrade_App.CommanFunction;
+@{ UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+
+<!--#INCLUDE FILE= "header.asp"-->
+<!--**********************************
+    Content body start
+***********************************-->
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card bg-transparent">
+                    <div class="card-body d-flex justify-content-between">
+                        <div class="col-md-4">
+                            <img src="/Content/dash/images/man.png" width="">
+                        </div>
+                        <div class="col-md-8 align-self-center">
+                            <h6>Referral Links</h6>
+                            <input type="text" value="@userInfo.left_referral" id="myInput" class="text-primary font-weight-bold border-0 bg-transparent col-md-10 col-10 text-left flaot-left ml-0 pl-0" style="border: 0;background: transparent;width: 100%;outline: none;">
+                            <span class="col-md-2 col-2 text-right flaot-right" title="Copy Link" onclick="myFunction()" onmouseout="outFunc()"
+                                  id="myTooltip" style="cursor:pointer"><i class="mdi mdi-content-copy float-right m-0"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-body d-flex justify-content-between">
+                        <div class="col-md-8">
+                            <img src="/Content/dash/images/money.png" width="">
+                        </div>
+                        <div class="col-md-4 align-self-center">
+                            <h6>Total Balance</h6>
+                            <h2 class="text-primary">$@Model.Total_Balance</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card wallet blue">
+                    <div class="boxs">
+                        <span class="box one"></span>
+                        <span class="box two"></span>
+                        <span class="box three"></span>
+                        <span class="box four"></span>
+                    </div>
+                    <div class="card-header border-0">
+                        <div class="wallet-info">
+                            <h6 class="font-w400 d-block text-white mb-3">Status</h6>
+                            <h3 class="fs-24 font-w600  d-inline-flex me-2">@Model.ac_status</h3>
+                        </div>
+                        <div class="wallet-icon">
+                            <svg width="62" height="39" viewBox="0 0 62 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="42.7722" cy="19.2278" r="19.2278" fill="#6E4AFF" fill-opacity="0.8"></circle>
+                                <circle cx="19.2278" cy="19.2278" r="19.2278" fill="#C82CFF" fill-opacity="0.8"></circle>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card wallet blue">
+                    <div class="boxs">
+                        <span class="box one"></span>
+                        <span class="box two"></span>
+                        <span class="box three"></span>
+                        <span class="box four"></span>
+                    </div>
+                    <div class="card-header border-0">
+                        <div class="wallet-info">
+                            <h6 class="font-w400 d-block text-white mb-3">Direct Income</h6>
+                            <h3 class="fs-24 font-w600  d-inline-flex me-2">$@Model.Total_Direct_Income</h3>
+                        </div>
+                        <div class="wallet-icon">
+                            <svg width="62" height="39" viewBox="0 0 62 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="42.7722" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                                <circle cx="19.2278" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card wallet blue">
+                    <div class="boxs">
+                        <span class="box one"></span>
+                        <span class="box two"></span>
+                        <span class="box three"></span>
+                        <span class="box four"></span>
+                    </div>
+                    <div class="card-header border-0">
+                        <div class="wallet-info">
+                            <h6 class="font-w400 d-block text-white mb-3">Level Income</h6>
+                            <h3 class="fs-24 font-w600  d-inline-flex me-2">$@Model.Total_level</h3>
+                        </div>
+                        <div class="wallet-icon">
+                            <svg width="62" height="39" viewBox="0 0 62 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="42.7722" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                                <circle cx="19.2278" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card wallet blue">
+                    <div class="boxs">
+                        <span class="box one"></span>
+                        <span class="box two"></span>
+                        <span class="box three"></span>
+                        <span class="box four"></span>
+                    </div>
+                    <div class="card-header border-0">
+                        <div class="wallet-info">
+                            <h6 class="font-w400 d-block text-white mb-3">ROI Income</h6>
+                            <h3 class="fs-24 font-w600  d-inline-flex me-2">$@Model.Total_ROI</h3>
+                        </div>
+                        <div class="wallet-icon">
+                            <svg width="62" height="39" viewBox="0 0 62 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="42.7722" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                                <circle cx="19.2278" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card wallet blue">
+                    <div class="boxs">
+                        <span class="box one"></span>
+                        <span class="box two"></span>
+                        <span class="box three"></span>
+                        <span class="box four"></span>
+                    </div>
+                    <div class="card-header border-0">
+                        <div class="wallet-info">
+                            <h6 class="font-w400 d-block text-white mb-3">Booster Income</h6>
+                            <h3 class="fs-24 font-w600  d-inline-flex me-2">$@Model.Total_booster</h3>
+                        </div>
+                        <div class="wallet-icon">
+                            <svg width="62" height="39" viewBox="0 0 62 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="42.7722" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                                <circle cx="19.2278" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card wallet blue">
+                    <div class="boxs">
+                        <span class="box one"></span>
+                        <span class="box two"></span>
+                        <span class="box three"></span>
+                        <span class="box four"></span>
+                    </div>
+                    <div class="card-header border-0">
+                        <div class="wallet-info">
+                            <h6 class="font-w400 d-block text-white mb-3">Total Earning</h6>
+                            <h3 class="fs-24 font-w600  d-inline-flex me-2">$@Model.Total_Earning</h3>
+                        </div>
+                        <div class="wallet-icon">
+                            <svg width="62" height="39" viewBox="0 0 62 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="42.7722" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                                <circle cx="19.2278" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card wallet blue">
+                    <div class="boxs">
+                        <span class="box one"></span>
+                        <span class="box two"></span>
+                        <span class="box three"></span>
+                        <span class="box four"></span>
+                    </div>
+                    <div class="card-header border-0">
+                        <div class="wallet-info">
+                            <h6 class="font-w400 d-block text-white mb-3">Total Withdrawal</h6>
+                            <h3 class="fs-24 font-w600  d-inline-flex me-2">$@Model.Total_Withdraw</h3>
+                        </div>
+                        <div class="wallet-icon">
+                            <svg width="62" height="39" viewBox="0 0 62 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="42.7722" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                                <circle cx="19.2278" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="card wallet blue">
+                    <div class="boxs">
+                        <span class="box one"></span>
+                        <span class="box two"></span>
+                        <span class="box three"></span>
+                        <span class="box four"></span>
+                    </div>
+                    <div class="card-header border-0">
+                        <div class="wallet-info">
+                            <h6 class="font-w400 d-block text-white mb-3">Reward</h6>
+                            <h3 class="fs-24 font-w600  d-inline-flex me-2">$@Model.Total_Reward</h3>
+                        </div>
+                        <div class="wallet-icon">
+                            <svg width="62" height="39" viewBox="0 0 62 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="42.7722" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                                <circle cx="19.2278" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="card wallet blue">
+                    <div class="boxs">
+                        <span class="box one"></span>
+                        <span class="box two"></span>
+                        <span class="box three"></span>
+                        <span class="box four"></span>
+                    </div>
+                    <div class="card-header border-0">
+                        <div class="wallet-info">
+                            <h6 class="font-w400 d-block text-white mb-3">Total TeamBusiness</h6>
+                            <h3 class="fs-24 font-w600  d-inline-flex me-2">$@Model.Total_Team_Business</h3>
+                        </div>
+                        <div class="wallet-icon">
+                            <svg width="62" height="39" viewBox="0 0 62 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="42.7722" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                                <circle cx="19.2278" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="card wallet blue">
+                    <div class="boxs">
+                        <span class="box one"></span>
+                        <span class="box two"></span>
+                        <span class="box three"></span>
+                        <span class="box four"></span>
+                    </div>
+                    <div class="card-header border-0">
+                        <div class="wallet-info">
+                            <h6 class="font-w400 d-block text-white mb-3">Direct Team</h6>
+                            <h3 class="fs-24 font-w600  d-inline-flex me-2">$@Model.Direct_team</h3>
+                        </div>
+                        <div class="wallet-icon">
+                            <svg width="62" height="39" viewBox="0 0 62 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="42.7722" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                                <circle cx="19.2278" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+        @*<div class="row">
+            <div class="col-lg-3">
+                <div class="card wallet blue">
+                    <div class="boxs">
+                        <span class="box one"></span>
+                        <span class="box two"></span>
+                        <span class="box three"></span>
+                        <span class="box four"></span>
+                    </div>
+                    <div class="card-header border-0">
+                        <div class="wallet-info">
+                            <h6 class="font-w400 d-block text-white mb-3">Total staking </h6>
+                            <h3 class="fs-24 font-w600  d-inline-flex me-2">$@Model.Total_s</h3>
+                        </div>
+                        <div class="wallet-icon">
+                            <svg width="62" height="39" viewBox="0 0 62 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="42.7722" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                                <circle cx="19.2278" cy="19.2278" r="19.2278" fill="white" fill-opacity="0.2"></circle>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    </div>
+</div>
+
+
+<!--#INCLUDE FILE= "footer.asp"-->

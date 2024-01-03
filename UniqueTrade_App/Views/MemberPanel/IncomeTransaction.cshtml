@@ -1,0 +1,97 @@
+﻿@model IEnumerable<UniqueTrade_App.Models.WalletModel>
+@using UniqueTrade_App.CommanFunction;
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "IncomeTransaction";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<!-- header Start Here -->
+<!--#INCLUDE FILE="header.asp"-->
+<!-- header Ends Here -->
+<!-- Content body -->
+<div class="content-wrapper">
+    <div class="container-full">
+        <div class="content-header">
+            <div class="d-flex align-items-center">
+                <div class="mr-auto">
+                    <h3 class="page-title">All Transactions</h3>
+                    <div class="d-inline-block align-items-center">
+                        <nav>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#"><i class="ti-home"></i></a></li>
+                                <li class="breadcrumb-item" aria-current="page">Earning Report</li>
+                                <li class="breadcrumb-item active" aria-current="page">All Transactions</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">All Transactions</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.No</th>
+                                            <th>joining Date</th>
+                                            <th>User ID</th>
+                                            <th>Member Name</th>
+                                            <th>Description</th>
+                                            <th>DR</th>
+                                            @*<th>Email ID</th>*@
+                                            @*<th>Mobile Number</th>*@
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    @*<thead>
+                                            <tr class="text-black">
+                                                <th>Sr. No.</th>
+                                                <th>Transaction Date</th>
+                                                <th>Description</th>
+                                                <th>DR</th>
+                                                <th>CR</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>*@
+                                    <tbody>
+                                        tbody>
+                                        @{ int rows = 0;}
+                                        @foreach (var item in Model)
+                                        {
+                                        <tr style="color:@item.amount_CR;">
+                                            <td>@(rows = rows + 1)</td>
+                                            <td>@item.created_at</td>
+                                            <td>@item.provide_id</td>
+                                            <td>@item.provide_by</td>
+                                            <td>@item.Description</td>
+                                            <td>@item.amount</td>
+                                            @*<td>@item.amount_CR</td>*@
+                                            <td>@item.flag</td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+        <!-- /.content -->
+    </div>
+</div>
+<!-- ./ Content -->
+<!-- footer Start Here -->
+<!--#INCLUDE FILE="footer.asp"-->
+<!-- footer Ends Here -->

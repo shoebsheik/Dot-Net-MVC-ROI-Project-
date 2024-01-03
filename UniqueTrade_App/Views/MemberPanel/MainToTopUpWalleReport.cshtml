@@ -1,0 +1,84 @@
+﻿@using UniqueTrade_App.CommanFunction;
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "MainToTopUpWalleReport";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Royal Blocks</a></li>
+                                <li class="breadcrumb-item active">Dashboard</li>
+                            </ol>
+                        </div>
+                        <h4 class="page-title">Transfer Report</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card tilebox-one">
+                        <div class="card-header bg-warning">
+                            <h3 class="card-title font-weight-medium">Transfer Report</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="datatable" class="table table-bordered" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.No.</th>
+                                            <th>User ID</th>
+                                            <th>Date</th>
+                                            <th>Package</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+
+
+                                    <tbody>
+                                        @{ int rows = 0;}
+                                        @foreach (var item in Model)
+                                        {
+                                        <tr>
+                                            <td>@(rows = rows + 1)</td>
+                                            <td>@item.EMail</td>
+                                            <td>@item.ttime</td>
+                                            <td>BUSD @item.amount</td>
+                                             <td>
+                                                    @if (@item.Provide_Status == "G")
+                                                    {
+                                                        <h5 class="text-white">Active</h5>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>Inactive</span>
+                                                    }
+                                                </td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+        </div> <!-- end container-fluid -->
+
+    </div> <!-- end content -->
+    <!--#INCLUDE FILE= "footer.asp"-->
+
+

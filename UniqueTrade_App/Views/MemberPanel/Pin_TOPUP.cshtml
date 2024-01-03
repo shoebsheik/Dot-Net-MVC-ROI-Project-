@@ -1,0 +1,145 @@
+﻿@using UniqueTrade_App.CommanFunction;
+@model UniqueTrade_App.Models.PINDETAILSMODEL
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "Pin Topup";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<section id="main-content" class=" ">
+    <div class="wrapper main-wrapper row">
+
+        <div class="col-xs-12">
+            <div class="page-title">
+
+
+                <div class="hidden-xs">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/MemberPanel/index"><i class="fa fa-home"></i>Home</a>
+                        </li>
+                        <li>
+                            <a href="#">PIN</a>
+                        </li>
+                        <li class="active">
+                            <strong>PIN Topup</strong>
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <!-- MAIN CONTENT AREA STARTS -->
+
+        <div class="clearfix"></div>
+        <div class="col-12 col-md-6 col-md-offset-3 mt-25">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">PIN Topup</h3>
+                </div>
+                <div class="card-body">
+
+                    @if (TempData["TopUpAlert"] != null)
+                    {
+                        if (TempData["TopUpAlert"].ToString() != "1")
+                        {
+                            <div class="widget-list">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="error-box">
+                                            <div class="alert alert-success">@TempData["TopUpAlert"]</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="widget-list">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="error-box">
+                                            <div class="alert alert-success">Pin Topup Successfully</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    @using (Html.BeginForm("Pin_TOPUP", "MemberPanel", FormMethod.Post, new { @class = "form-content", enctype = "multipart/form-data" }))
+                    {
+                        @Html.ValidationSummary(true)
+
+
+
+                        <div class="form-group">
+                            <label for="re_pwd">User-ID </label>
+                            @Html.TextBoxFor(model => model.username, new { @class = "form-control", @placeholder = "Username" })
+                            @Html.ValidationMessageFor(model => model.username)
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="re_pwd">Pin </label>
+                            @Html.TextBoxFor(model => model.Pin, new { @class = "form-control", @placeholder = "Quantity", @readonly = true })
+                            @Html.ValidationMessageFor(model => model.Pin)
+                        </div>
+
+
+
+                        <button type="submit" class="btn btn-info">Submit</button>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+        <div class="clearfix"></div>
+        <!-- MAIN CONTENT AREA ENDS -->
+
+    </div>
+</section>
+
+
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script>
+    $("#username").change(function () {
+        var userID = $("#username").val();
+        if (userID == "") {
+            $("#user_name").html("");
+        }
+        else {
+            $.get('@Url.Action("getUserDetails","Dashboard")?email=' + userID + '', function (result) {
+                if (result.Memb_Name == "") {
+                    $("#user_name").css("color", "red");
+                    $("#user_name").html("User ID Invalid");
+                }
+                else {
+                    $("#user_name").css("color", "green");
+                    $("#user_name").html(result.Memb_Name);
+                }
+            });
+        }
+    });
+</script>
+
+
+@*<script>
+        $("#Pin").change(function () {
+            var userID = $("#Pin").val();
+            if (userID == "") {
+                $("#pinno").html("");
+            }
+            else {
+                $.get('@Url.Action("checkPinDetails", "Dashboard")?pin=' + userID + '', function (result) {
+                    $("#pinno").css("color", "red");
+                    $("#pinno").html(result);
+                });
+            }
+        });
+    </script>*@

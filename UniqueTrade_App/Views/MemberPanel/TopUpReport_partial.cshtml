@@ -1,0 +1,95 @@
+﻿@model IEnumerable<UniqueTrade_App.Models.DepositeModel>
+@using UniqueTrade_App.CommanFunction;
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "TopUpReport";
+    Layout = null;
+}
+
+<!--#INCLUDE FILE= "header.asp"-->
+<!-- ============================================================== -->
+<!-- Start Page Content here -->
+<!-- ============================================================== -->
+
+<div class="content-wrapper">
+    <div class="container-full">
+        @*<div class="content-header">
+            <div class="d-flex align-items-center">
+                <div class="mr-auto">
+                    <h3 class="page-title">Top Up History</h3>
+                    <div class="d-inline-block align-items-center">
+                        <nav>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#"><i class="ti-home"></i></a></li>
+                                <li class="breadcrumb-item" aria-current="page">Top Up</li>
+                                <li class="breadcrumb-item active" aria-current="page">Top Up History</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>*@
+        <!-- end page title -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Top up History</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.No</th>
+                                            <th>joining Date</th>
+                                            <th>User ID</th>
+                                            <th>Member Name</th>
+                                            <th>Email ID</th>
+                                            <th>Mobile Number</th>
+                                            <th>Status</th>
+                                            <th>Package</th>
+                                        </tr>
+                                    </thead>
+                                    @*<thead>
+                                            <tr>
+                                                <th>Sr.No.</th>
+                                                <th>User ID</th>
+                                                <th>Date</th>
+                                                <th>Package</th>
+                                            </tr>
+                                        </thead>*@
+
+
+                                    <tbody>
+                                        @{ int rows = 0;}
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@(rows = rows + 1)</td>
+                                                <td>@item.ttime</td>
+                                                <td>@item.EMail</td>
+                                                <td>@item.Memb_Name</td>
+                                                <td>@userInfo.EmailID</td>
+                                                <td>@userInfo.Mobile_No</td>
+                                                <td>@item.Provide_Status</td>
+                                                @*<td>@item.memb_name</td>*@
+                                                <td>$ @item.amount</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+        </section>
+        <!-- /.content -->
+    </div>
+</div>

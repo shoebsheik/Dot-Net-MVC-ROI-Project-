@@ -1,0 +1,87 @@
+﻿@model UniqueTrade_App.Models.SignInModel
+@{
+    ViewBag.Title = "signin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<!-- #INCLUDE FILE = "header.asp" -->
+<!-- main-area -->
+<main>
+
+    <!-- breadcrumb-area -->
+    <section class="breadcrumb-area breadcrumb-bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="breadcrumb-content">
+                        <h2 class="title">Login Here</h2>
+                        <nav aria-label="Breadcrumbs">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/Home/Index"><span>Home</span></a>
+                                </li>
+                                <li class="breadcrumb-item"><span>Login</span></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb-area-end -->
+
+    <section id="contact" class="contact-aera contact-bg">
+        <div class="container custom-container-four">
+            <div class="contact-inner">
+                <div class="row">
+
+                    <div class="col-lg-6 offset-md-3">
+                        <div class="contact-form-wrap-two wow fadeInRight form-border" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInRight;">
+                            <h2 class="title text-center">LOGIN</h2>
+                            @if (TempData["LoginAlert"] != null)
+                            {
+                                <div class="error-box">
+                                    <div class="alert alert-success">@TempData["LoginAlert"]</div>
+                                </div>
+                            }
+
+                            @using (Html.BeginForm("signin", "Home", FormMethod.Post, new { @class = "", @id = "log-form" }))
+                            {
+
+                                <div class="">
+                                  
+                                    @Html.TextBoxFor(model => model.username, new { @class = "require", @placeholder = "Your User ID", @maxLength = "30" })
+                                    @Html.ValidationMessageFor(model => model.username, "", new { @style = "color:red;" })
+                                </div>
+                                <div class="">
+                                  
+                                    @Html.PasswordFor(model => model.mpwd, new { @class = "require", @placeholder = "Your Password", @maxLength = "20" })
+                                    @Html.ValidationMessageFor(model => model.mpwd, "", new { @style = "color:red;" })
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-two">login</button>
+                                    <p class="mb-0 mt-3">Forgot Password ? <a href="/Home/resetpassword">Click Here</a></p>
+
+                                    <p>Create new Account ? <a href="/Home/signup">Click Here</a></p>
+                                </div>
+                                
+                            }
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+<!-- main-area-end -->
+
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+

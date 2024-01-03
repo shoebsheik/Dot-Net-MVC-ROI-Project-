@@ -1,0 +1,275 @@
+﻿@model UniqueTrade_App.Models.FundRequest
+@{
+    ViewBag.Title = "fundRequest_Metamask";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/web3@1.7.3/dist/web3.min.js"></script>
+
+
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Royal Blocks</a></li>
+                                <li class="breadcrumb-item active">Dashboard</li>
+                            </ol>
+                        </div>
+                        <h4 class="page-title"> Fund Request to Wallet</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card bg-dark">
+                        <div class="card-header bg-warning">
+                            <h3 class="card-title text-center align-self-center"> Fund Request to Wallet</h3>
+                        </div>
+                        <div class="card-body">
+                            @if (TempData["fundRequest"] != null)
+                            {
+                                <div class="row">
+                                    <div class="col-sm-12">
+
+                                        @if (TempData["fundRequest"].ToString() == "1")
+                                        {
+                                            <div class="alert alert-success alert-dismissible" style="color:white;">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                Your fund request proccesed successfully
+
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="alert alert-danger alert-dismissible" style="color:white;">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                @TempData["fundRequest"]
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            @using (Html.BeginForm("fundRequest_Metamask", "MemberPanel", FormMethod.Post, new { @class = "", enctype = "multipart/form-data" }))
+                            {
+                                @Html.ValidationSummary(true)
+
+                               
+                                    <label class="text-white">Enter Fund Request Amount($)</label>
+                                    <div class="col-sm-12">
+                                        @Html.TextBoxFor(model => model.amount, new { @maxlength = "10", @class = "form-control", @placeholder = " Amount (BUSD)" })
+                                        @Html.ValidationMessageFor(model => model.amount, "", new { @class = "text-danger" })
+                                    </div>
+                                    <br />
+
+                                @*<div class="form-group row">
+                <label class="col-sm-4 col-form-label"> Enter Fund Request Amount($)</label>
+                <div class="col-sm-8">
+
+                    @Html.TextBoxFor(m => m.amount, "", new { @class = "form-control", @placeholder = "Amount (BUSD)" })
+
+                    @Html.ValidationMessageFor(model => model.amount)
+                </div>
+            </div>*@
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label"></label>
+                                    <div class="form-group text-black">
+                                        <button type="button" class="btn btn-warning text-black text-center" onclick="Fundrequest_metamask();">Submit</button>
+                                        <h6 class="text-white fw-b mb-2" id="alertpage">Do not refresh page otherwise your transaction failed...</h6>
+                                    </div>
+
+
+                                </div>
+
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+            @*<script src="~/Scripts/jquery-3.4.1.js"></script>*@
+            <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+            @*@Scripts.Render("~/bundles/jquery")*@
+            @Scripts.Render("~/bundles/jqueryval")
+            @*<script src="~/Scripts/fundtrasfer.js"></script>*@
+            <script>
+                const tokenaddress = "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063";
+                //const tokenaddress = "0xe9e7cea3dedca5984780bafc599bd69add087d56";
+                const tokenmatrixAbi = [{ "inputs": [], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "owner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "spender", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" }], "name": "Approval", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" }, { "indexed": true, "internalType": "address", "name": "sender", "type": "address" }, { "indexed": false, "internalType": "uint64", "name": "membcode", "type": "uint64" }, { "indexed": false, "internalType": "uint64", "name": "rcode", "type": "uint64" }, { "indexed": false, "internalType": "uint64", "name": "ptype", "type": "uint64" }], "name": "Multireceivers", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" }, { "indexed": true, "internalType": "address", "name": "sender", "type": "address" }, { "indexed": false, "internalType": "uint64", "name": "membcode", "type": "uint64" }, { "indexed": false, "internalType": "uint64", "name": "rcode", "type": "uint64" }, { "indexed": false, "internalType": "uint64", "name": "ptype", "type": "uint64" }], "name": "Multisended", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }], "name": "OwnershipTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "from", "type": "address" }, { "indexed": true, "internalType": "address", "name": "to", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" }], "name": "Transfer", "type": "event" }, { "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "LPBMTIGERLocked_Exchange", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "contract IERC20", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "values", "type": "uint256" }], "name": "LPBMTIGERLocked_Token", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_senderads", "type": "address" }, { "internalType": "uint256", "name": "_amttoken", "type": "uint256" }, { "internalType": "uint64", "name": "membcode", "type": "uint64" }, { "internalType": "uint64", "name": "rcode", "type": "uint64" }, { "internalType": "uint64", "name": "plan", "type": "uint64" }], "name": "StakingWallet", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "TokenPrices", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "aAmt", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "aCap", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "aEBlock", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "aSBlock", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "aTot", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "owner", "type": "address" }, { "internalType": "address", "name": "spender", "type": "address" }], "name": "allowance", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "spender", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "approve", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }], "name": "balanceOf", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_sSBlock", "type": "uint256" }, { "internalType": "uint256", "name": "_sEBlock", "type": "uint256" }, { "internalType": "uint256", "name": "_sChunk", "type": "uint256" }, { "internalType": "uint256", "name": "_sPrice", "type": "uint256" }, { "internalType": "uint256", "name": "_sCap", "type": "uint256" }, { "internalType": "uint256", "name": "_srefeper", "type": "uint256" }, { "internalType": "uint256", "name": "_sburnper", "type": "uint256" }, { "internalType": "uint256", "name": "_srefertoken", "type": "uint256" }], "name": "beginBuy", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_aSBlock", "type": "uint256" }, { "internalType": "uint256", "name": "_aEBlock", "type": "uint256" }, { "internalType": "uint256", "name": "_aAmt", "type": "uint256" }, { "internalType": "uint256", "name": "_aCap", "type": "uint256" }], "name": "beginClaim", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_tliquidity", "type": "uint256" }, { "internalType": "uint256", "name": "_tdecimal", "type": "uint256" }, { "internalType": "uint256", "name": "_tburningratio", "type": "uint256" }, { "internalType": "uint256", "name": "_tburningbuyratio", "type": "uint256" }, { "internalType": "uint256", "name": "_tburningsellratio", "type": "uint256" }, { "internalType": "bool", "name": "_tsafegardbuy", "type": "bool" }, { "internalType": "bool", "name": "_tsafegardsell", "type": "bool" }], "name": "beginsetting", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "burn", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_bool", "type": "uint256" }], "name": "burnStart", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "buyPrice", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_refer", "type": "address" }], "name": "buyToken", "outputs": [{ "internalType": "bool", "name": "success", "type": "bool" }], "stateMutability": "payable", "type": "function" }, { "inputs": [], "name": "buyTokens", "outputs": [], "stateMutability": "payable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_refer", "type": "address" }], "name": "claimAirdrop", "outputs": [{ "internalType": "bool", "name": "success", "type": "bool" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "decimals", "outputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "spender", "type": "address" }, { "internalType": "uint256", "name": "subtractedValue", "type": "uint256" }], "name": "decreaseAllowance", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "spender", "type": "address" }, { "internalType": "uint256", "name": "addedValue", "type": "uint256" }], "name": "increaseAllowance", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "name", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "owner", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "sCap", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "sChunk", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "sEBlock", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "sPrice", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "sSBlock", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "sTot", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "sburnper", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "sellPrice", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "sellTokens", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "newSellPrice", "type": "uint256" }, { "internalType": "uint256", "name": "newBuyPrice", "type": "uint256" }], "name": "setPrices", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "srefeper", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "srefertoken", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "symbol", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "tburningbuyratio", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "tburningratio", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "tburningsellratio", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "tdecimal", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "tliquidity", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalSupply", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "recipient", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "transfer", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "sender", "type": "address" }, { "internalType": "address", "name": "recipient", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "transferFrom", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }], "name": "transferOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "tsafegardbuy", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "tsafegardsell", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "viewAirdrop", "outputs": [{ "internalType": "uint256", "name": "StartBlock", "type": "uint256" }, { "internalType": "uint256", "name": "EndBlock", "type": "uint256" }, { "internalType": "uint256", "name": "DropCap", "type": "uint256" }, { "internalType": "uint256", "name": "DropCount", "type": "uint256" }, { "internalType": "uint256", "name": "DropAmount", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "viewSale", "outputs": [{ "internalType": "uint256", "name": "StartBlock", "type": "uint256" }, { "internalType": "uint256", "name": "EndBlock", "type": "uint256" }, { "internalType": "uint256", "name": "SaleCap", "type": "uint256" }, { "internalType": "uint256", "name": "SaleCount", "type": "uint256" }, { "internalType": "uint256", "name": "ChunkSize", "type": "uint256" }, { "internalType": "uint256", "name": "SalePrice", "type": "uint256" }, { "internalType": "uint256", "name": "Referpercent", "type": "uint256" }, { "internalType": "uint256", "name": "Burnpercent", "type": "uint256" }, { "internalType": "uint256", "name": "Refertoken", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "stateMutability": "payable", "type": "receive" }];
+
+
+                $(document).ready(async function () {
+                    console.log("ready!");
+                    debugger
+                    if (window.ethereum) {
+                        console.log("mahi1");
+                        window.web3 = new Web3(ethereum);
+                        try {
+                            // Request account access if needed
+                            await ethereum.enable();
+                            console.log(web3);
+
+                            var networkid = await web3.eth.net.getId()
+                            console.log("networkid " + networkid);
+                            if (networkid != 56) {
+                            //if (networkid != 137) {
+                                alert('Connect to BNB Mainnet Network');
+                                //initApp_token();
+                                // $('#tknapprove1').hide();
+                                //  $('#regnbtn1').hide();
+                                //$("#connect9").hide();
+                            }
+                            else {
+                                debugger
+                                connect();
+                                $("#alertpage").hide();
+                               // getdashboard1();
+                               // CoinBalance();
+                                //usdtobnb();
+                                //sctokenallownscheck();
+
+                            }
+
+
+                            // Acccounts now exposed
+                            web3.eth.sendTransaction({/* ... */ });
+                        } catch (error) {
+                            // User denied account access...
+                        }
+                    }
+                    // Legacy dapp browsers...
+                    else if (window.web3) {
+                        window.web3 = new Web3(web3.currentProvider);
+                        // console.log(web3);
+
+                        // Acccounts always exposed
+                        web3.eth.sendTransaction({/* ... */ });
+                    }
+                    // Non-dapp browsers...
+                    else {
+                        console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+                        alert('Requires ETH purse to interact smart contract You should consider trying MetaMask!');
+                        //requiredMetamask();
+                    }
+                });
+
+
+                async function connect() {
+
+                    if (window.ethereum) {
+                        window.web3 = new Web3(ethereum);
+                        try {
+                            await ethereum.request({
+                                method: 'eth_requestAccounts'
+                            });
+                            //getAccount();
+                        } catch (error) {
+                            alert("User Rejected Permission");
+                            console.log('user rejected permission');
+                        }
+                    } else if (window.web3) {
+                        window.web3 = new Web3(web3.currentProvider);
+                        console.log('all ok');
+                    } else {
+                        console.log('No web3 provider detected');
+                        alert("Metamask / Trust Wallet Not Connected");
+                    }
+                }
+
+
+                async function getCurrentAccount() {
+                    const accounts = await window.web3.eth.getAccounts();
+                    return accounts[0];
+                }
+
+
+            async function Fundrequest_metamask() {
+                //alert("mahi");
+                $("#alertpage").show();
+                    const account = await getCurrentAccount();
+                    debugger
+                var stakingadd ="0x6E015CB8Dd37Af5341C143beE3E4488E2179661d";
+                    var stakeamount = $("#amount").val();
+                    //alert('staking address : '+stakingadd);
+                    if (stakeamount >= 1) {
+                        stakeamount = stakeamount * 1000000000000000000;
+                    }
+                    else {
+                        alert("Enter BUSD Token greater than zero...!");
+                        return;
+                    }
+
+                    window.pvccontract = await new window.web3.eth.Contract(tokenmatrixAbi, tokenaddress);
+
+                    var balance = await window.pvccontract.methods.balanceOf(account).call({ from: account });
+                    if (balance < stakeamount) {
+                        alert("BUSD Balance is low of your Fund Request amount...!");
+                        return;
+                    }
+                    var stakeamountt = stakeamount / 1000000000000000000;
+                    alert('Fund Request BUSD amount : ' + stakeamountt);
+                    var stakingtrasfer = await window.pvccontract.methods.transfer(stakingadd, BigInt(stakeamount)).send({
+                        from: account,
+                        gasLimit: 52742,
+                        gas: 52742,
+                        //maxPriorityFeePerGas: 5000000000,
+                        //maxFeePerGas: 5200000000,
+                    });
+
+                    //if (stakingtrasfer.transactionHash) {
+                    if (stakingtrasfer.transactionHash) {
+                        alert('Wallet Fund Request Successfully');
+                        //stakingsuccess(account, stakingtrasfer.transactionHash, stakeamount / 1000000000000000000);
+                        var maindt = { "account": account, "txthash": stakingtrasfer.transactionHash, "amount": stakeamount / 1000000000000000000 };
+                                debugger
+                                        $.ajax({
+                                            url: '@Url.Action("fundRequest_Metamask", "MemberPanel")',
+                                            //url = "/MemberPanel/fundRequest_Metamask",
+                                            type: 'POST',
+                                            dataType: 'JSON',
+                                            contentType: 'application/json',
+                                            data: JSON.stringify(maindt),
+                                            success: function (data) {
+
+                                               // alert('Top up Success');
+
+                                               // window.onload = timedRefresh(100);
+                                                console.log('page loaded successfully ');
+                                                var url_redirect = "/MemberPanel/fundRequest_Metamask";
+                                                //console.log("success" + JSON.stringify(data));
+                                                //localStorage.setItem("loginaddress", account);
+                                                window.location.href = url_redirect;
+                                            },
+                                            error: function (err) {
+                                                console.log("error:" + JSON.stringify(err));
+                                                console.log('payment cancle by user');
+                                                window.onload = timedRefresh(100);
+                                            }
+                                        });
+                    }
+                    else {
+                        alert('Fund Request Failed')
+                        // $('#tknapprove1').show();
+                        // $('#regnbtn1').hide();
+                        //document.getElementById("HideBuypackage").style.display = "none";
+                    }
+
+                    // }
+
+                }
+
+
+            </script>

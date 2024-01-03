@@ -1,0 +1,68 @@
+﻿@model IEnumerable<UniqueTrade_App.Models.WalletModel>
+@{
+    ViewBag.Title = "StarBonus";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<div class="content-wrapper-scroll">
+    <div class="content-wrapper">
+        <div class="breadcrumb-container">
+
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><i class="icon-house_siding"></i><a href="/MemberPanel/Index">Home</a></li>
+                <li class="breadcrumb-item breadcrumb-active" aria-current="page">Star Bonus</li>
+            </ol>
+        </div>
+        <div class="row gutters mt-5">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card gradient-teal">
+                    <div class="card-header">
+                        <div class="card-title">Star Bonus Income</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example" class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Sr. No.</th>
+                                        <th>Date</th>
+                                        <th>User Id</th>
+                                        <th>User Name</th>
+                                        <th> Income</th>
+                                        <th>Remark</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ int rows = 0;}
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@(rows = rows + 1)</td>
+                                            <td>@item.created_at</td>
+                                            <td>@item.provide_by</td>
+                                            <td>@item.provide_id</td>
+                                            <td>TRX @item.amount</td>
+                                            <td> @item.StarBonus</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<!--#INCLUDE FILE = "footer-dash.asp"-->

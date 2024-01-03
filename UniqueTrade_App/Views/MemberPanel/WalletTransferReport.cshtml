@@ -1,0 +1,99 @@
+﻿@model IEnumerable<UniqueTrade_App.Models.WithdrawalModel>
+@using UniqueTrade_App.CommanFunction;
+
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "WalletTransferReport";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<h2>WalletTransferReport</h2>
+
+<div class="content-wrapper">
+    <div class="container-full">
+        <div class="content-header">
+            <div class="d-flex align-items-center">
+                <div class="mr-auto">
+                    <h3 class="page-title">Wallet Transfer History</h3>
+                    <div class="d-inline-block align-items-center">
+                        <nav>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#"><i class="ti-home"></i></a></li>
+                                <li class="breadcrumb-item" aria-current="page">Wallet</li>
+                                <li class="breadcrumb-item active" aria-current="page">Wallet Transfer History</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <section class="content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Wallet Transfer History</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.No</th>
+                                            <th>joining Date</th>
+                                            <th>User ID</th>
+                                            <th>Member Name</th>
+                                            <th>Email ID</th>
+                                            <th>Mobile Number</th>
+                                            <th>Total Amount</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    @*<thead>
+                                            <tr>
+                                                <th>Sr. No.</th>
+                                                <th>Date</th>
+                                                <th>User ID</th>
+                                                <th>Total Amount</th>
+                                                <th>Payable Amount</th>
+                                                <th>Admin Charges Amount</th>
+                                                <th>Mentor Pool Charges Amount</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>*@
+
+
+                                    <tbody>
+                                        @{ int rows = 0;}
+                                        @foreach (var item in Model)
+                                        {
+                                        <tr>
+                                            <td>@(rows = rows + 1)</td>
+                                            <td>@item.tdate</td>
+                                            <td>@userInfo.username</td>
+                                            <td>@userInfo.memb_name</td>
+                                            <td>@userInfo.EmailID</td>
+                                            <td>@userInfo.Mobile_No</td>
+                                            <td>$ @item.amount</td>
+                                            @*<td>BUSD @item.paid_amount</td>*@
+                                            @*<td>BUSD @item.charges</td>*@
+                                            @*<td>BUSD @item.Tds_charges</td>*@
+                                            <td>@item.wstatus</td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+        </section>
+        <!-- /.content -->
+    </div>
+</div>

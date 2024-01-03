@@ -1,0 +1,70 @@
+﻿@model IEnumerable<UniqueTrade_App.Models.WithdrawalModel>
+@using UniqueTrade_App.CommanFunction;
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "WithdrawReport";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-custom">
+                        <li class="breadcrumb-item"><a href="#">Withdrawal</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            <span>Withdrawal History</span>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row mt-2 flex-grow">
+
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Withdrawal History</h4>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table id="order-listing" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Sr. No.</th>
+                                                <th>Date</th>
+                                                <th>User ID</th>
+                                                <th>Total Amount</th>
+                                                <th>Payable Amount</th>
+                                                <th>Admin Charges Amount</th>
+                                                <th>TDS Charges Amount</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{ int rows = 0;}
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>@(rows = rows + 1)</td>
+                                                    <td>@item.tdate</td>
+                                                    <td>@userInfo.username</td>
+                                                    <td>₹ @item.amount</td>
+                                                    <td>₹ @item.paid_amount</td>
+                                                    <td>₹ @item.charges</td>
+                                                    <td>₹ @item.Tds_charges</td>
+                                                    <td>@item.wstatus</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>

@@ -1,0 +1,141 @@
+﻿@using UniqueTrade_App.CommanFunction;
+@{ UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "TeamTree";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<!-- header Start Here -->
+<!--#INCLUDE FILE="header.asp"-->
+<!-- header Ends Here -->
+<!-- Content body -->
+<div class="content-body">
+    <!-- Content -->
+    <div class="content ">
+
+
+
+
+
+    </div>
+    <!-- ./ Content -->
+    <!-- footer Start Here -->
+    <!--#INCLUDE FILE="footer.asp"-->
+    <!-- footer Ends Here -->
+
+
+    <link rel="stylesheet" href="~/Content/Dash/Custom_css/custom_css.css">
+    <style>
+        .box {
+            border: solid 1px #fff;
+        }
+
+        .page-body {
+            width: 94%;
+        }
+
+        .slender {
+            color: #fff;
+            display: none;
+            padding: 10px;
+            position: absolute;
+            z-index: 1000;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+        }
+
+        .tip {
+            color: #fff;
+            background: #1d1d1d;
+            display: block; /*--Hides by default--*/
+            padding: 10px;
+            position: absolute;
+            z-index: 1000;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+        }
+    </style>
+    <main class="mdl-layout__content mdl-color--grey-200">
+        <div class="page-content">
+            <!-- Your content goes here -->
+            <div class="mdl-grid">
+
+                <div class="mdl-cell mdl-cell--12-col">
+                    <div class="mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__title mdl-color--blue-900 ft-white">
+                            <h4 class="mdl-card__title-text">Tree View</h4>
+                        </div>
+
+                        <table style="background-color:#ffffff; " width="100%" border="0">
+                            <tbody>
+                                <tr>
+                                    <td width="154">&nbsp;</td>
+                                    <td align="center" id="tblBinary">
+                                        @{ Html.RenderAction("TreePartial", "MemberPanel", new { id = userInfo.memb_code });}
+                                    </td>
+                                    <td width="54">&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<script>
+    function getTree(ele) {
+        $.get('@Url.Action("TreePartial", "MemberPanel")?id=' + ele + '', function (result) {
+            $("#tblBinary").html(result);
+        });
+    }
+
+    function searchBYID() {
+        var memb = $("#txtSearchUser").val();
+        if (memb == "")
+            memb = "@userInfo.username";
+
+        $.get('@Url.Action("getUSERMemb", "MemberPanel")?id=' + memb + '', function (result) {
+            if (result.memb_code == null || result.memb_code == "") {
+                $(".errorUser").html("User Id is invalid");
+            }
+            else {
+                $(".errorUser").html("");
+                getTree(result.memb_code);
+            }
+        });
+    }
+
+    function getRefer(ele, id) {
+        if (id == undefined)
+            id = "L";
+        var url = "/MemberPanel/signUP?refer=" + ele + "&pl=" + id + "";
+        window.open(url, '_blank');
+        //window.location.href = "/Dashboard/signUP?refer=" + ele + "";
+    }
+</script>
+
+<script>
+    function getDetails(ele) {
+        $.get('@Url.Action("userDetails", "MemberPanel")?membno=' + ele + '', function (result) {
+            //alert(result);
+            $("#slender_" + ele).html(result);
+            $("#slender_" + ele).toggle();
+            //$("#slender_" + ele.toFixed(1)).html(result);
+            //$("#slender_" + ele.toFixed(1)).toggle();
+            //  $(".card-box").css("height", "1000px");
+            //  $(".table-responsive").css("height", "1000px");
+        });
+    }
+
+    function closeDetails(ele) {
+        $("#slender_" + ele.toFixed(1)).toggle();
+        //   $(".card-box").css("height", "100%");
+        //   $(".table-responsive").css("height", "100%");
+    }
+</script>

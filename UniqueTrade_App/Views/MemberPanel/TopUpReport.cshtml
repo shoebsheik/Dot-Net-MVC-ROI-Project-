@@ -1,0 +1,77 @@
+﻿@model IEnumerable<UniqueTrade_App.Models.DepositeModel>
+@using UniqueTrade_App.CommanFunction;
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "TopUpReport";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+
+<!--#INCLUDE FILE= "header.asp"-->
+<!--**********************************
+    Content body start
+***********************************-->
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="">TopUp Report</a></li>
+                <li class="breadcrumb-item"><a href="/MemberPanel/index">Home</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">TopUp Report</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example" class="display" style="min-width: 845px">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.No</th>
+                                        <th> Date</th>
+                                        <th>User ID</th>
+                                        <th>Member Name</th>
+                                        <th>Email ID</th>
+                                        <th>Mobile Number</th>
+                                        <th>Status</th>
+                                        <th>From User ID</th>
+                                        <th>Package</th>
+                                        <th>Charges</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ int rows = 0;}
+                                    @foreach (var item in Model)
+                                    {
+
+                                    <tr>
+                                        <td>@( rows = rows + 1)</td>
+                                        <td>@item.ttime</td>
+                                        <td>@item.username</td>
+                                        <td>@item.Memb_Name</td>
+                                        <td>@userInfo.EmailID</td>
+                                        <td>@userInfo.Mobile_No</td>
+                                        <td>@item.Provide_Status</td>
+                                        <td>@item.fromUser</td>
+                                        <td>$ @item.amount</td>
+                                        <td>$ @item.charges</td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--#INCLUDE FILE= "footer.asp"-->
+
+
+

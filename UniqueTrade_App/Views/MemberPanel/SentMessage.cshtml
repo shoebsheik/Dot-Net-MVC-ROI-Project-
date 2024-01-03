@@ -1,0 +1,69 @@
+﻿@model UniqueTrade_App.Models.SupportModel
+@using UniqueTrade_App.CommanFunction;
+
+@{
+    UserInfo userInfo = Common.CurrentUserInfo;
+    ViewBag.Title = "SentMessage";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="">Compose</a></li>
+                <li class="breadcrumb-item"><a href="/MemberPanel/index">Home</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-6 mx-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Compose</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="basic-form">
+                            @if (TempData["TicketAlert"] != null)
+                            {
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="alert alert-success alert-dismissible">
+                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            @TempData["TicketAlert"]
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @using (Html.BeginForm("SentMessage", "MemberPanel", FormMethod.Post, new { @class = "forms-sample", enctype = "multipart/form-data" }))
+                            {
+                                @Html.ValidationSummary(true)
+                                <div class="mb-3">
+                                    <label class="form-label">To</label>
+                                    <input type="text" class="form-control input-defaul" value="info@support.com" placeholder="To" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Subject</label>
+                                    @Html.TextBoxFor(model => model.sub, new { @class = "form-control input-defaul", @placeholder = "Enter Subject" })
+                                    @Html.ValidationMessageFor(model => model.sub, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Message</label>
+                                    @Html.TextAreaFor(model => model.msg, new { @class = "form-control input-defaul", @placeholder = "Enter Message", @rows = "5", @cols = "5" })
+                                    @Html.ValidationMessageFor(model => model.msg, "", new { @class = "text-danger" })
+                                </div>
+                                <button type="submit" id="submit" name="submit" class="btn btn-primary">Submit</button>
+                            }
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--#INCLUDE FILE= "footer.asp"-->
+
+
+

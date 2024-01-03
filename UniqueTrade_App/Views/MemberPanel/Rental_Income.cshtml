@@ -1,0 +1,96 @@
+﻿@model IEnumerable<UniqueTrade_App.Models.WalletModel>
+@{
+    ViewBag.Title = "Rental Income";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<div id="content-page" class="content-page">
+    <div class="container-fluid">
+
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                    <div class="iq-card-body">
+                        <div class="iq-advance-course d-flex align-items-center justify-content-between">
+                            <div class="left-block">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <h4 class="text-primary pb-2 fw-bold">Earning Report</h4>
+                                        <ul class="breadcrumbs ">
+                                            <li class="nav-home ">
+                                                <a class="" href="/MemberPanel/index">
+                                                    <i class="fa fa-home"> Home</i>
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="" href="#">Rental Income</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="right-block position-relativ">
+                                <a href="/MemberPanel/" class="btn btn-primary">Rental Income</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <h4 class="card-title text-white">Rental Income</h4>
+                    </div>
+                    <div class="card-body">
+                        <table id="example" class="table table-striped table-bordered text-center" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th class=" text-center ">Sr. No.</th>
+                                    <th class=" text-center ">Date</th>
+                                    <th class=" text-center ">Amount</th>
+                                    <th class=" text-center ">Package  </th>
+                                    <th class=" text-center ">Week No  </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int rows = 0;}
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@(rows = rows + 1)</td>
+                                        <td>@item.created_at</td>
+                                        <td>@item.amount</td>
+                                        <td>@item.Package</td>
+                                        <td>
+                                            @item.Week_count
+                                        </td>
+
+                                        @*<td>  </td>*@
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+</div>
